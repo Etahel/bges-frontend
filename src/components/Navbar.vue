@@ -17,14 +17,17 @@
           </mdb-dropdown-menu>
         </mdb-dropdown>
       </mdb-navbar-nav>
-      <form>
-        <mdb-input type="text" class="text-white" placeholder="Search" aria-label="Search" label navInput waves waves-fixed/>
-      </form>
+      <mdb-form-inline right v-if=!authenticated>
+        <mdb-btn v-on:click="login">Log in</mdb-btn>
+      </mdb-form-inline>
+      <mdb-form-inline v-else>
+        <mdb-btn v-on:click="logout">Log out</mdb-btn>
+      </mdb-form-inline>
     </mdb-navbar-toggler>
   </mdb-navbar>
 </template>
 <script>
-import { mdbNavbar, mdbNavbarBrand, mdbNavbarToggler, mdbNavbarNav, mdbNavItem, mdbDropdown, mdbDropdownMenu, mdbDropdownToggle, mdbInput, mdbDropdownItem } from 'mdbvue';
+import { mdbNavbar, mdbNavbarBrand, mdbNavbarToggler, mdbNavbarNav, mdbNavItem, mdbDropdown, mdbDropdownMenu, mdbDropdownToggle, mdbDropdownItem, mdbBtn, mdbFormInline} from 'mdbvue';
 export default {
   name: 'NavbarPage',
   components: {
@@ -37,7 +40,29 @@ export default {
     mdbDropdownMenu,
     mdbDropdownToggle,
     mdbDropdownItem,
-    mdbInput
+    mdbBtn,
+    mdbFormInline
+  },
+  computed: {
+    authenticated () {
+      return this.$store.getters.user.authenticated
+    }
+  },
+  methods: {
+    login() {
+      this.$router.push({name: 'Login'})
+    },
+    logout() {
+      this.$store.dispatch('logout').then(
+          () => {
+            this.$router.push({name: 'Home'})
+          }
+      ).catch(
+          () => {
+            this.error = true;
+          }
+      )
+    }
   }
 }
 </script>

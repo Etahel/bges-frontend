@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="bg" style="height: 100% ">
     <navbar-page/>
     <router-view/>
   </div>
@@ -18,8 +18,4 @@ $image-path: '~@/../mdb/mdbvue/img';
 @import '~@/../mdb/mdbvue/scss/mdb-free.scss';
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
-
-#app {
-  text-align: center;
-}
 </style>

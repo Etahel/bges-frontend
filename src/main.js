@@ -4,7 +4,7 @@ import 'mdbvue/lib/mdbvue.css'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import store from './store'
+import store from './store/store'
 
 Vue.config.productionTip = false
 
