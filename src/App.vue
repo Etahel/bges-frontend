@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="bg" style="height: 100% ">
     <navbar-page/>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -9,7 +9,12 @@
 import NavbarPage from "@/components/Navbar";
 export default {
   name: 'App',
-  components: {NavbarPage}
+  components: {NavbarPage},
+  watch: {
+    '$route' () {
+      this.$store.commit('CLEAR_ERROR')
+    }
+  },
 }
 </script>
 

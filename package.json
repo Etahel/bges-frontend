@@ -16,9 +16,12 @@
     "core-js": "^3.6.5",
     "mdbvue": "6.7.1",
     "node-sass": "^4.14.1",
+    "qs": "^6.9.4",
     "vue": "^2.6.12",
     "vue-axios": "^3.2.0",
-    "vue-router": "^3.2.0"
+    "vue-i18n": "^8.22.2",
+    "vue-router": "^3.2.0",
+    "vuelidate": "^0.7.6",
     "vuex-persistedstate": "^4.0.0-beta.1"
   },
   "devDependencies": {

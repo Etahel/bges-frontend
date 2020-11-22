@@ -2,17 +2,27 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'bootstrap-css-only/css/bootstrap.min.css'
 import 'mdbvue/lib/mdbvue.css'
 import Vue from 'vue'
+import Vuex from 'vuex'
 import App from './App'
 import router from './router'
 import store from './store/store'
-import axiosConfig from './axios/config'
+import axiosInstance from "./axios/axiosConfig";
+import i18n from './i18n'
+import Vuelidate from 'vuelidate'
+
+
+
 
 Vue.config.productionTip = false
 
-axiosConfig();
+Vue.prototype.$api = axiosInstance;
+Vuex.Store.prototype.$api = axiosInstance
+
+Vue.use(Vuelidate)
 
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app')

@@ -29,51 +29,11 @@
 </template>
 
 <script>
-    import {mdbInput, mdbBtn, mdbCard, mdbCardBody} from 'mdbvue';
-    import errorAlert from '../components/ErrorAlert'
-    import {required} from 'vuelidate/lib/validators'
-
     export default {
-        name: 'Login',
-        components: {
-            mdbInput,
-            mdbBtn,
-            mdbCard,
-            mdbCardBody,
-            errorAlert
-        },
-        methods: {
-            login() {
-                if (this.$v.$invalid) {
-                    this.formValid = false
-                } else {
-                    this.$store.dispatch('login', {username: this.username, password: this.password}).then(
-                        () => {
-                            this.$router.push({name: 'Home'})
-                        }
-                    )
-                }
-            },
-        },
-        data: function () {
-            return {
-                username: '',
-                password: '',
-                formValid: true
-            }
-        },
-        validations: {
-            username: {
-                required
-            },
-            password: {
-                required
-            }
-        }
+        name: "Register"
     }
-
-
 </script>
+
 <style scoped>
 
 </style>
