@@ -48,9 +48,9 @@
                     this.formValid = false
                 } else {
                     this.$store.dispatch('login', {username: this.username, password: this.password}).then(
-                        () => {
-                            this.$router.push({name: 'Home'})
-                        }
+                    () => {
+                        this.$router.push({name: 'Home'})
+                    }
                     )
                 }
             },

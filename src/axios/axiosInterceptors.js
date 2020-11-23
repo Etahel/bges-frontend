@@ -19,5 +19,6 @@ export function responseInterceptor (axiosInstance) {
     }, function (error) {
         const mappedError  = axiosErrorMapper(error)
         store.commit('SET_ERRORS', [mappedError])
+        return Promise.reject()
     })
 }

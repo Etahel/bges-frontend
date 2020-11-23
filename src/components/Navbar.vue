@@ -17,8 +17,9 @@
           </mdb-dropdown-menu>
         </mdb-dropdown>
       </mdb-navbar-nav>
-      <mdb-form-inline right v-if=!authenticated>
+      <mdb-form-inline right v-if=!token>
         <mdb-btn v-on:click="login">Log in</mdb-btn>
+        <mdb-btn v-on:click="register">Register</mdb-btn>
       </mdb-form-inline>
       <mdb-form-inline v-else>
         <mdb-btn v-on:click="logout">Log out</mdb-btn>
@@ -44,13 +45,16 @@ export default {
     mdbFormInline
   },
   computed: {
-    authenticated () {
-      return this.$store.getters.user.authenticated
+    token () {
+      return this.$store.getters.user.accessToken
     }
   },
   methods: {
     login() {
       this.$router.push({name: 'Login'})
+    },
+    register(){
+      this.$router.push({name: 'Register'})
     },
     logout() {
       this.$store.dispatch('logout').then(
