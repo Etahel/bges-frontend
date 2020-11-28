@@ -12,7 +12,7 @@ export default {
   components: {NavbarPage},
   watch: {
     '$route' () {
-      this.$store.commit('CLEAR_ERRORS')
+      this.$store.commit('CLEAR_ALERTS')
     }
   },
 }

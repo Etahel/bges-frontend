@@ -6,30 +6,30 @@
                 <form>
                     <p class="h4 text-center">Create new account</p>
                     <div class="grey-text">
-                        <mdb-input containerClass="text-left" label="Your username" icon="user" type="text"
+                        <mdb-input class="mb-0" containerClass="text-left" label="Your username" icon="user" type="text"
                                    v-model="username"/>
                         <div  v-if="!this.formValid">
                             <div class="validate-error" v-if="!$v.username.required">Can't be empty</div>
                         </div>
-                        <mdb-input icon="envelope" containerClass="text-left" label="Email" type="email"
+                        <mdb-input class="mb-0" icon="envelope" containerClass="text-left" label="Email" type="email"
                                    v-model="email"/>
                         <div  v-if="!this.formValid">
                             <div class="validate-error" v-if="!$v.email.required">Can't be empty</div>
                             <div class="validate-error" v-if="!$v.email.email">Incorrect email format</div>
                         </div>
-                        <mdb-input containerClass="text-left" label="Your password" icon="lock" type="password"
+                        <mdb-input class="mb-0" containerClass="text-left" label="Your password" icon="lock" type="password"
                                                     v-model="password"/>
                         <div  v-if="!this.formValid">
                             <div class="validate-error" v-if="!$v.password.required">Can't be empty</div>
                         </div>
-                        <mdb-input icon="lock" containerClass="text-left" label="Repeat password" type="password"
+                        <mdb-input class="mb-0" icon="lock" containerClass="text-left" label="Repeat password" type="password"
                                    v-model="passwordRepeat"/>
                         <div  v-if="!this.formValid">
-                            <div class="validate-error" v-if="!$v.password.required">Can't be empty</div>
-                            <div class="validate-error" v-if="!$v.password.sameAsPassword">Passwords do not match</div>
+                            <div class="validate-error" v-if="!$v.passwordRepeat.required">Can't be empty</div>
+                            <div class="validate-error" v-if="!$v.passwordRepeat.sameAsPassword">Passwords do not match</div>
                         </div>
                     </div>
-                    <div class="text-center">
+                    <div  class="text-center mt-3">
                         <mdb-btn v-on:click="register">Create account</mdb-btn>
                     </div>
                 </form>
@@ -67,7 +67,12 @@
 
                     this.$api.post(registerUrl, requestBody).then(() => {
                         this.$router.push({name: 'Login'})
+                    }).then(() => {
+                        this.$store.commit('ADD_INFO', {
+                            message:'register.success'
+                        })
                     })
+
                 }
             },
         },

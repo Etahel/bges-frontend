@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import authModule from './auth/auth.module'
-import errorModule from "./error/error.module";
+import alertModule from "./alert/alert.module";
 import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
@@ -14,6 +14,6 @@ export default new Vuex.Store({
   ],
   modules: {
     auth:authModule,
-    error:errorModule
+    alert:alertModule
   }
 })

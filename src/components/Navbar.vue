@@ -46,7 +46,7 @@ export default {
   },
   computed: {
     token () {
-      return this.$store.getters.user.accessToken
+      return this.$store.getters.accessToken
     }
   },
   methods: {

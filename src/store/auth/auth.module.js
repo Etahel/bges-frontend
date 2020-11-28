@@ -1,21 +1,24 @@
 import qs from 'querystring';
 import {accessTokenUrl} from '../../axios/axiosRoutes'
+import jwt_decode from "jwt-decode";
 const authModule = {
     state: {
-        user: {
-            accessToken: '',
-            refreshToken: ''
-        }
+        user: '',
+        accessToken: '',
+        refreshToken: ''
     },
     mutations: {
         CLEAR_AUTH_DATA(state) {
-            state.user.accessToken = '';
-            state.user.refreshToken = '';
+            state.accessToken = '';
+            state.refreshToken = '';
+            state.user = '';
         },
         SET_AUTH(state,{accessToken,refreshToken}) {
-            state.user.accessToken = accessToken;
-            state.user.refreshToken = refreshToken;
-
+            state.accessToken = accessToken;
+            state.refreshToken = refreshToken;
+        },
+        SET_USER(state, user){
+            state.user = user;
         }
     },
     actions: {
@@ -35,6 +38,7 @@ const authModule = {
                  accessToken : response.data.access_token,
                  refreshToken : response.data.refresh_token
              })
+                commit('SET_USER', jwt_decode(response.data.access_token) )
             })
         },
         logout({commit}) {
@@ -42,8 +46,7 @@ const authModule = {
         }
     },
     getters: {
-        user: state => state.user,
-        accessToken: state => state.user.accessToken
+        accessToken: state => state.accessToken
     }
 }
 

@@ -1,5 +1,4 @@
 <template>
-    <!-- Material form login -->
     <mdb-container class="mt-5">
         <mdb-row class="justify-content-md-center">
             <mdb-col md="auto" col="12">
@@ -7,25 +6,18 @@
                 <mdb-card class="mx-auto" style="width: 25rem">
                     <mdb-card-body>
                         <form>
-                            <p class="h4 text-center">Sign in</p>
+                            <p class="h4 text-center">Login Help</p>
                             <div class="grey-text">
                                 <mdb-input class="mb-0" containerClass="text-left" label="Your username" icon="user" type="text"
                                            v-model="username"/>
                                 <div v-if="!this.formValid">
                                     <div class="validate-error" v-if="!$v.username.required">Can't be empty</div>
                                 </div>
-                                <mdb-input class="mb-0" containerClass="text-left" label="Your password" icon="lock" type="password"
-                                           v-model="password"/>
-                                <div v-if="!this.formValid">
-                                    <div class="validate-error" v-if="!$v.password.required">Can't be empty</div>
-                                </div>
                             </div>
-                            <div class="text-left">
-                                <mdb-btn v-on:click="login">Login</mdb-btn>
-                            </div>
-                            <div class="text-right">
-                            <button class="mb-0 p-0 text-button" v-on:click = "help" >Need help logging in?</button>
-                            </div>
+                            <mdb-btn-group class="mt-3" size="sm">
+                                <mdb-btn v-on:click="resendVerificationEmail">Resend verification email</mdb-btn>
+                                <mdb-btn v-on:click="resetPassword">Reset password</mdb-btn>
+                            </mdb-btn-group>
                         </form>
                         <error-alert/>
                     </mdb-card-body>
@@ -33,19 +25,20 @@
             </mdb-col>
         </mdb-row>
     </mdb-container>
-    <!-- Material form login -->
 </template>
 
 <script>
-    import {mdbContainer, mdbRow, mdbCol, mdbInput, mdbBtn, mdbCard, mdbCardBody} from 'mdbvue';
+    import {mdbContainer,mdbBtnGroup , mdbRow, mdbCol, mdbInput, mdbBtn, mdbCard, mdbCardBody} from 'mdbvue';
     import errorAlert from '../components/ErrorAlert'
     import {required} from 'vuelidate/lib/validators'
     import InfoAlert from "../components/InfoAlert";
+    import {verificationEmailUrl,resetPasswordUrl} from "../axios/axiosRoutes"
 
     export default {
-        name: 'Login',
+        name: 'LoginHelp',
         components: {
             mdbContainer,
+            mdbBtnGroup,
             mdbRow,
             mdbCol,
             InfoAlert,
@@ -56,40 +49,60 @@
             errorAlert
         },
         methods: {
-            login() {
+            resendVerificationEmail() {
                 if (this.$v.$invalid) {
                     this.formValid = false
                 } else {
-                    this.$store.dispatch('login', {username: this.username, password: this.password}).then(
-                        () => {
-                            this.$router.push({name: 'Home'})
-                        }
-                    )
+                    const requestParams = {
+                        'username': this.username
+                    };
+                    this.$api.post(verificationEmailUrl, null, {
+                        params: requestParams
+                    }).then(() => {
+                        this.$router.push({name: 'Login'})
+                    }).then(() => {
+                        this.$store.commit('ADD_INFO', {
+                            message: 'email.sent'
+                        })
+                    })
                 }
+
             },
-            help() {
-                    this.$router.push({name: 'LoginHelp'})
+            resetPassword() {
+                if (this.$v.$invalid) {
+                    this.formValid = false
+                } else {
+                    const requestParams = {
+                        'username': this.username
+                    };
+                    this.$api.post(resetPasswordUrl, null,{
+                        params: requestParams
+                    }).then(() => {
+                        this.$router.push({name: 'Login'})
+                    }).then(() => {
+                        this.$store.commit('ADD_INFO', {
+                            message: 'email.sent'
+                        })
+                    })
+                }
+
             }
+
         },
         data: function () {
             return {
                 username: '',
-                password: '',
                 formValid: true
             }
         },
         validations: {
             username: {
                 required
-            },
-            password: {
-                required
             }
         }
     }
-
-
 </script>
+
 <style scoped>
 
 </style>
