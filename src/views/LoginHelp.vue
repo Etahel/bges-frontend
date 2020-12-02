@@ -3,7 +3,7 @@
         <mdb-row class="justify-content-md-center">
             <mdb-col md="auto" col="12">
                 <info-alert class="mb-3"/>
-                <mdb-card class="mx-auto" style="width: 25rem">
+                <mdb-card class="mx-auto" style="min-width: 40vw">
                     <mdb-card-body>
                         <form>
                             <p class="h4 text-center">Login Help</p>
@@ -81,7 +81,7 @@
                         this.$router.push({name: 'Login'})
                     }).then(() => {
                         this.$store.commit('ADD_INFO', {
-                            message: 'email.sent'
+                            message: 'password.reset'
                         })
                     })
                 }

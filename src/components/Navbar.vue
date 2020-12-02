@@ -1,5 +1,5 @@
 <template>
-  <mdb-navbar color="indigo" dark>
+  <mdb-navbar color="indigo" dark class="pr-0 .flex-fill">
     <mdb-navbar-brand href="https://mdbootstrap.com/">
       Navbar
     </mdb-navbar-brand>
@@ -22,7 +22,15 @@
         <mdb-btn v-on:click="register">Register</mdb-btn>
       </mdb-form-inline>
       <mdb-form-inline v-else>
-        <mdb-btn v-on:click="logout">Log out</mdb-btn>
+        <mdb-navbar-nav class="pr-0" >
+        <mdb-dropdown end tag="li" class="pr-0 nav-item">
+          <mdb-dropdown-toggle size="lg" tag="a" navLink color="indigo" slot="toggle" waves-fixed>Hello, {{this.username}}</mdb-dropdown-toggle>
+          <mdb-dropdown-menu class="dropdown-menu-right">
+            <mdb-dropdown-item to="Profile">Profile</mdb-dropdown-item>
+            <mdb-dropdown-item v-on:click="logout">Log out</mdb-dropdown-item>
+          </mdb-dropdown-menu>
+        </mdb-dropdown>
+          </mdb-navbar-nav>
       </mdb-form-inline>
     </mdb-navbar-toggler>
   </mdb-navbar>
@@ -47,6 +55,9 @@ export default {
   computed: {
     token () {
       return this.$store.getters.accessToken
+    },
+    username () {
+      return this.$store.getters.user.preferred_username;
     }
   },
   methods: {

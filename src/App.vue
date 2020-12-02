@@ -1,15 +1,17 @@
 <template>
-  <div id="app" class="bg" style="height: 100% ">
+  <div id="app" class="bg h-100" style="overflow: auto;">
     <navbar-page/>
+    <info-alert class="mt-3 mr-5 ml-5"/>
     <router-view />
   </div>
 </template>
 
 <script>
 import NavbarPage from "@/components/Navbar";
+import InfoAlert from "./components/InfoAlert";
 export default {
   name: 'App',
-  components: {NavbarPage},
+  components: {NavbarPage, InfoAlert},
   watch: {
     '$route' () {
       this.$store.commit('CLEAR_ALERTS')

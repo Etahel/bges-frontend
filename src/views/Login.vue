@@ -3,8 +3,7 @@
     <mdb-container class="mt-5">
         <mdb-row class="justify-content-md-center">
             <mdb-col md="auto" col="12">
-                <info-alert class="mb-3"/>
-                <mdb-card class="mx-auto" style="width: 25rem">
+                <mdb-card style="min-width: 30vw">
                     <mdb-card-body>
                         <form>
                             <p class="h4 text-center">Sign in</p>
@@ -40,7 +39,6 @@
     import {mdbContainer, mdbRow, mdbCol, mdbInput, mdbBtn, mdbCard, mdbCardBody} from 'mdbvue';
     import errorAlert from '../components/ErrorAlert'
     import {required} from 'vuelidate/lib/validators'
-    import InfoAlert from "../components/InfoAlert";
 
     export default {
         name: 'Login',
@@ -48,7 +46,6 @@
             mdbContainer,
             mdbRow,
             mdbCol,
-            InfoAlert,
             mdbInput,
             mdbBtn,
             mdbCard,

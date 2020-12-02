@@ -1,8 +1,8 @@
 <template>
-    <div v-if="infos.length"  class="alert-box mt-2" >
-        <mdb-alert v-for="(info, index) in infos"  v-bind:key="info.message" class="mb-0" color="success" @closeAlert="clearInfo(index)" dismiss>
+    <div class="d-flex flex-column column align-items-center justify-content-center alert-box mt-2" >
+        <mdb-alert v-for="(info, index) in infos"  v-bind:key="info.message" style="width: 70vw" class="text-center mb-0 mt-1" color="success" @closeAlert="clearInfo(index)" dismiss>
             {{ $t(info.message)}}
-        </mdb-alert>
+        </mdb-alert >
     </div>
 </template>
 

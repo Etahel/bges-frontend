@@ -5,7 +5,8 @@ const authModule = {
     state: {
         user: '',
         accessToken: '',
-        refreshToken: ''
+        refreshToken: '',
+        authRetry: ''
     },
     mutations: {
         CLEAR_AUTH_DATA(state) {
@@ -19,6 +20,9 @@ const authModule = {
         },
         SET_USER(state, user){
             state.user = user;
+        },
+        SET_AUTH_RETRY(state, retry){
+            state.authRetry = retry;
         }
     },
     actions: {
@@ -41,12 +45,33 @@ const authModule = {
                 commit('SET_USER', jwt_decode(response.data.access_token) )
             })
         },
+        refresh({commit}) {
+            const requestBody = {
+                'grant_type': 'refresh_token',
+                'client_id': 'frontend-auth',
+                'scope': 'roles',
+                'refresh_token': this.getters.refreshToken
+            };
+
+            return this.$api.post(accessTokenUrl, qs.stringify(requestBody), {
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            }).then((response) => {
+                commit('SET_AUTH',{
+                    accessToken : response.data.access_token,
+                    refreshToken : response.data.refresh_token
+                })
+                commit('SET_USER', jwt_decode(response.data.access_token) )
+            })
+        },
         logout({commit}) {
             commit("CLEAR_AUTH_DATA");
         }
     },
     getters: {
-        accessToken: state => state.accessToken
+        accessToken: state => state.accessToken,
+        refreshToken: state => state.refreshToken,
+        user: state => state.user,
+        authRetry: state => state.authRetry
     }
 }
 
