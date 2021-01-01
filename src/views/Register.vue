@@ -41,7 +41,6 @@
                                 <mdb-btn v-on:click="register">Create account</mdb-btn>
                             </div>
                         </form>
-                        <error-alert/>
                     </mdb-card-body>
                 </mdb-card>
             </mdb-col>
@@ -51,7 +50,6 @@
 
 <script>
     import {mdbContainer, mdbRow, mdbCol, mdbInput, mdbBtn, mdbCard, mdbCardBody} from 'mdbvue';
-    import errorAlert from '../components/ErrorAlert'
     import {required, sameAs, email} from 'vuelidate/lib/validators'
     import {registerUrl} from "../axios/axiosRoutes";
 
@@ -65,7 +63,6 @@
             mdbBtn,
             mdbCard,
             mdbCardBody,
-            errorAlert,
         },
         methods: {
             register() {
@@ -81,7 +78,7 @@
                     this.$api.post(registerUrl, requestBody).then(() => {
                         this.$router.push({name: 'Login'})
                     }).then(() => {
-                        this.$store.commit('ADD_INFO', {
+                        this.$store.commit('SET_INFO', {
                             message: 'register.success'
                         })
                     })

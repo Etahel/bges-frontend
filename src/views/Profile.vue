@@ -86,7 +86,6 @@
                             </mdb-container>
                         </template>
                     </mdb-tabs>
-                    <error-alert/>
                 </mdb-card>
             </mdb-col>
         </mdb-row>
@@ -110,7 +109,6 @@
     } from 'mdbvue';
     import {meUrl, emailChangeUrl, resetPasswordUrl} from "../axios/axiosRoutes";
     import {email, required, sameAs, not} from "vuelidate/lib/validators";
-    import errorAlert from '../components/ErrorAlert'
 
     export default {
         name: 'Profile',
@@ -126,8 +124,7 @@
             mdbMask,
             mdbBtn,
             mdbTextarea,
-            mdbInput,
-            errorAlert
+            mdbInput
         },
         data: function () {
             return {
@@ -162,7 +159,7 @@
                         email: this.email
                     }
                 }).then(() => {
-                    this.$store.commit('ADD_INFO', {
+                    this.$store.commit('SET_INFO', {
                         message: 'email.changed'
                     });
                     this.emailChange = false;
@@ -177,9 +174,9 @@
                 this.$api.post(resetPasswordUrl, null, {
                     params: requestParams
                 }).then(() => {
-                    this.$router.push({name: 'Login'})
+                    this.$store.dispatch('logout')
                 }).then(() => {
-                    this.$store.commit('ADD_INFO', {
+                    this.$store.commit('SET_INFO', {
                         message: 'password.reset'
                     })
                 })

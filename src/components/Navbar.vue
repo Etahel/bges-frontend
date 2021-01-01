@@ -6,7 +6,7 @@
     <mdb-navbar-toggler>
       <mdb-navbar-nav>
         <mdb-nav-item to="Home" active>Home</mdb-nav-item>
-        <mdb-nav-item href="#">Whatver</mdb-nav-item>
+        <mdb-nav-item href="Boardgames">Board Games</mdb-nav-item>
         <mdb-nav-item href="#">Pricing</mdb-nav-item>
         <mdb-dropdown tag="li" class="nav-item">
           <mdb-dropdown-toggle tag="a" navLink color="indigo" slot="toggle" waves-fixed>Dropdown</mdb-dropdown-toggle>

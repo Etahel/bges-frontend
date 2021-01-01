@@ -1,6 +1,6 @@
 <template>
-    <div class="d-flex flex-column column align-items-center justify-content-center alert-box mt-2" >
-        <mdb-alert v-for="(info, index) in infos"  v-bind:key="info.message" style="width: 70vw" class="text-center mb-0 mt-1" color="success" @closeAlert="clearInfo(index)" dismiss>
+    <div v-if="info" class="d-flex flex-column column align-items-center justify-content-center alert-box mt-2" >
+        <mdb-alert style="width: 70vw" class="text-center mb-0 mt-1" color="success" @closeAlert="clearInfo()" dismiss>
             {{ $t(info.message)}}
         </mdb-alert >
     </div>
@@ -14,12 +14,12 @@
             mdbAlert
         },
         methods: {
-            clearInfo(index){
-                this.$store.commit('REMOVE_INFO', index)
+            clearInfo(){
+                this.$store.commit('REMOVE_INFO')
             }
         },
         computed: {
-            infos () {
+            info () {
                 return this.$store.getters.info
             }
         }

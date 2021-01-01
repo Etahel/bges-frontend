@@ -1,22 +1,22 @@
 <template>
   <div id="app" class="bg h-100" style="overflow: auto;">
-    <navbar-page/>
-    <info-alert class="mt-3 mr-5 ml-5"/>
-    <router-view />
+    <navbar-page class="mb-2"/>
+      <div>
+        <error-alert style="margin-left: 15vw; margin-right: 15vw" />
+        <info-alert style="margin-left: 15vw; margin-right: 15vw" />
+      </div>
+        <router-view class="mt-2" />
+
   </div>
 </template>
 
 <script>
 import NavbarPage from "@/components/Navbar";
-import InfoAlert from "./components/InfoAlert";
+import InfoAlert from "./components/alert/InfoAlert";
+import ErrorAlert from "./components/alert/ErrorAlert";
 export default {
   name: 'App',
-  components: {NavbarPage, InfoAlert},
-  watch: {
-    '$route' () {
-      this.$store.commit('CLEAR_ALERTS')
-    }
-  },
+  components: {ErrorAlert, NavbarPage, InfoAlert}
 }
 </script>
 

@@ -26,7 +26,6 @@
                             <button class="mb-0 p-0 text-button" v-on:click = "help" >Need help logging in?</button>
                             </div>
                         </form>
-                        <error-alert/>
                     </mdb-card-body>
                 </mdb-card>
             </mdb-col>
@@ -37,7 +36,6 @@
 
 <script>
     import {mdbContainer, mdbRow, mdbCol, mdbInput, mdbBtn, mdbCard, mdbCardBody} from 'mdbvue';
-    import errorAlert from '../components/ErrorAlert'
     import {required} from 'vuelidate/lib/validators'
 
     export default {
@@ -50,7 +48,6 @@
             mdbBtn,
             mdbCard,
             mdbCardBody,
-            errorAlert
         },
         methods: {
             login() {

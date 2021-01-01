@@ -26,11 +26,11 @@ export function responseInterceptor (axiosInstance) {
                return axiosInstance(originalRequest);
            } catch (anotherError) {
                const mappedError = axiosErrorMapper(error)
-               store.commit('SET_ERRORS', [mappedError])
+               store.dispatch('logout').then(store.commit('SET_ERROR', mappedError))
            }
        } else if (!store.getters.authRetry) {
             const mappedError = axiosErrorMapper(error)
-            store.commit('SET_ERRORS', [mappedError])
+            store.commit('SET_ERROR', mappedError)
         } else if (store.getters.authRetry) {
            store.commit('SET_AUTH_RETRY', false)
        }

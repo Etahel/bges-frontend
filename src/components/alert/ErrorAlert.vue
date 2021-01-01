@@ -1,6 +1,6 @@
 <template>
-    <div v-if="errors.length"  class="alert-box mt-2" >
-        <mdb-alert v-for="(error, index) in errors"  v-bind:key="error.message" class="mb-0" color="danger" @closeAlert="removeError(index)" dismiss>
+    <div v-if="error"  class="alert-box mt-2" >
+        <mdb-alert class="mb-0 text-center" color="danger" @closeAlert="removeError()"  dismiss>
             {{ $t(error.message)}}
         </mdb-alert>
     </div>
@@ -14,13 +14,13 @@
             mdbAlert
         },
         methods: {
-            removeError(index){
-                this.$store.commit('REMOVE_ERROR', index)
+            removeError(){
+                this.$store.commit('REMOVE_ERROR')
             }
         },
         computed: {
-            errors () {
-                return this.$store.getters.errors
+            error () {
+                return this.$store.getters.error
             }
         }
     }

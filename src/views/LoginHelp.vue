@@ -19,7 +19,6 @@
                                 <mdb-btn v-on:click="resetPassword">Reset password</mdb-btn>
                             </mdb-btn-group>
                         </form>
-                        <error-alert/>
                     </mdb-card-body>
                 </mdb-card>
             </mdb-col>
@@ -29,9 +28,8 @@
 
 <script>
     import {mdbContainer,mdbBtnGroup , mdbRow, mdbCol, mdbInput, mdbBtn, mdbCard, mdbCardBody} from 'mdbvue';
-    import errorAlert from '../components/ErrorAlert'
     import {required} from 'vuelidate/lib/validators'
-    import InfoAlert from "../components/InfoAlert";
+    import InfoAlert from "../components/alert/InfoAlert";
     import {verificationEmailUrl,resetPasswordUrl} from "../axios/axiosRoutes"
 
     export default {
@@ -46,7 +44,6 @@
             mdbBtn,
             mdbCard,
             mdbCardBody,
-            errorAlert
         },
         methods: {
             resendVerificationEmail() {
@@ -61,7 +58,7 @@
                     }).then(() => {
                         this.$router.push({name: 'Login'})
                     }).then(() => {
-                        this.$store.commit('ADD_INFO', {
+                        this.$store.commit('SET_INFO', {
                             message: 'email.sent'
                         })
                     })
@@ -80,7 +77,7 @@
                     }).then(() => {
                         this.$router.push({name: 'Login'})
                     }).then(() => {
-                        this.$store.commit('ADD_INFO', {
+                        this.$store.commit('SET_INFO', {
                             message: 'password.reset'
                         })
                     })

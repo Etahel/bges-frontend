@@ -1,6 +1,7 @@
 import qs from 'querystring';
 import {accessTokenUrl} from '../../axios/axiosRoutes'
 import jwt_decode from "jwt-decode";
+import router from '../../router/index'
 const authModule = {
     state: {
         user: '',
@@ -64,7 +65,10 @@ const authModule = {
             })
         },
         logout({commit}) {
-            commit("CLEAR_AUTH_DATA");
+            commit("CLEAR_AUTH_DATA")
+            return router.push({
+                name:'Login'
+            });
         }
     },
     getters: {

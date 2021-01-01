@@ -1,50 +1,41 @@
 const alertModule = {
     state: {
-        errors: [],
-        warnings: [],
-        info: []
+        error: '',
+        warning: '',
+        info: ''
     },
     mutations: {
-        ADD_ERROR(state, error) {
-            state.errors.push(error);
+        REMOVE_ERROR(state) {
+            state.error = ''
         },
-        REMOVE_ERROR(state, index) {
-            state.errors.splice(index,1)
-        },
-        SET_ERRORS(state, errors) {
-            state.errors = errors;
+        SET_ERROR(state, error) {
+            state.error = error;
         },
         CLEAR_ERRORS(state) {
-            state.errors = [];
+            state.errors = '';
         },
-        ADD_WARNING(state, warning) {
-            state.warnings.push(warning);
+        REMOVE_WARNING(state) {
+            state.warning = '';
         },
-        REMOVE_WARNING(state, index) {
-            state.warnings.splice(index,1)
-        },
-        SET_WARNINGS(state, warnings) {
-            state.warnings = warnings;
+        SET_WARNING(state, warning) {
+            state.warning = warning;
         },
         CLEAR_WARNINGS(state) {
-            state.warnings = [];
+            state.warning = '';
         },
-        ADD_INFO(state, info) {
-            state.info.push(info);
-        },
-        REMOVE_INFO(state, index) {
-            state.info.splice(index,1)
+        REMOVE_INFO(state) {
+            state.info = '';
         },
         SET_INFO(state, info) {
-            state.warnings = info;
+            state.info = info;
         },
         CLEAR_INFO(state) {
-            state.info = [];
+            state.info = '';
         },
         CLEAR_ALERTS(state){
-            state.errors = [];
-            state.warnings = [];
-            state.info = [];
+            state.error = '';
+            state.warning = '';
+            state.info =  '';
         }
 
     },
@@ -52,8 +43,8 @@ const alertModule = {
 
     },
     getters: {
-        errors: state => state.errors,
-        warnings: state => state.warnings,
+        error: state => state.error,
+        warning: state => state.warning,
         info: state => state.info
     }
 }

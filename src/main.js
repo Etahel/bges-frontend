@@ -9,16 +9,20 @@ import store from './store/store'
 import axiosInstance from "./axios/axiosConfig";
 import i18n from './i18n'
 import Vuelidate from 'vuelidate'
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css';
 
 
 
 
-Vue.config.productionTip = false
+
+Vue.config.productionTip = false;
 
 Vue.prototype.$api = axiosInstance;
-Vuex.Store.prototype.$api = axiosInstance
+Vuex.Store.prototype.$api = axiosInstance;
 
-Vue.use(Vuelidate)
+Vue.use(Vuelidate);
+Vue.component('v-select', vSelect);
 
 new Vue({
   router,

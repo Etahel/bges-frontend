@@ -5,10 +5,11 @@ import Login from '@/views/Login';
 import Register from "../views/Register";
 import LoginHelp from "../views/LoginHelp";
 import Profile from "../views/Profile";
-
+import store from "../store/store";
+import BoardGames from "../views/BoardGames";
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -39,6 +40,18 @@ export default new Router({
       path: '/profile',
       name: 'Profile',
       component: Profile
+    },
+    {
+      path: '/boardgames',
+      name: 'Boardgames',
+      component: BoardGames
     }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  store.commit('CLEAR_ALERTS');
+  next()
+});
+
+export default router;
