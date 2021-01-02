@@ -1,4 +1,5 @@
 <template>
+    <div>
     <vue-good-table
             id="vue-table"
             mode="remote"
@@ -6,11 +7,16 @@
             @on-sort-change="onSortChange"
             @on-column-filter="onColumnFilter"
             @on-per-page-change="onPerPageChange"
+            @on-row-click="onRowClick"
             :totalRows="page.totalElements"
             :isLoading.sync="isLoading"
             :pagination-options="paginationOptions"
             :rows="page.content"
             :columns="columns">
+        <div v-if="isEmployee()" slot="table-actions">
+            <mdbBtn size="sm">Add Board Game</mdbBtn>
+            <mdbBtn size="sm" v-on:click="openTagModal">Add Tag</mdbBtn>
+        </div>
         <template slot="table-row" slot-scope="props">
     <span v-if="props.column.field == 'tags'">
       <div style="display:inline" v-for="tag in props.row.tags" :key="tag">
@@ -31,7 +37,12 @@
                     }})"/>
         </template>
     </vue-good-table>
+    <VueModal v-model="showTagsModal" title="Tags">
 
+        <TagsTable></TagsTable>
+
+    </VueModal>
+    </div>
 </template>
 
 <script>
@@ -39,11 +50,17 @@
     import {VueGoodTable } from 'vue-good-table';
     import {boardGamesUrl, tagsUrl} from "../../axios/axiosRoutes";
     import {tableMixin} from "../mixin/TableMixin"
+    import {mdbBtn} from 'mdbvue';
+    import VueModal from '@kouts/vue-modal';
+    import '@kouts/vue-modal/dist/vue-modal.css';
+    import TagsTable from "./TagsTable";
+
 
     export default {
         name: "BoardGamesTable",
         components: {
-            VueGoodTable
+            TagsTable,
+            VueGoodTable, mdbBtn, VueModal,
         },
         mixins: [tableMixin],
         data() {
@@ -51,6 +68,7 @@
                 optionList: [],
                 apiUrl: boardGamesUrl,
                 tagsUrl: tagsUrl,
+                showTagsModal:false,
                 columns: [
                     {
                         label: 'Id',
@@ -73,6 +91,7 @@
                         label: 'Tags',
                         field: 'tags',
                         html:true,
+                        sortable:false,
                         filterOptions: {
                             enabled: true,
                             customFilter: true,
@@ -96,11 +115,21 @@
                 }
                 this.$api.get(this.apiUrl, {
                     params: params
-                }).then(response => (this.page = response.data))
-
-                this.$api.get(this.tagsUrl).then(response => (this.optionList = response.data.map(tag => {
+                }).then(response => (this.page = response.data)).then(() => this.$api.get(this.tagsUrl)).then(response => (this.optionList = response.data.map(tag => {
                     return tag.name
-                })))
+                })));
+
+            },
+            onRowClick(params) {
+                this.$router.push({
+                    name: 'BoardGame-Details',
+                    params: {
+                        id: params.row.id
+                    }
+                });
+            },
+            openTagModal() {
+                this.showTagsModal = true;
             }
         }
     }

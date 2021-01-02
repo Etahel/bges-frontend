@@ -23,6 +23,13 @@ Vuex.Store.prototype.$api = axiosInstance;
 
 Vue.use(Vuelidate);
 Vue.component('v-select', vSelect);
+Vue.mixin({
+  methods: {
+    isEmployee: function () {
+      return this.$store.getters.roles.includes('employee')
+    },
+  },
+});
 
 new Vue({
   router,

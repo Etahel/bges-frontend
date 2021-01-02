@@ -60,7 +60,7 @@ const authModule = {
                 commit('SET_AUTH',{
                     accessToken : response.data.access_token,
                     refreshToken : response.data.refresh_token
-                })
+                });
                 commit('SET_USER', jwt_decode(response.data.access_token) )
             })
         },
@@ -75,7 +75,8 @@ const authModule = {
         accessToken: state => state.accessToken,
         refreshToken: state => state.refreshToken,
         user: state => state.user,
-        authRetry: state => state.authRetry
+        authRetry: state => state.authRetry,
+        roles: state => state.user.realm_access.roles
     }
 }
 

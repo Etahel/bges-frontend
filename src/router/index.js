@@ -7,6 +7,8 @@ import LoginHelp from "../views/LoginHelp";
 import Profile from "../views/Profile";
 import store from "../store/store";
 import BoardGames from "../views/BoardGames";
+import CreateBoardGame from "../views/CreateBoardGame";
+import BoardGameDetails from "../views/BoardGameDetails";
 Vue.use(Router);
 
 const router = new Router({
@@ -45,6 +47,16 @@ const router = new Router({
       path: '/boardgames',
       name: 'Boardgames',
       component: BoardGames
+    },
+    {
+      path: '/boardgames/create',
+      name: 'BoardGame-Create',
+      component: CreateBoardGame
+    },
+    {
+      path: '/boardgames/:id',
+      name: 'BoardGame-Details',
+      component: BoardGameDetails
     }
   ]
 });

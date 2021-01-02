@@ -5,8 +5,8 @@
     </mdb-navbar-brand>
     <mdb-navbar-toggler>
       <mdb-navbar-nav>
-        <mdb-nav-item to="Home" active>Home</mdb-nav-item>
-        <mdb-nav-item href="Boardgames">Board Games</mdb-nav-item>
+        <mdb-nav-item to="/Home" active>Home</mdb-nav-item>
+        <mdb-nav-item to="/Boardgames">Board Games</mdb-nav-item>
         <mdb-nav-item href="#">Pricing</mdb-nav-item>
         <mdb-dropdown tag="li" class="nav-item">
           <mdb-dropdown-toggle tag="a" navLink color="indigo" slot="toggle" waves-fixed>Dropdown</mdb-dropdown-toggle>
@@ -26,7 +26,7 @@
         <mdb-dropdown end tag="li" class="pr-0 nav-item">
           <mdb-dropdown-toggle size="lg" tag="a" navLink color="indigo" slot="toggle" waves-fixed>Hello, {{this.username}}</mdb-dropdown-toggle>
           <mdb-dropdown-menu class="dropdown-menu-right">
-            <mdb-dropdown-item to="Profile">Profile</mdb-dropdown-item>
+            <mdb-dropdown-item to="/Profile">Profile</mdb-dropdown-item>
             <mdb-dropdown-item v-on:click="logout">Log out</mdb-dropdown-item>
           </mdb-dropdown-menu>
         </mdb-dropdown>
