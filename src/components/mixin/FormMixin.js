@@ -5,14 +5,17 @@ export var formMixin = {
         }
     },
     methods: {
-        isEditMode() {
-            return this.editMode;
-        },
         edit() {
             this.editMode = true;
+        },
+        cancelEdit() {
+            this.editMode = false;
         }
     },
     computed: {
+        isEditMode() {
+            return this.editMode === true
+        },
         isCreateMode() {
             return this.$route.name.includes("Create")
         },
@@ -21,7 +24,7 @@ export var formMixin = {
         },
         formReadOnly() {
             let isCreateMode = this.isCreateMode;
-            return !this.isEditMode() && !isCreateMode;
+            return !this.isEditMode && !isCreateMode;
         }
     },
 

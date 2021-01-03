@@ -11,6 +11,7 @@ import i18n from './i18n'
 import Vuelidate from 'vuelidate'
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css';
+import VueBreadcrumbs from 'vue-2-breadcrumbs';
 
 
 
@@ -22,6 +23,7 @@ Vue.prototype.$api = axiosInstance;
 Vuex.Store.prototype.$api = axiosInstance;
 
 Vue.use(Vuelidate);
+Vue.use(VueBreadcrumbs);
 Vue.component('v-select', vSelect);
 Vue.mixin({
   methods: {
@@ -31,6 +33,12 @@ Vue.mixin({
       }
       return this.$store.getters.roles.includes('employee')
     },
+    isClient: function () {
+      if(this.$store.getters.roles === '') {
+        return false
+      }
+      return this.$store.getters.roles.includes('user')
+    }
   },
 });
 

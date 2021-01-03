@@ -4,6 +4,9 @@
             <mdb-col md="auto" col="12">
                 <mdb-card style="min-width: 30vw">
                     <mdb-card-body>
+                        <div class="text-left m-0">
+                            <mdb-icon v-on:click.native="close()" icon="angle-double-left" style="cursor: pointer" size="lg"  />
+                        </div>
                         <form>
                             <p class="h4 text-center">BG</p>
                             <div class="grey-text">
@@ -16,17 +19,26 @@
                                     </div>
                                 </div>
                                 <div v-else>
-                                    <v-select id="tagSelect"
+                                    <v-select v-model="boardGame.tags"
                                               :options="tagList"
-                                              :value = "boardGame.tags"
                                               multiple
                                               style="min-width: min-content;"
                                               @input="(values) => {
                                                   this.boardGame.tags = values
                                               }"/>
                                 </div>
-                                <div class="mt-2 text-right" v-if="isDetailsMode && isEmployee()">
-                                    <mdbBtn v-on:click="edit" size="sm">Edit</mdbBtn>
+                                <div class="mt-3" v-if="isDetailsMode && isEmployee() && !isEditMode">
+                                    <mdbBtn class="float-right" v-on:click="edit" size="sm">Edit</mdbBtn>
+                                </div>
+                                <div class="mt-3" v-else-if="isDetailsMode && isEmployee() && isEditMode">
+                                <ButtonWithConfrm v-bind:on-confirm="this.delete" class="mt-3 float-left" color="danger" size="sm">Delete</ButtonWithConfrm>
+                                <mdb-btn-group class="mt-3 float-right" size="sm">
+                                    <mdb-btn v-on:click="cancelEdit" >Cancel</mdb-btn>
+                                    <mdb-btn v-on:click="update" >Save</mdb-btn>
+                                </mdb-btn-group>
+                                </div>
+                                <div class="mt-2 text-right" v-else-if="isCreateMode && isEmployee()">
+                                    <mdbBtn v-on:click="save" size="sm">Save</mdbBtn>
                                 </div>
 <!--                                <div v-if="!this.formValid">-->
 <!--                                    <div class="validate-error" v-if="!$v.username.required">Can't be empty</div>-->
@@ -57,18 +69,17 @@
 </template>
 
 <script>
-    import {mdbContainer, mdbRow,mdbBtn, mdbCol, mdbCard, mdbCardBody, mdbInput} from 'mdbvue';
+    import {mdbContainer, mdbIcon, mdbRow, mdbBtn, mdbCol, mdbCard, mdbCardBody, mdbInput, mdbBtnGroup} from 'mdbvue';
     import {formMixin} from "../mixin/FormMixin"
-    import {tagsUrl} from "../../axios/axiosRoutes";
+    import {tagsUrl, boardGamesUrl} from "../../axios/axiosRoutes";
     import ElementsTable from "../tables/ElementsTable";
+    import ButtonWithConfrm from "../buttons/ButtonWithConfrm";
 
     export default {
         name: "BoardGameForm",
-        props: {
-            fetchUrl:String
-        },
         mixins:[formMixin],
         components: {
+            ButtonWithConfrm,
             ElementsTable,
             mdbContainer,
             mdbRow,
@@ -77,17 +88,23 @@
             mdbInput,
             mdbCard,
             mdbCardBody,
+            mdbBtnGroup,
+            mdbIcon
         },
         data () {
             return {
                 formValid: true,
-                boardGame: {},
+                boardGame: {
+                    title:'',
+                    year:'',
+                    tags:[]
+                },
                 tagList: []
             }
         },
         methods: {
             fetchData() {
-                this.$api.get(this.fetchUrl + "/" + this.$route.params.id).then(response => { this.boardGame = response.data
+                this.$api.get(boardGamesUrl + "/" + this.$route.params.id).then(response => { this.boardGame = response.data
                 })
             },
             fetchTags() {
@@ -98,10 +115,31 @@
             edit() {
                 this.fetchTags();
                 this.editMode = true;
+            },
+            save(){
+                this.$api.post(boardGamesUrl,this.boardGame).then((response) => {
+                    this.$router.push({
+                        name: 'BoardGame-Details',
+                        params: {
+                            id: response.data.id
+                        }
+                    })
+                })
+            },
+            update() {
+                this.$api.patch(boardGamesUrl + "/" + this.$route.params.id,this.boardGame).then(this.fetchData).then(this.cancelEdit);
+            },
+            close() {
+                this.$router.push({
+                    name: 'Boardgames',
+                })
+            },
+            delete() {
+                this.$api.delete(boardGamesUrl + "/" + this.$route.params.id).then(this.close);
             }
         },
         created() {
-            if(this.fetchUrl && this.isDetailsMode) {
+            if(this.isDetailsMode) {
                 this.fetchData();
             }
             if(this.isCreateMode) {

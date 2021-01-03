@@ -5,8 +5,8 @@
     </mdb-navbar-brand>
     <mdb-navbar-toggler>
       <mdb-navbar-nav>
-        <mdb-nav-item to="/Home" active>Home</mdb-nav-item>
-        <mdb-nav-item to="/Boardgames">Board Games</mdb-nav-item>
+        <mdb-nav-item to="/home" active>Home</mdb-nav-item>
+        <mdb-nav-item to="/boardgames">Board Games</mdb-nav-item>
         <mdb-nav-item href="#">Pricing</mdb-nav-item>
         <mdb-dropdown tag="li" class="nav-item">
           <mdb-dropdown-toggle tag="a" navLink color="indigo" slot="toggle" waves-fixed>Dropdown</mdb-dropdown-toggle>
@@ -23,6 +23,7 @@
       </mdb-form-inline>
       <mdb-form-inline v-else>
         <mdb-navbar-nav class="pr-0" >
+        <mdb-btn color="primary" class="mt-0 mr-3"><mdb-icon icon="shopping-cart" class="mr-2"/>{{this.itemsCount}} items</mdb-btn>
         <mdb-dropdown end tag="li" class="pr-0 nav-item">
           <mdb-dropdown-toggle size="lg" tag="a" navLink color="indigo" slot="toggle" waves-fixed>Hello, {{this.username}}</mdb-dropdown-toggle>
           <mdb-dropdown-menu class="dropdown-menu-right">
@@ -36,7 +37,7 @@
   </mdb-navbar>
 </template>
 <script>
-import { mdbNavbar, mdbNavbarBrand, mdbNavbarToggler, mdbNavbarNav, mdbNavItem, mdbDropdown, mdbDropdownMenu, mdbDropdownToggle, mdbDropdownItem, mdbBtn, mdbFormInline} from 'mdbvue';
+import { mdbNavbar,mdbIcon, mdbNavbarBrand, mdbNavbarToggler, mdbNavbarNav, mdbNavItem, mdbDropdown, mdbDropdownMenu, mdbDropdownToggle, mdbDropdownItem, mdbBtn, mdbFormInline} from 'mdbvue';
 export default {
   name: 'NavbarPage',
   components: {
@@ -50,6 +51,7 @@ export default {
     mdbDropdownToggle,
     mdbDropdownItem,
     mdbBtn,
+    mdbIcon,
     mdbFormInline
   },
   computed: {
@@ -58,6 +60,9 @@ export default {
     },
     username () {
       return this.$store.getters.user.preferred_username;
+    },
+    itemsCount() {
+      return this.$store.getters.itemsCount;
     }
   },
   methods: {

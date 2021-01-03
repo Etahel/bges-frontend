@@ -1,5 +1,5 @@
 <template>
-    <BoardGameForm v-bind:fetch-url="fetchUrl"></BoardGameForm>
+    <BoardGameForm></BoardGameForm>
 </template>
 
 <script>

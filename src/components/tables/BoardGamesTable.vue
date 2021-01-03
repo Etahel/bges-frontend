@@ -149,9 +149,7 @@
 
 
 <style>
-    #tagSelect .vs__selected-options {
-        width: min-content;
-    }
+
     .vgt-wrap {
         min-height: 50vh;
         min-width: 80vw

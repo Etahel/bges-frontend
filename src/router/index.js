@@ -18,6 +18,12 @@ const router = new Router({
       path: '/',
       name: 'Home',
       component: Home,
+      meta: {
+        breadcrumb: {
+          label: 'Home',
+          parent: 'Login'
+        }
+      }
     },
     {
       path: '/home',
@@ -26,7 +32,12 @@ const router = new Router({
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
+      meta: {
+        breadcrumb: {
+          label: 'Login'
+        }
+      }
     },
     {
       path: '/login-help',

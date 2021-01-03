@@ -1,0 +1,30 @@
+[
+  {
+    "label": "element.category.tokens_and_markers",
+    "value": "T"
+  },
+  {
+    "label": "element.category.boards_boxes_and_containers",
+    "value": "B"
+  },
+  {
+    "label": "element.category.cards",
+    "value": "C"
+  },
+  {
+    "label": "element.category.pieces_and_figures",
+    "value": "P"
+  },
+  {
+    "label": "element.category.dices",
+    "value": "D"
+  },
+  {
+    "label": "element.category.instructions_and_infographics",
+    "value": "I"
+  },
+  {
+    "label": "element.category.other_elements",
+    "value": "O"
+  }
+]

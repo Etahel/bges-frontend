@@ -3,17 +3,19 @@ import Vuex from 'vuex'
 import authModule from './auth/auth.module'
 import alertModule from "./alert/alert.module";
 import createPersistedState from 'vuex-persistedstate'
+import shopModule from "./shop/shop.module";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   plugins: [
     createPersistedState({
-      paths: ['auth'],
+      paths: ['auth', 'shop'],
     }),
   ],
   modules: {
     auth:authModule,
-    alert:alertModule
+    alert:alertModule,
+    shop: shopModule
   }
 })
