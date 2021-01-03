@@ -76,7 +76,13 @@ const authModule = {
         refreshToken: state => state.refreshToken,
         user: state => state.user,
         authRetry: state => state.authRetry,
-        roles: state => state.user.realm_access.roles
+        roles: state => {
+            if(state.user.realm_access && state.user.realm_access.roles) {
+                return state.user.realm_access.roles
+            } else {
+                return ''
+            }
+        }
     }
 }
 

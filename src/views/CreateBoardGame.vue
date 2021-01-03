@@ -1,5 +1,5 @@
 <template>
-    <BoardGameForm v-bind:init-board-game="boardGame"></BoardGameForm>
+    <BoardGameForm></BoardGameForm>
 </template>
 
 <script>

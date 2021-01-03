@@ -41,7 +41,15 @@
 <!--                                <mdb-btn v-on:click="login">Login</mdb-btn>-->
                             </div>
                         </form>
+
                     </mdb-card-body>
+                </mdb-card>
+            </mdb-col>
+        </mdb-row>
+        <mdb-row v-if="isDetailsMode && boardGame.id" class="justify-content-md-center mt-3">
+            <mdb-col md="auto" col="12">
+                <mdb-card style="min-width: 30vw">
+                    <ElementsTable v-bind:bg-id="boardGame.id"></ElementsTable>
                 </mdb-card>
             </mdb-col>
         </mdb-row>
@@ -52,6 +60,7 @@
     import {mdbContainer, mdbRow,mdbBtn, mdbCol, mdbCard, mdbCardBody, mdbInput} from 'mdbvue';
     import {formMixin} from "../mixin/FormMixin"
     import {tagsUrl} from "../../axios/axiosRoutes";
+    import ElementsTable from "../tables/ElementsTable";
 
     export default {
         name: "BoardGameForm",
@@ -60,6 +69,7 @@
         },
         mixins:[formMixin],
         components: {
+            ElementsTable,
             mdbContainer,
             mdbRow,
             mdbCol,

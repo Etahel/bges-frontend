@@ -7,15 +7,15 @@
             @on-sort-change="onSortChange"
             @on-column-filter="onColumnFilter"
             @on-per-page-change="onPerPageChange"
-            @on-row-click="onRowClick"
+            @on-row-click="openDetails"
             :totalRows="page.totalElements"
             :isLoading.sync="isLoading"
             :pagination-options="paginationOptions"
             :rows="page.content"
             :columns="columns">
         <div v-if="isEmployee()" slot="table-actions">
-            <mdbBtn size="sm">Add Board Game</mdbBtn>
-            <mdbBtn size="sm" v-on:click="openTagModal">Add Tag</mdbBtn>
+            <mdbBtn size="sm" v-on:click="openCreate">Add Board Game</mdbBtn>
+            <mdbBtn size="sm" v-on:click="openTagModal">Tag Menu</mdbBtn>
         </div>
         <template slot="table-row" slot-scope="props">
     <span v-if="props.column.field == 'tags'">
@@ -120,7 +120,7 @@
                 })));
 
             },
-            onRowClick(params) {
+            openDetails(params) {
                 this.$router.push({
                     name: 'BoardGame-Details',
                     params: {
@@ -130,6 +130,18 @@
             },
             openTagModal() {
                 this.showTagsModal = true;
+            },
+            openCreate() {
+                this.$router.push({
+                    name: 'BoardGame-Create'
+                });
+            }
+        },
+        watch: {
+            showTagsModal : function (value) {
+                if(value === false) {
+                    this.fetchData();
+                }
             }
         }
     }

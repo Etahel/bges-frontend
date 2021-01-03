@@ -20,7 +20,8 @@ export var formMixin = {
             return this.$route.name.includes("Details")
         },
         formReadOnly() {
-            return !this.isEditMode() && !this.$route.name.isCreateMode;
+            let isCreateMode = this.isCreateMode;
+            return !this.isEditMode() && !isCreateMode;
         }
     },
 
