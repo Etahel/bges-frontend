@@ -1,5 +1,5 @@
 <template>
-    <v-select v-model="model"
+    <v-select v-bind:value="getCategoryOption(categoryCode)"
               :options="categoriesOptionList"
               :clearable='false'
               :getOptionLabel="getOptionLabel"
@@ -12,8 +12,8 @@
     export default {
         name: "CategorySelect",
         props: {
-            model: Object,
-            input: Function
+            categoryCode: String,
+            input: Function,
         },
         data: function() {
             return {
@@ -26,6 +26,16 @@
                     return this.$t(option.label);
                 }
                 return option;
+            },
+            getCategoryOption(categoryCode) {
+                var result = this.categoriesOptionList.find(obj => {
+                    return obj.value === categoryCode
+                })
+                if(result === undefined) {
+                    return ''
+                } else {
+                    return result
+                }
             }
         }
 

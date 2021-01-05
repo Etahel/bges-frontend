@@ -21,7 +21,7 @@ export function responseInterceptor (axiosInstance) {
         return response;
     }, async function (error) {
        const originalRequest = error.config;
-       if (error.response && error.response.status === 401 && !store.getters.authRetry) {
+       if (error.response && error.response.status === 401 && !store.getters.authRetry && store.getters.refreshToken) {
            try {
                store.commit('SET_AUTH_RETRY', true);
                console.log('Refreshing token...');

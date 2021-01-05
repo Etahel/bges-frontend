@@ -7,9 +7,12 @@
                 </div>
             </mdb-col>
             <mdb-col class="p-0">
-                <CategorySelect class="m-1" v-bind:model="selectedCategory" v-bind:input="(category) => onColumnFilter({columnFilters: {
+                <CategorySelect class="m-1" v-bind:categoryCode="selectedCategory" v-bind:input="(category) => {
+                    this.selectedCategory = category.value;
+                    onColumnFilter({columnFilters: {
                         elementCategory:category.value
-                    }})"/>
+                    }})
+                    }"/>
             </mdb-col>
         </mdb-row>
             <mdb-row>
@@ -21,6 +24,7 @@
             @on-sort-change="onSortChange"
             @on-column-filter="onColumnFilter"
             @on-per-page-change="onPerPageChange"
+            @on-row-click="openDetails"
             :totalRows="page.totalElements"
             :isLoading.sync="isLoading"
             :pagination-options="paginationOptions"
@@ -57,7 +61,7 @@
         data() {
             return {
                 apiUrl:boardGamesUrl+"/"+this.bgId+"/elements",
-                selectedCategory: ElementCategories[0],
+                selectedCategory: ElementCategories[0].value,
                 columns: [
                     {
                         label: this.$t("Id"),
@@ -70,7 +74,12 @@
                         field: 'name',
                         type: 'string'
                     }
-                ]
+                ],
+                serverParams: {
+                    columnFilters: {
+                        elementCategory:ElementCategories[0].value
+                    }
+                }
             }
         },
         methods: {
@@ -89,7 +98,16 @@
                 this.$api.get(this.apiUrl, {
                     params: params
                 }).then(response => (this.page = response.data))
-            }
+            },
+            openDetails(params) {
+                this.$router.push({
+                    name: 'Element-Details',
+                    params: {
+                        boardGameId: this.bgId,
+                        elementId: params.row.id
+                    }
+                });
+            },
         }
 
     }

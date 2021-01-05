@@ -1,7 +1,8 @@
 export var formMixin = {
     data: function () {
         return {
-            editMode: false
+            editMode: false,
+            formValid: true,
         }
     },
     methods: {
@@ -9,6 +10,7 @@ export var formMixin = {
             this.editMode = true;
         },
         cancelEdit() {
+            this.formValid = true;
             this.editMode = false;
         }
     },

@@ -82,10 +82,20 @@
                         type: 'string',
                         filterOptions: {
                             enabled: true, // enable filter for this column
-                            placeholder: 'Filter This Thing', // placeholder for filter input
+                            placeholder: 'Filter Title', // placeholder for filter input
                             trigger: 'keyup', //only trigger on enter not on keyup
                         },
 
+                    },
+                    {
+                      label: "Year",
+                      field: 'year',
+                      type: 'string',
+                        filterOptions: {
+                            enabled: true, // enable filter for this column
+                            placeholder: 'Filter This Thing', // placeholder for filter input
+                            trigger: 'keyup', //only trigger on enter not on keyup
+                        },
                     },
                     {
                         label: 'Tags',

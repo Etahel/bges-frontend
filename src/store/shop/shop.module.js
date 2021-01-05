@@ -29,7 +29,8 @@ const shopModule = {
 
     },
     getters: {
-        itemsCount: state => state.items.length
+        itemsCount: state => state.items.length,
+        orderItems: state => state.items
     }
 };
 

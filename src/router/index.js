@@ -9,6 +9,8 @@ import store from "../store/store";
 import BoardGames from "../views/BoardGames";
 import CreateBoardGame from "../views/CreateBoardGame";
 import BoardGameDetails from "../views/BoardGameDetails";
+import ElementDetails from "../views/ElementDetails";
+import CreateElement from "../views/CreateElement";
 Vue.use(Router);
 
 const router = new Router({
@@ -68,7 +70,17 @@ const router = new Router({
       path: '/boardgames/:id',
       name: 'BoardGame-Details',
       component: BoardGameDetails
-    }
+    },
+    {
+      path: '/boardgames/:boardGameId/elements/create',
+      name: 'Element-Create',
+      component: CreateElement
+    },
+    {
+      path: '/boardgames/:boardGameId/elements/:elementId',
+      name: 'Element-Details',
+      component: ElementDetails
+    },
   ]
 });
 

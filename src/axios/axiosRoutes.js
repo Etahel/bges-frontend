@@ -10,5 +10,6 @@ export const verificationEmailUrl = accountServiceUrl + "/user/resend-verify-ema
 export const emailChangeUrl = accountServiceUrl + "/user/change-email";
 export const meUrl = accountServiceUrl + "/user/me";
 export const boardGamesUrl = inventoryServiceUrl + "/boardgames";
-export const tagsUrl = boardGamesUrl + "/tags"
+export const tagsUrl = boardGamesUrl + "/tags";
+export const elementUrl = inventoryServiceUrl + "/elements"
 

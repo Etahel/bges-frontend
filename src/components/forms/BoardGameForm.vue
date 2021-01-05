@@ -1,8 +1,8 @@
 <template>
-    <mdb-container class="mt-5">
+    <mdb-container>
         <mdb-row class="justify-content-md-center">
             <mdb-col md="auto" col="12">
-                <mdb-card style="min-width: 30vw">
+                <mdb-card style="min-width:40vw">
                     <mdb-card-body>
                         <div class="text-left m-0">
                             <mdb-icon v-on:click.native="close()" icon="angle-double-left" style="cursor: pointer" size="lg"  />
@@ -10,8 +10,15 @@
                         <form>
                             <p class="h4 text-center">BG</p>
                             <div class="grey-text">
-                                <mdb-input v-bind:disabled=formReadOnly class="mb-0" containerClass="text-left" label="Game Title" icon="user" type="text"
+                                <mdb-input v-bind:readOnly=formReadOnly class="mb-0" containerClass="text-left" label="Game Title" icon="user" type="text"
                                            v-model="boardGame.title"/>
+                                <div class="validate-error" v-if="!$v.boardGame.title.required && !this.formValid">Can't be empty</div>
+                                <div class="validate-error" v-if="!$v.boardGame.title.maxLength && !this.formValid">Must be shorter than 50 character</div>
+                                <mdb-input v-bind:readOnly=formReadOnly class="mb-0" containerClass="text-left" v-bind:label="this.$t('boardgame.year')" icon="user" type="number"
+                                           v-model="boardGame.year"/>
+                                <div class="validate-error" v-if="!$v.boardGame.year.integer && !this.formValid">Not an integer</div>
+                                <div class="validate-error" v-if="!$v.boardGame.year.between && !this.formValid">Must be a correct year</div>
+                                <mdb-input v-bind:readOnly=formReadOnly type="textarea" v-model="boardGame.description"  label="Icon Prefix" icon="pencil" />
                                 <p class="h5 text-left">Tags:</p>
                                 <div v-if="formReadOnly">
                                     <div style="display:inline" v-for="tag in boardGame.tags" :key="tag">
@@ -40,17 +47,6 @@
                                 <div class="mt-2 text-right" v-else-if="isCreateMode && isEmployee()">
                                     <mdbBtn v-on:click="save" size="sm">Save</mdbBtn>
                                 </div>
-<!--                                <div v-if="!this.formValid">-->
-<!--                                    <div class="validate-error" v-if="!$v.username.required">Can't be empty</div>-->
-<!--                                </div>-->
-<!--                                <mdb-input class="mb-0" containerClass="text-left" label="Your password" icon="lock" type="password"-->
-<!--                                           v-model="password"/>-->
-<!--                                <div v-if="!this.formValid">-->
-<!--                                    <div class="validate-error" v-if="!$v.password.required">Can't be empty</div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="text-left">-->
-<!--                                <mdb-btn v-on:click="login">Login</mdb-btn>-->
                             </div>
                         </form>
 
@@ -74,6 +70,7 @@
     import {tagsUrl, boardGamesUrl} from "../../axios/axiosRoutes";
     import ElementsTable from "../tables/ElementsTable";
     import ButtonWithConfrm from "../buttons/ButtonWithConfrm";
+    import {required, maxLength, between, integer} from 'vuelidate/lib/validators'
 
     export default {
         name: "BoardGameForm",
@@ -96,6 +93,7 @@
                 formValid: true,
                 boardGame: {
                     title:'',
+                    description:'',
                     year:'',
                     tags:[]
                 },
@@ -117,6 +115,9 @@
                 this.editMode = true;
             },
             save(){
+                if (this.$v.$invalid) {
+                    this.formValid = false
+                } else {
                 this.$api.post(boardGamesUrl,this.boardGame).then((response) => {
                     this.$router.push({
                         name: 'BoardGame-Details',
@@ -125,9 +126,14 @@
                         }
                     })
                 })
+                }
             },
             update() {
-                this.$api.patch(boardGamesUrl + "/" + this.$route.params.id,this.boardGame).then(this.fetchData).then(this.cancelEdit);
+                if (this.$v.$invalid) {
+                    this.formValid = false
+                } else {
+                    this.$api.put(boardGamesUrl + "/" + this.$route.params.id, this.boardGame).then(this.fetchData).then(this.cancelEdit);
+                }
             },
             close() {
                 this.$router.push({
@@ -144,6 +150,18 @@
             }
             if(this.isCreateMode) {
                this.fetchTags();
+            }
+        },
+        validations: {
+            boardGame: {
+                title: {
+                    required,
+                    maxLength: maxLength(50)
+                },
+                year: {
+                    integer,
+                    between: between(1900,2050)
+                }
             }
         }
     }

@@ -16,12 +16,12 @@
                                     <div class="grey-text mb-5">
                                         <p class="h4 text-left">Your username</p>
                                         <mdb-input class="mb-0" containerClass="text-left" icon="user" type="text"
-                                                   disabled readonly v-model="username"/>
+                                                   readOnly v-model="username"/>
                                     </div>
                                     <div class="grey-text mb-5">
                                         <p class="h4 text-left">Current email</p>
                                         <mdb-input class="mb-0" containerClass="text-left" icon="envelope" type="text"
-                                                  v-bind:disabled=!emailChange v-model="email"/>
+                                                  v-bind:readOnly=!emailChange v-model="email"/>
                                         <div v-if="!this.formValid">
                                             <div class="validate-error" v-if="!$v.email.required">Can't be empty</div>
                                             <div class="validate-error" v-if="!$v.email.email">Incorrect email format</div>
