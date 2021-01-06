@@ -3,7 +3,7 @@
         <mdb-row>
             <mdb-col style="" class="p-0">
                 <div v-if="isEmployee()">
-                    <mdbBtn size="sm" >Add Element</mdbBtn>
+                    <mdbBtn v-on:click="openCreateElement" size="sm" >Add Element</mdbBtn>
                 </div>
             </mdb-col>
             <mdb-col class="p-0">
@@ -108,6 +108,14 @@
                     }
                 });
             },
+            openCreateElement() {
+                this.$router.push({
+                    name: 'Element-Create',
+                    params: {
+                        boardGameId: this.bgId,
+                    }
+                });
+            }
         }
 
     }

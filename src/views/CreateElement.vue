@@ -1,10 +1,11 @@
 <template>
-    <div></div>
+    <ElementForm></ElementForm>
 </template>
-
 <script>
+    import ElementForm from "../components/forms/ElementForm";
     export default {
-        name: "CreateElement"
+        name: "CreateElement",
+        components: {ElementForm}
     }
 </script>
 

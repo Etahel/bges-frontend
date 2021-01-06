@@ -11,6 +11,7 @@ import CreateBoardGame from "../views/CreateBoardGame";
 import BoardGameDetails from "../views/BoardGameDetails";
 import ElementDetails from "../views/ElementDetails";
 import CreateElement from "../views/CreateElement";
+import Cart from "../views/Cart";
 Vue.use(Router);
 
 const router = new Router({
@@ -81,6 +82,11 @@ const router = new Router({
       name: 'Element-Details',
       component: ElementDetails
     },
+    {
+      path: '/cart',
+      name: 'Cart',
+      component: Cart
+    }
   ]
 });
 

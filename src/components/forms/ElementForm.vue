@@ -10,21 +10,23 @@
                         <form>
                             <p class="h4 text-center">Element</p>
                             <div class="grey-text">
-                                <mdb-input v-bind:readOnly=formReadOnly class="mb-0" containerClass="text-left" label="Game Title" icon="user" type="text"
+                                <mdb-input v-bind:readOnly=formReadOnly class="mb-0" containerClass="text-left" label="Element Name" icon="user" type="text"
                                            v-model="element.name"/>
-                                <mdb-input v-bind:readOnly=formReadOnly class="mb-0" containerClass="text-left" v-bind:label="this.$t('boardgame.year')" icon="user" type="number"
+                                <mdb-input v-bind:readOnly=formReadOnly class="mb-0" containerClass="text-left" label="Element Price" icon="user" type="text"
                                            v-model="element.price"/>
-                                <mdb-input v-bind:readOnly=formReadOnly type="textarea" v-model="element.description"  label="Icon Prefix" icon="pencil" />
+                                <mdb-input v-bind:readOnly=formReadOnly type="textarea" v-model="element.description"  label="Description" icon="pencil" />
                                 <mdb-input v-if="formReadOnly" v-bind:readOnly=true  type="text" :value="getCategoryName(element.elementCategory)"  label="Icon Prefix" icon="pencil" />
                                 <CategorySelect v-else v-bind:categoryCode="element.elementCategory" v-bind:input="(category) => {
                                 this.element.elementCategory = category.value;
                                 }"/>
-                                    <AddToCart v-bind:element="this.element" class="mt-3 float-right" v-if="isClient() && !isEditMode"/>
+                                <AddToCart v-bind:element="this.element" class="mt-3 float-right" v-if="isClient() && !isEditMode && isDetailsMode"/>
+
                                 <div class="mt-5 text-right" v-if="isDetailsMode && !isEditMode && isEmployee">
                                     <mdbBtn @click.native="stockModal = true" size="sm">Manage Stock</mdbBtn>
                                     <stock-modal v-bind:stock-modal="stockModal" v-bind:elementStock="this.element.stock" @close="() => {this.stockModal = false}" v-on:confirm="onStockConfirm"></stock-modal>
                                     <mdbBtn v-on:click="edit" size="sm">Edit</mdbBtn>
-                            </div>
+                                </div>
+
                                 <div class="mt-3" v-else-if="isDetailsMode && isEmployee() && isEditMode">
                                     <ButtonWithConfrm v-bind:on-confirm="this.delete" class="mt-3 float-left" color="danger" size="sm">Delete</ButtonWithConfrm>
                                     <mdb-btn-group class="mt-3 float-right" size="sm">
@@ -32,6 +34,7 @@
                                         <mdb-btn v-on:click="update" >Save</mdb-btn>
                                     </mdb-btn-group>
                                 </div>
+
                                 <div class="mt-2 text-right" v-else-if="isCreateMode && isEmployee()">
                                     <mdbBtn v-on:click="save" size="sm">Save</mdbBtn>
                                 </div>
@@ -58,7 +61,7 @@
     } from 'mdbvue';
     import {formMixin} from "../mixin/FormMixin"
     import ButtonWithConfrm from "../buttons/ButtonWithConfrm";
-    import {elementUrl} from "../../axios/axiosRoutes";
+    import {boardGamesUrl, elementUrl} from "../../axios/axiosRoutes";
     import {maxLength, required} from "vuelidate/lib/validators";
     import CategorySelect from "../select/CategorySelect";
     import ElementCategories from "../../definitions/ElementCategories.json";
@@ -95,7 +98,7 @@
                     name:'',
                     description:'',
                     price:0,
-                    elementCategory:'',
+                    elementCategory:'O',
                     stock: {
                         stockSize: 0,
                         available: false
@@ -116,11 +119,12 @@
                 if (this.$v.$invalid) {
                     this.formValid = false
                 } else {
-                    this.$api.post(elementUrl + "/" +  this.$route.params.elementId,this.element).then((response) => {
+                    this.$api.post(boardGamesUrl + "/" +this.$route.params.boardGameId + "/elements",this.element).then((response) => {
                         this.$router.push({
                             name: 'Element-Details',
                             params: {
-                                id: response.data.id
+                                boardGameId: this.$route.params.boardGameId,
+                                elementId: response.data.id
                             }
                         })
                     })

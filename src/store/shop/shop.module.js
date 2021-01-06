@@ -4,15 +4,16 @@ const shopModule = {
     },
     mutations: {
         ADD_ITEM(state,item) {
-            var added = false;
-            for (const existingItem of state.items) {
-                 if(existingItem.elementId === item.elementId) {
-                     existingItem.elementsCount+=item.elementsCount;
-                     added = true
-                 }
-            }
-            if(added === false) {
-                state.items.push(item);
+            var existingItem = state.items.find(obj => {
+                return obj.orderItem.elementId === item.orderItem.elementId
+            });
+            if(existingItem === undefined) {
+                state.items.push(item)
+            }else {
+                var totalNumber =  existingItem.orderItem.elementsCount + item.orderItem.elementsCount;
+                existingItem.element = Object.assign({},item.element);
+                existingItem.orderItem = Object.assign({},item.orderItem)
+                existingItem.orderItem.elementsCount = totalNumber;
             }
         },
         REMOVE_ITEM(state,item) {
@@ -26,7 +27,10 @@ const shopModule = {
         }
     },
     actions: {
-
+        addToCard({commit}, data) {
+            commit('ADD_ITEM', data);
+            commit('SET_INFO', {message:'Item added to cart'});
+        }
     },
     getters: {
         itemsCount: state => state.items.length,
