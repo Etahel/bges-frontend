@@ -13,8 +13,9 @@
         <label>
             <input v-model.number="orderItem.elementsCount" style="width: 40px" type="number">
         </label>
-        <mdbBtn v-bind:disabled="this.$v.$invalid" v-on:click="addToCard"  size="sm">Add to cart</mdbBtn>
+        <mdbBtn v-bind:disabled="this.$v.$invalid || isCartFull" v-on:click="addToCart"  size="sm">Add to cart</mdbBtn>
         <div class="validate-error" v-if="!$v.orderItem.elementsCount.maxValue">Larger than stock</div>
+            <div class="validate-error" v-if="this.isCartFull">Cart is full</div>
         </div>
     </div>
 </template>
@@ -35,36 +36,37 @@
             return {
                 orderItem : {
                     elementId: this.element.id,
-                    elementVersion: this.element.version,
                     elementsCount: 1
                 }
             }
         },
         methods: {
-            addToCard() {
+            addToCart() {
                 if(this.orderItem.elementsCount !== "" && !this.$v.$invalid)
-                this.$store.dispatch('addToCard', {
-                    orderItem: this.orderItem,
-                    element: this.element
-                })
+                this.$store.dispatch('addToCart', this.orderItem)
             }
         },
         computed: {
             maxOrderCount() {
-                var existingItem = this.$store.getters.orderItems.find(obj => {
-                    return obj.orderItem.elementId === this.element.id
+                var existingItem = this.$store.getters.cartItems.find(obj => {
+                    return obj.elementId === this.orderItem.elementId
                 });
                 if(existingItem === undefined) {
                     return this.element.stock.stockSize;
                 } else {
-                    return this.element.stock.stockSize - existingItem.orderItem.elementsCount;
+                    return this.element.stock.stockSize - existingItem.elementsCount;
                 }
+            },
+            isCartFull() {
+                var existingItem = this.$store.getters.cartItems.find(obj => {
+                    return obj.elementId === this.orderItem.elementId
+                });
+                return this.$store.getters.cartItems.length >= process.env.MAX_CART_SIZE && existingItem === undefined;
             }
         },
         watch: {
             element: function (value) {
                 this.orderItem.elementId = value.id;
-                this.orderItem.elementVersion = value.version;
             }
         },
         validations() {

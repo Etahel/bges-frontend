@@ -3,6 +3,7 @@
     <navbar-page class="mb-2"/>
       <div>
         <error-alert style="margin-left: 15vw; margin-right: 15vw" />
+        <warning-alert style="margin-left: 15vw; margin-right: 15vw" />
         <info-alert style="margin-left: 15vw; margin-right: 15vw" />
       </div>
         <router-view class="mt-2" />
@@ -14,9 +15,10 @@
 import NavbarPage from "@/components/Navbar";
 import InfoAlert from "./components/alert/InfoAlert";
 import ErrorAlert from "./components/alert/ErrorAlert";
+import WarningAlert from "./components/alert/WarningAlert";
 export default {
   name: 'App',
-  components: {ErrorAlert, NavbarPage, InfoAlert}
+  components: {WarningAlert, ErrorAlert, NavbarPage, InfoAlert}
 }
 </script>
 

@@ -1,40 +1,102 @@
 const shopModule = {
     state: {
-        items: []
+        cartItems: [],
+        order: {
+            firstName: '',
+            lastName: '',
+            address: {
+                city: '',
+                street: '',
+                houseNo: '',
+                flatNo: '',
+                postalCode: ''
+            },
+            orderItems: []
+        },
+        orderItemsInfo: []
     },
     mutations: {
-        ADD_ITEM(state,item) {
-            var existingItem = state.items.find(obj => {
-                return obj.orderItem.elementId === item.orderItem.elementId
+        ADD_CART_ITEM(state,item) {
+            var existingItem = state.cartItems.find(obj => {
+                return obj.elementId === item.elementId
             });
             if(existingItem === undefined) {
-                state.items.push(item)
+                state.cartItems.push(item)
             }else {
-                var totalNumber =  existingItem.orderItem.elementsCount + item.orderItem.elementsCount;
-                existingItem.element = Object.assign({},item.element);
-                existingItem.orderItem = Object.assign({},item.orderItem)
-                existingItem.orderItem.elementsCount = totalNumber;
+                var totalNumber =  existingItem.elementsCount + item.elementsCount;
+                existingItem.elementsCount = totalNumber;
             }
         },
-        REMOVE_ITEM(state,item) {
-            var index = state.items.indexOf(item);
+        REMOVE_CART_ITEM(state,item) {
+            var index = state.cartItems.findIndex((stateItem) => {
+                return stateItem.elementId === item.elementId
+            });
             if (index > -1) {
-                state.items.splice(index, 1);
+                state.cartItems.splice(index, 1);
             }
         },
-        CLEAR_ITEMS(state) {
-            state.items = [];
+        UPDATE_CART_ITEM_COUNT(state,item) {
+            var index = state.cartItems.findIndex((stateItem) => {
+                return stateItem.elementId === item.elementId
+            });
+            if (index > -1) {
+                state.cartItems[index].elementsCount = item.elementsCount;
+            }
+        },
+        CLEAR_CART_ITEMS(state) {
+            state.cartItems = [];
+        },
+        SET_ORDER(state,order) {
+            state.order = order;
+        },
+        SET_ORDER_ITEMS(state,orderItems) {
+            state.order.orderItems = orderItems;
+        },
+        SET_ORDER_DATA(state,{clientData,addressData}){
+            state.order.firstName = clientData.firstName;
+            state.order.lastName = clientData.lastName;
+            state.order.address = Object.assign({}, addressData);
+        },
+        SET_ORDER_ITEMS_INFO(state, orderItemsInfo) {
+            state.orderItemsInfo = orderItemsInfo;
+        },
+        CLEAR_ORDER_AND_CART(state) {
+            state.cartItems = [];
+            state.orderItemsInfo = [];
+            state.order = {
+                firstName: '',
+                lastName: '',
+                address: {
+                    city: '',
+                    street: '',
+                    houseNo: '',
+                    flatNo: '',
+                    postalCode: ''
+                },
+                orderItems: []
+            }
         }
+
     },
     actions: {
-        addToCard({commit}, data) {
-            commit('ADD_ITEM', data);
+        addToCart({commit}, data) {
+            commit('ADD_CART_ITEM', data);
             commit('SET_INFO', {message:'Item added to cart'});
         }
     },
     getters: {
-        itemsCount: state => state.items.length,
-        orderItems: state => state.items
+        cartItemsCount: state => state.cartItems.length,
+        cartItems: state => state.cartItems,
+        order: state => state.order,
+        orderItemsInfo: state => state.orderItemsInfo,
+        orderClientData: state => { return {
+            firstName: state.order.firstName,
+            lastName: state.order.lastName
+        }},
+        orderAddressData: state => state.order.address
+
+
+
     }
 };
 

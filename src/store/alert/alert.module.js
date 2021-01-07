@@ -1,7 +1,7 @@
 const alertModule = {
     state: {
         error: '',
-        warning: '',
+        warnings: [],
         info: ''
     },
     mutations: {
@@ -14,14 +14,14 @@ const alertModule = {
         CLEAR_ERRORS(state) {
             state.errors = '';
         },
-        REMOVE_WARNING(state) {
-            state.warning = '';
+        REMOVE_WARNING(state, index) {
+            state.warnings.splice(index, 1);
         },
-        SET_WARNING(state, warning) {
-            state.warning = warning;
+        ADD_WARNING(state, warning) {
+            state.warnings.push(warning);
         },
         CLEAR_WARNINGS(state) {
-            state.warning = '';
+            state.warnings = [];
         },
         REMOVE_INFO(state) {
             state.info = '';
@@ -34,7 +34,7 @@ const alertModule = {
         },
         CLEAR_ALERTS(state){
             state.error = '';
-            state.warning = '';
+            state.warnings = [];
             state.info =  '';
         }
 
@@ -44,7 +44,7 @@ const alertModule = {
     },
     getters: {
         error: state => state.error,
-        warning: state => state.warning,
+        warnings: state => state.warnings,
         info: state => state.info
     }
 }

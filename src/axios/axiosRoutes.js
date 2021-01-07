@@ -13,4 +13,5 @@ export const boardGamesUrl = inventoryServiceUrl + "/boardgames";
 export const tagsUrl = boardGamesUrl + "/tags";
 export const elementUrl = inventoryServiceUrl + "/elements";
 export const clientUrl = shopServiceUrl + "/clients/me";
+export const orderUrl = shopServiceUrl + "/orders/me";
 

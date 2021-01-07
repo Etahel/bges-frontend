@@ -14,7 +14,7 @@
       </mdb-form-inline>
       <mdb-form-inline v-else>
         <mdb-navbar-nav class="pr-0" >
-        <mdb-btn v-on:click="cart" color="primary" class="mt-0 mr-3"><mdb-icon icon="shopping-cart" class="mr-2"/>{{this.itemsCount}} items</mdb-btn>
+        <mdb-btn v-on:click="cart" color="primary" class="mt-0 mr-3"><mdb-icon icon="shopping-cart" class="mr-2"/>{{this.cartItemsCount}} items</mdb-btn>
         <mdb-dropdown end tag="li" class="pr-0 nav-item">
           <mdb-dropdown-toggle size="lg" tag="a" navLink color="indigo" slot="toggle" waves-fixed>Hello, {{this.username}}</mdb-dropdown-toggle>
           <mdb-dropdown-menu class="dropdown-menu-right">
@@ -52,8 +52,8 @@ export default {
     username () {
       return this.$store.getters.user.preferred_username;
     },
-    itemsCount() {
-      return this.$store.getters.itemsCount;
+    cartItemsCount() {
+      return this.$store.getters.cartItemsCount;
     }
   },
   methods: {

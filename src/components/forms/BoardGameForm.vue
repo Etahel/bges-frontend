@@ -4,9 +4,13 @@
             <mdb-col md="auto" col="12">
                 <mdb-card style="min-width:40vw">
                     <mdb-card-body>
-                        <div class="text-left m-0">
-                            <mdb-icon v-on:click.native="close()" icon="angle-double-left" style="cursor: pointer" size="lg"  />
+                        <div class="float-left m-0">
+                            <mdb-icon v-on:click.native="back" icon="angle-double-left" style="cursor: pointer"
+                                      size="lg"/>
                         </div>
+                        <button v-on:click="close" type="button" class="close float-right" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
                         <form>
                             <p class="h4 text-center">BG</p>
                             <div class="grey-text">
@@ -135,10 +139,13 @@
                     this.$api.put(boardGamesUrl + "/" + this.$route.params.id, this.boardGame).then(this.fetchData).then(this.cancelEdit);
                 }
             },
-            close() {
+            back() {
                 this.$router.push({
                     name: 'Boardgames',
                 })
+            },
+            close() {
+                this.$router.go(-1);
             },
             delete() {
                 this.$api.delete(boardGamesUrl + "/" + this.$route.params.id).then(this.close);

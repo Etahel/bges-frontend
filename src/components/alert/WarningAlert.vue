@@ -1,7 +1,7 @@
 <template>
-    <div v-if="warning"  class="alert-box mt-2" >
-        <mdb-alert class="mb-0" color="warning" @closeAlert="removeWarning()" dismiss>
-            {{ $t(error.message)}}
+    <div v-if="warnings.length" class="alert-box mt-2" >
+        <mdb-alert v-for="(warning,index) in warnings" :key="index" class="text-center mb-0 mt-1" color="warning"  @closeAlert="removeWarning(index)" dismiss>
+            {{ $t(warning.message)}}
         </mdb-alert>
     </div>
 </template>
@@ -14,13 +14,13 @@
             mdbAlert
         },
         methods: {
-            removeWarning(){
-                this.$store.commit('REMOVE_WARNING')
+            removeWarning(index){
+                this.$store.commit('REMOVE_WARNING', index)
             }
         },
         computed: {
-            warning () {
-                return this.$store.getters.warning
+            warnings () {
+                return this.$store.getters.warnings
             }
         }
     }

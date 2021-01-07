@@ -9,9 +9,10 @@ import store from "../store/store";
 import BoardGames from "../views/BoardGames";
 import CreateBoardGame from "../views/CreateBoardGame";
 import BoardGameDetails from "../views/BoardGameDetails";
-import ElementDetails from "../views/ElementDetails";
-import CreateElement from "../views/CreateElement";
 import Cart from "../views/Cart";
+import Order from "../views/Order";
+import OrderSummary from "../views/OrderSummary";
+import ElementForm from "../components/forms/ElementForm";
 Vue.use(Router);
 
 const router = new Router({
@@ -75,17 +76,30 @@ const router = new Router({
     {
       path: '/boardgames/:boardGameId/elements/create',
       name: 'Element-Create',
-      component: CreateElement
+      component: ElementForm,
+      props: true
+
     },
     {
       path: '/boardgames/:boardGameId/elements/:elementId',
       name: 'Element-Details',
-      component: ElementDetails
+      component: ElementForm,
+      props: true
     },
     {
       path: '/cart',
       name: 'Cart',
       component: Cart
+    },
+    {
+      path: '/order',
+      name: 'Order',
+      component: Order
+    },
+    {
+      path: '/order/summary',
+      name:'OrderSummary',
+      component: OrderSummary
     }
   ]
 });

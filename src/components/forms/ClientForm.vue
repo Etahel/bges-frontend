@@ -3,28 +3,33 @@
         <mdb-row>
             <mdb-col>
                 <div class="ml-5 mt-5 mr-5 grey-text">
-                    <p class="h4 text-left">Client Data</p>
+                    <p class="h4 text-left">Client Data
+                        <mdb-badge v-if="!this.doesClientHaveFullName" color="danger">Incomplete</mdb-badge>
+                    </p>
+
                 </div>
             </mdb-col>
         </mdb-row>
         <mdb-row>
             <mdb-col>
                 <div class="grey-text ml-5 mr-5">
-                    <mdb-input v-bind:readOnly="!this.editMode" label="Last Name" icon="user" type="text" v-model="client.lastName"/>
+                    <mdb-input v-bind:readOnly="!this.editMode" label="First Name" icon="user" type="text" v-model="client.firstName"/>
                 </div>
             </mdb-col>
         </mdb-row>
         <mdb-row>
             <mdb-col>
                 <div class="grey-text ml-5 mr-5">
-                    <mdb-input v-bind:readOnly="!this.editMode" label="First Name" icon="user" group type="text" v-model="client.firstName"/>
+                    <mdb-input v-bind:readOnly="!this.editMode" label="Last Name" icon="user" group type="text" v-model="client.lastName"/>
                 </div>
             </mdb-col>
         </mdb-row>
         <mdb-row>
             <mdb-col>
                 <div class="ml-5 mr-5 grey-text">
-                    <p class="h4 text-left">Address Data</p>
+                    <p class="h4 text-left">Address Data
+                        <mdb-badge v-if="!this.doesClientHaveAddress" color="danger">Incomplete</mdb-badge>
+                    </p>
                 </div>
             </mdb-col>
         </mdb-row>
@@ -67,11 +72,13 @@
 </template>
 
 <script>
-    import {mdbInput, mdbContainer, mdbCol, mdbRow, mdbBtnGroup, mdbBtn} from "mdbvue";
+    import {mdbInput, mdbContainer, mdbCol, mdbRow, mdbBtnGroup, mdbBtn, mdbBadge} from "mdbvue";
     import {clientUrl} from "../../axios/axiosRoutes";
+    import {clientMixin} from "../mixin/ClientMixin";
 
     export default {
         name: "ClientForm",
+        mixins: [clientMixin],
         components: {
             mdbInput,
             mdbContainer,
@@ -79,21 +86,10 @@
             mdbRow,
             mdbBtnGroup,
             mdbBtn,
+            mdbBadge
         },
         data: function () {
             return {
-                client: {
-                    id: -1,
-                    firstName: '',
-                    lastName: '',
-                    address: {
-                        city: '',
-                        street: '',
-                        houseNo: '',
-                        flatNo: '',
-                        postalCode: ''
-                    }
-                },
                 editMode: false
             }
         },

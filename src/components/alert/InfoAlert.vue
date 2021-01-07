@@ -1,5 +1,5 @@
 <template>
-    <div v-if="info" class="d-flex flex-column column align-items-center justify-content-center alert-box mt-2" >
+    <div v-if="info" class="alert-box mt-2" >
         <mdb-alert style="width: 70vw" class="text-center mb-0 mt-1" color="success" @closeAlert="clearInfo()" dismiss>
             {{info.message}}
         </mdb-alert >
