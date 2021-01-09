@@ -8,6 +8,7 @@
         <mdb-nav-item to="/home" active>Home</mdb-nav-item>
         <mdb-nav-item to="/boardgames">Board Games</mdb-nav-item>
         <mdb-nav-item v-if="isClient" to="/my-orders">My Orders</mdb-nav-item>
+        <mdb-nav-item v-if="isEmployee" to="/orders">Orders</mdb-nav-item>
       </mdb-navbar-nav>
       <mdb-form-inline right v-if=!token>
         <mdb-btn v-on:click="login">Log in</mdb-btn>

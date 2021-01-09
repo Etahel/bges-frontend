@@ -75,7 +75,7 @@ const shopModule = {
                     postalCode: ''
                 },
                 orderItems: []
-            }
+            };
             state.orderValue = 0;
         },
         SET_ORDER_VALUE(state, value) {

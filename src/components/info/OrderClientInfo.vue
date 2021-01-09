@@ -2,7 +2,7 @@
     <mdb-container>
         <mdb-row>
             <mdb-col>
-                <div v-if="isEmployee" class="grey-text ml-5 mr-5">
+                <div v-if="isEmployee && isDetails" class="grey-text ml-5 mr-5">
                     <mdb-input readOnly label="Client username" icon="user-cog" type="text" v-model="order.client.username"/>
                 </div>
             </mdb-col>
@@ -62,6 +62,11 @@
         },
         props: {
             order:Object
+        },
+        computed: {
+            isDetails() {
+                return this.$route.name.includes("Details")
+            },
         }
     }
 </script>

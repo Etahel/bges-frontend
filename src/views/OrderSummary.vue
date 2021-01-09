@@ -61,9 +61,25 @@
         },
         methods: {
             confirm() {
-                this.$api.post(myOrdersUrl, this.order).then(() => {
+                this.$api.post(myOrdersUrl, this.order).then(response => {
+                    this.$router.push({
+                        name: 'MyOrder-Details',
+                        params: {
+                            orderId: response.data.id
+                        }
+                    });
+                }).then(() => {
                     this.$store.commit('CLEAR_ORDER_AND_CART');
-                });
+                }).catch(error => {
+                    if(['element_not_found', 'element_changed', 'stock_unavailable', 'stock_insufficient'].findIndex(errorMessage => {
+                       return  error.message.includes(errorMessage)
+                    }) >= 0){
+                        this.$router.push({
+                            name: 'Cart',
+                            })
+                    }
+                    this.$store.commit('SET_ERROR', error)
+                })
             }
         },
         computed: {

@@ -3,7 +3,11 @@
         <mdb-row class="justify-content-md-center">
             <mdb-col md="auto" col="12">
                 <mdb-card style="min-width: 40vw; min-height: 60vh">
-                    <mdb-card-title><p class="text-center mt-3 h4">Your order</p></mdb-card-title>
+                    <mdb-card-title>
+                        <button v-on:click="close" type="button" class="m-3 close float-right" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <p class="text-center mt-3 h4">Your order</p></mdb-card-title>
                     <mdb-card-body>
                         <mdb-tabs color="indigo" justify
                                   default
@@ -41,12 +45,15 @@
         mdbRow,
         mdbTabs,
     } from "mdbvue";
-    import {elementUrl, myOrdersUrl} from "../axios/axiosRoutes";
+    import {elementUrl} from "../axios/axiosRoutes";
     import OrderItemsInfo from "../components/info/OrderItemsInfo";
     import ButtonWithConfrm from "../components/buttons/ButtonWithConfrm";
 
     export default {
         name: "OrderDetails",
+        props: {
+            orderUrl: String
+        },
         components: {
             ButtonWithConfrm,
             OrderItemsInfo,
@@ -79,7 +86,7 @@
         },
         methods: {
             fetchData() {
-                this.$api.get(myOrdersUrl + "/" + this.$route.params.orderId).then(response => {
+                this.$api.get(this.orderUrl + "/" + this.$route.params.orderId).then(response => {
                     this.order = response.data
                 }).then(() => {
                     const params = {
@@ -106,7 +113,14 @@
                     }
              },
             cancelOrder() {
-                this.$api.put(myOrdersUrl + "/" + this.$route.params.orderId + "/cancellation").then(this.fetchData);
+                this.$api.put(this.orderUrl + "/" + this.$route.params.orderId + "/cancellation").then(this.fetchData);
+            },
+            close() {
+                if(this.isClientDetails) {
+                    this.$router.push({name: 'MyOrders'})
+                } else {
+                    this.$router.push({name: 'Orders'})
+                }
             }
         },
         created() {
@@ -115,6 +129,11 @@
         watch: {
             $route: function () {
                     this.fetchData();
+            }
+        },
+        computed: {
+            isClientDetails() {
+                return this.$route.name.includes("MyOrder")
             }
         }
     }

@@ -36,7 +36,8 @@
             VueGoodTable,
         },
         props: {
-            initApiUrl: String
+            initApiUrl: String,
+            detailRouteName:String
         },
         mixins: [tableMixin, orderMixin],
         data: function () {
@@ -98,7 +99,7 @@
         methods: {
             openDetails(params) {
                 this.$router.push({
-                    name: 'Order-Details',
+                    name: this.detailRouteName,
                     params: {
                         orderId: params.row.id
                     }

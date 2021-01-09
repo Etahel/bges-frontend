@@ -14,6 +14,9 @@ import ElementForm from "../components/forms/ElementForm";
 import BoardGameForm from "../components/forms/BoardGameForm";
 import MyOrders from "../views/MyOrders";
 import OrderDetails from "../views/OrderDetails";
+import {myOrdersUrl, ordersUrl} from "../axios/axiosRoutes"
+import AllOrders from "../views/AllOrders";
+
 Vue.use(Router);
 
 const router = new Router({
@@ -23,12 +26,6 @@ const router = new Router({
       path: '/',
       name: 'Home',
       component: Home,
-      meta: {
-        breadcrumb: {
-          label: 'Home',
-          parent: 'Login'
-        }
-      }
     },
     {
       path: '/home',
@@ -38,11 +35,6 @@ const router = new Router({
       path: '/login',
       name: 'Login',
       component: Login,
-      meta: {
-        breadcrumb: {
-          label: 'Login'
-        }
-      }
     },
     {
       path: '/login-help',
@@ -57,7 +49,10 @@ const router = new Router({
     {
       path: '/profile',
       name: 'Profile',
-      component: Profile
+      component: Profile,
+      beforeEnter: (to, from, next) => {
+        checkAuthenticated(next)
+      }
     },
     {
       path: '/boardgames',
@@ -67,17 +62,23 @@ const router = new Router({
     {
       path: '/boardgames/create',
       name: 'BoardGame-Create',
-      component: BoardGameForm
+      component: BoardGameForm,
+      beforeEnter: (to, from, next) => {
+        checkAuthenticated(next)
+      }
     },
     {
       path: '/boardgames/:id',
       name: 'BoardGame-Details',
-      component: BoardGameForm
+      component: BoardGameForm,
     },
     {
       path: '/boardgames/:boardGameId/elements/create',
       name: 'Element-Create',
       component: ElementForm,
+      beforeEnter: (to, from, next) => {
+        checkEmployee(next)
+      }
 
     },
     {
@@ -88,27 +89,64 @@ const router = new Router({
     {
       path: '/cart',
       name: 'Cart',
-      component: Cart
+      component: Cart,
+      beforeEnter: (to, from, next) => {
+        checkClient(next)
+      }
     },
     {
       path: '/order',
       name: 'Order',
-      component: Order
+      component: Order,
+      beforeEnter: (to, from, next) => {
+        checkClient(next)
+      }
     },
     {
       path: '/order/summary',
       name:'Order-Summary',
-      component: OrderSummary
+      component: OrderSummary,
+      beforeEnter: (to, from, next) => {
+        checkClient(next)
+      }
     },
     {
       path: '/my-orders',
       name: 'MyOrders',
       component: MyOrders,
+      beforeEnter: (to, from, next) => {
+        checkClient(next)
+      }
+    },
+    {
+      path: '/orders',
+      name: 'Orders',
+      component: AllOrders,
+      beforeEnter: (to, from, next) => {
+        checkEmployee(next)
+      }
+    },
+    {
+      path: '/my-orders/:orderId',
+      name: 'MyOrder-Details',
+      component: OrderDetails,
+      props: {
+        orderUrl: myOrdersUrl
+      },
+      beforeEnter: (to, from, next) => {
+        checkClient(next)
+      }
     },
     {
       path: '/orders/:orderId',
       name: 'Order-Details',
-      component: OrderDetails
+      component: OrderDetails,
+      props: {
+        orderUrl: ordersUrl
+      },
+      beforeEnter: (to, from, next) => {
+        checkEmployee(next)
+      }
     }
   ]
 });
@@ -117,5 +155,50 @@ router.beforeEach((to, from, next) => {
   store.commit('CLEAR_ALERTS');
   next()
 });
+
+function isAuthenticated() {
+  return store.getters.accessToken;
+}
+
+function isEmployee () {
+  return store.getters.roles.includes('employee')
+}
+
+function  isClient () {
+  return store.getters.roles.includes('user')
+}
+
+function checkAuthenticated(next) {
+  if (!isAuthenticated()) {
+    next({ name: 'Login' })
+  }
+  else {
+    next()
+  }
+}
+
+function checkClient(next) {
+  if (!isAuthenticated()) {
+    next({ name: 'Login' })
+  }
+  else if (!isClient()) {
+    store.dispatch('logout').then(() => store.commit('SET_ERROR', new Error('Logged_out')));
+  }
+  else {
+    next()
+  }
+}
+
+function checkEmployee(next) {
+  if (!isAuthenticated()) {
+    next({ name: 'Login' })
+  }
+  else if (!isEmployee()) {
+    store.dispatch('logout').then(() => store.commit('SET_ERROR', new Error('Logged_out')));
+  }
+  else {
+    next()
+  }
+}
 
 export default router;

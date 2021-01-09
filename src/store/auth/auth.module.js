@@ -65,10 +65,12 @@ const authModule = {
             })
         },
         logout({commit}) {
-            commit("CLEAR_AUTH_DATA")
-            return router.push({
-                name:'Login'
-            });
+                commit("CLEAR_AUTH_DATA");
+                commit("CLEAR_ORDER_AND_CART");
+                window.localStorage.clear();
+                return router.push({
+                    name:'Login'
+                })
         }
     },
     getters: {
@@ -80,10 +82,10 @@ const authModule = {
             if(state.user.realm_access && state.user.realm_access.roles) {
                 return state.user.realm_access.roles
             } else {
-                return ''
+                return []
             }
         }
     }
-}
+};
 
 export default authModule;

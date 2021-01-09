@@ -28,15 +28,9 @@ Vue.component('v-select', vSelect);
 Vue.mixin({
   computed: {
     isEmployee () {
-      if(this.$store.getters.roles === '') {
-        return false
-      }
       return this.$store.getters.roles.includes('employee')
     },
     isClient () {
-      if(this.$store.getters.roles === '') {
-        return false
-      }
       return this.$store.getters.roles.includes('user')
     }
   },
