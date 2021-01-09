@@ -13,7 +13,7 @@
             :pagination-options="paginationOptions"
             :rows="page.content"
             :columns="columns">
-        <div v-if="isEmployee()" slot="table-actions">
+        <div v-if="isEmployee" slot="table-actions">
             <mdbBtn size="sm" v-on:click="openCreate">Add Board Game</mdbBtn>
             <mdbBtn size="sm" v-on:click="openTagModal">Tag Menu</mdbBtn>
         </div>
@@ -79,7 +79,7 @@
                     {
                         label: 'Title',
                         field: 'title',
-                        type: 'string',
+                        type: 'text',
                         filterOptions: {
                             enabled: true, // enable filter for this column
                             placeholder: 'Filter Title', // placeholder for filter input
@@ -90,8 +90,10 @@
                     {
                       label: "Year",
                       field: 'year',
-                      type: 'string',
-                        filterOptions: {
+                      type: 'number',
+                      thClass: 'text-left',
+                      tdClass: 'text-left',
+                      filterOptions: {
                             enabled: true, // enable filter for this column
                             placeholder: 'Filter This Thing', // placeholder for filter input
                             trigger: 'keyup', //only trigger on enter not on keyup

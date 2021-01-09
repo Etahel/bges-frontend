@@ -32,7 +32,7 @@
                                 <div v-if="isDetailsMode && element.active">
 
                                     <AddToCart v-bind:element="this.element" class="mt-3 float-right"
-                                               v-if="isClient() && !isEditMode"/>
+                                               v-if="isClient && !isEditMode"/>
 
                                     <div class="mt-5 text-right" v-if="!isEditMode && isEmployee">
                                         <mdbBtn @click.native="stockModal = true" size="sm">Manage Stock</mdbBtn>
@@ -43,7 +43,7 @@
                                         <mdbBtn v-on:click="edit" size="sm">Edit</mdbBtn>
                                     </div>
 
-                                    <div class="mt-3" v-else-if="isEmployee() && isEditMode">
+                                    <div class="mt-3" v-else-if="isEmployee && isEditMode">
                                         <ButtonWithConfrm v-bind:on-confirm="this.delete" class="mt-3 float-left"
                                                           color="danger" size="sm">Delete
                                         </ButtonWithConfrm>
@@ -54,7 +54,7 @@
                                     </div>
                                 </div>
 
-                                    <div class="mt-2 text-right" v-else-if="isCreateMode && isEmployee()">
+                                    <div class="mt-2 text-right" v-else-if="isCreateMode && isEmployee">
                                         <mdbBtn v-on:click="save" size="sm">Save</mdbBtn>
                                     </div>
 
@@ -189,6 +189,13 @@
         created() {
             if (this.isDetailsMode) {
                 this.fetchData();
+            }
+        },
+        watch: {
+            $route: function () {
+                if(this.isDetailsMode) {
+                    this.fetchData();
+                }
             }
         },
         validations: {

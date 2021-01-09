@@ -5,9 +5,7 @@
                 <mdb-card style="min-width: 40vw; height: 80vh" >
                     <mdb-card-title><p class="m-3 h4">Your order</p></mdb-card-title>
                     <mdb-card-body>
-                       <mdb-list-group class="m-1 overflow-auto">
-                        <mdb-list-group-item tag="a" v-for="item in completeCartItems" :key="item.element.id">    {{ item.element.name }} : {{item.orderItem.elementsCount}}</mdb-list-group-item>
-                       </mdb-list-group>
+                        <OrderItemsInfo v-bind:order-value="orderValue" v-bind:complete-element-info="completeCartItems"/>
                     </mdb-card-body>
                     <mdb-card-footer>
                         <div class="float-right">
@@ -22,33 +20,35 @@
 </template>
 
 <script>
-    import {mdbBtn, mdbListGroup, mdbListGroupItem, mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardBody, mdbCardTitle, mdbCardFooter } from 'mdbvue';
+    import {mdbBtn, mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardBody, mdbCardTitle, mdbCardFooter } from 'mdbvue';
     import {elementUrl} from "../axios/axiosRoutes";
+    import OrderItemsInfo from "../components/info/OrderItemsInfo";
     export default {
         name: "Cart",
         components: {
-            mdbListGroup,
-            mdbListGroupItem,
+            OrderItemsInfo,
             mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardBody, mdbCardTitle, mdbCardFooter,
             mdbBtn
         },
         data: function() {
             return {
-                completeCartItems: []
+                completeCartItems: [],
+                orderValue: 0
             }
         },
         methods: {
             fetchData(){
                 const params = {
                     ids: this.cartItems.map((orderItem) => {return orderItem.elementId}).toString(),
+                    active:true
                 };
                 this.$api.get(elementUrl, {
                     params: params
-                }).then(response => {this.populatecompleteCartItems(response.data)}).then(this.checkStocks)
+                }).then(response => {this.populateCompleteCartItems(response.data)}).then(this.checkStocks).then(this.calculateOrderValue)
 
 
             },
-            populatecompleteCartItems(elementList) {
+            populateCompleteCartItems(elementList) {
                 this.completeCartItems = [];
                 var missingItems = [];
                 for (const cartItem of this.cartItems) {
@@ -114,13 +114,18 @@
                 var orderItems = this.completeCartItems.map((cartItem) => {
                         return cartItem.orderItem
                     });
-                var orderItemsInfo = this.completeCartItems.map((cartItem) => {
-                    return cartItem.element
-                });
 
                 this.$store.commit('SET_ORDER_ITEMS', orderItems);
-                this.$store.commit('SET_ORDER_ITEMS_INFO', orderItemsInfo);
+                this.$store.commit('SET_ORDER_ITEMS_INFO', this.completeCartItems);
+                this.$store.commit('SET_ORDER_VALUE', this.orderValue);
                 this.$router.push({name: 'Order'})
+            },
+            calculateOrderValue() {
+                var value = 0;
+                for (const item of this.completeCartItems) {
+                    value += item.element.price * item.orderItem.elementsCount
+                }
+                this.orderValue = value;
             }
         },
         computed: {
@@ -130,7 +135,12 @@
         },
         created() {
             this.fetchData();
-        }
+        },
+        watch: {
+            $route: function () {
+                this.fetchData();
+            }
+        },
 
     }
 </script>

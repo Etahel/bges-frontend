@@ -72,7 +72,7 @@
                     {
                         label: 'Name',
                         field: 'name',
-                        type: 'string',
+                        type: 'text',
                         filterOptions: {
                             enabled: true, // enable filter for this column
                             placeholder: 'Filter This Thing', // placeholder for filter input

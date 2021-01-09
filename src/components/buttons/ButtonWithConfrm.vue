@@ -27,8 +27,7 @@
         props: {
             onConfirm: Function,
             color: String,
-            size: String,
-            open: Boolean
+            size: String
         },
         components: {
             mdbBtn,
@@ -36,6 +35,11 @@
             mdbModalHeader,
             mdbModalFooter
         },
+        data: function () {
+            return {
+                open: false
+            }
+        }
     }
 </script>
 

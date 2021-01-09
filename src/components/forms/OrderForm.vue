@@ -152,7 +152,7 @@
                     clientData: this.clientData,
                     addressData: this.addressData
                 });
-                this.$router.push({name: 'OrderSummary'})
+                this.$router.push({name: 'Order-Summary'})
             }
 
         },

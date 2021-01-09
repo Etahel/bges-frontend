@@ -1,0 +1,14 @@
+[
+  {
+    "text":"order.status.open",
+    "value": "O"
+  },
+  {
+    "text":"order.status.cancelled",
+    "value": "C"
+  },
+  {
+    "text":"order.status.finalized",
+    "value": "F"
+  }
+]

@@ -2,7 +2,7 @@
     <mdb-container>
         <mdb-row>
             <mdb-col style="" class="p-0">
-                <div v-if="isEmployee()">
+                <div v-if="isEmployee">
                     <mdbBtn v-on:click="openCreateElement" size="sm" >Add Element</mdbBtn>
                 </div>
             </mdb-col>
@@ -72,7 +72,7 @@
                     {
                         label: this.$t("Element Name"),
                         field: 'name',
-                        type: 'string'
+                        type: 'text,'
                     }
                 ],
                 serverParams: {

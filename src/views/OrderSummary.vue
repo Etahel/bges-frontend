@@ -12,48 +12,10 @@
                                  { text: 'Order Items'},
                                  { text: 'Client Data' }]">
                         <template :slot="'Order Items'">
-                                <mdb-list-group   class="m-3 overflow-auto">
-                                    <mdb-list-group-item tag="a" v-for="item in orderItemsInfo" :key="item.id">{{item.name}}</mdb-list-group-item>
-                                </mdb-list-group>
+                            <OrderItemsInfo  v-bind:order-value="orderValue" v-bind:complete-element-info="orderItemsInfo"/>
                         </template>
                         <template :slot="'Client Data'">
-                                <mdb-container>
-                                    <mdb-row>
-                                        <mdb-col>
-                                            <div class="grey-text ml-5 mr-5">
-                                                <mdb-input readOnly label="First Name" icon="user" type="text" v-model="order.firstName"/>
-                                            </div>
-                                        </mdb-col>
-                                    </mdb-row>
-                                    <mdb-row>
-                                        <mdb-col>
-                                            <div class="grey-text ml-5 mr-5">
-                                                <mdb-input readOnly label="Last Name" icon="user" group type="text" v-model="order.lastName"/>
-                                            </div>
-                                        </mdb-col>
-                                    </mdb-row>
-                                    <mdb-row>
-                                        <mdb-col col = "8">
-                                            <mdb-input readOnly class="ml-5 mr-1 grey-text" label="City" icon="city" type="text" v-model="order.address.city" />
-                                        </mdb-col>
-                                        <mdb-col col="4">
-                                            <mdb-input readOnly class="ml-1 mr-5 grey-text" label="Postal Code" icon="envelope-open-text" type="text" v-model="order.address.postalCode" />
-                                        </mdb-col>
-                                    </mdb-row>
-                                    <mdb-row>
-                                        <mdb-col>
-                                            <mdb-input readOnly class="ml-5 mr-5 grey-text" label="Street" icon="road" type="text" v-model="order.address.street" />
-                                        </mdb-col>
-                                    </mdb-row>
-                                    <mdb-row class="grey-text">
-                                        <mdb-col col = "4">
-                                            <mdb-input readOnly class="ml-5" label="House no" icon="home" type="text" v-model="order.address.houseNo" />
-                                        </mdb-col>
-                                        <mdb-col col = "4">
-                                            <mdb-input readOnly label="Flat no" icon="building" type="text" v-model="order.address.flatNo"/>
-                                        </mdb-col>
-                                    </mdb-row>
-                                </mdb-container>
+                            <OrderClientInfo v-bind:order="this.order"/>
                         </template>
                     </mdb-tabs>
                     </mdb-card-body>
@@ -75,33 +37,31 @@
         mdbContainer,
         mdbRow,
         mdbTabs,
-        mdbListGroup,
-        mdbListGroupItem,
         mdbCardBody,
         mdbCardTitle, mdbCardFooter, mdbBtn,
-        mdbInput
     } from "mdbvue";
-    import {orderUrl} from "../axios/axiosRoutes";
+    import {myOrdersUrl} from "../axios/axiosRoutes";
+    import OrderClientInfo from "../components/info/OrderClientInfo";
+    import OrderItemsInfo from "../components/info/OrderItemsInfo";
 
     export default {
         name: "OrderSummary",
         components: {
+            OrderClientInfo,
             mdbContainer,
             mdbCard,
             mdbCol,
             mdbRow,
             mdbTabs,
-            mdbListGroup,
-            mdbListGroupItem,
             mdbCardBody,
             mdbCardTitle,
             mdbCardFooter,
             mdbBtn,
-            mdbInput
+            OrderItemsInfo
         },
         methods: {
             confirm() {
-                this.$api.post(orderUrl, this.order).then(() => {
+                this.$api.post(myOrdersUrl, this.order).then(() => {
                     this.$store.commit('CLEAR_ORDER_AND_CART');
                 });
             }
@@ -112,6 +72,9 @@
             },
             orderItemsInfo () {
                 return this.$store.getters.orderItemsInfo;
+            },
+            orderValue() {
+                return this.$store.getters.orderValue;
             }
         }
     }

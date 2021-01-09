@@ -38,17 +38,17 @@
                                                   this.boardGame.tags = values
                                               }"/>
                                 </div>
-                                <div class="mt-3" v-if="isDetailsMode && isEmployee() && !isEditMode">
+                                <div class="mt-3" v-if="isDetailsMode && isEmployee && !isEditMode">
                                     <mdbBtn class="float-right" v-on:click="edit" size="sm">Edit</mdbBtn>
                                 </div>
-                                <div class="mt-3" v-else-if="isDetailsMode && isEmployee() && isEditMode">
+                                <div class="mt-3" v-else-if="isDetailsMode && isEmployee && isEditMode">
                                 <ButtonWithConfrm v-bind:on-confirm="this.delete" class="mt-3 float-left" color="danger" size="sm">Delete</ButtonWithConfrm>
                                 <mdb-btn-group class="mt-3 float-right" size="sm">
                                     <mdb-btn v-on:click="cancelEdit" >Cancel</mdb-btn>
                                     <mdb-btn v-on:click="update" >Save</mdb-btn>
                                 </mdb-btn-group>
                                 </div>
-                                <div class="mt-2 text-right" v-else-if="isCreateMode && isEmployee()">
+                                <div class="mt-2 text-right" v-else-if="isCreateMode && isEmployee">
                                     <mdbBtn v-on:click="save" size="sm">Save</mdbBtn>
                                 </div>
                             </div>
@@ -140,12 +140,12 @@
                 }
             },
             back() {
+                this.$router.go(-1);
+            },
+            close() {
                 this.$router.push({
                     name: 'Boardgames',
                 })
-            },
-            close() {
-                this.$router.go(-1);
             },
             delete() {
                 this.$api.delete(boardGamesUrl + "/" + this.$route.params.id).then(this.close);
@@ -157,6 +157,16 @@
             }
             if(this.isCreateMode) {
                this.fetchTags();
+            }
+        },
+        watch: {
+            $route: function () {
+                if(this.isDetailsMode) {
+                    this.fetchData();
+                }
+                if(this.isCreateMode) {
+                    this.fetchTags();
+                }
             }
         },
         validations: {

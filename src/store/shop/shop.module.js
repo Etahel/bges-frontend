@@ -13,7 +13,8 @@ const shopModule = {
             },
             orderItems: []
         },
-        orderItemsInfo: []
+        orderItemsInfo: [],
+        orderValue: 0
     },
     mutations: {
         ADD_CART_ITEM(state,item) {
@@ -75,6 +76,10 @@ const shopModule = {
                 },
                 orderItems: []
             }
+            state.orderValue = 0;
+        },
+        SET_ORDER_VALUE(state, value) {
+            state.orderValue = value;
         }
 
     },
@@ -93,7 +98,8 @@ const shopModule = {
             firstName: state.order.firstName,
             lastName: state.order.lastName
         }},
-        orderAddressData: state => state.order.address
+        orderAddressData: state => state.order.address,
+        orderValue: state => state.orderValue
 
 
 

@@ -26,14 +26,14 @@ Vue.use(Vuelidate);
 Vue.use(VueBreadcrumbs);
 Vue.component('v-select', vSelect);
 Vue.mixin({
-  methods: {
-    isEmployee: function () {
+  computed: {
+    isEmployee () {
       if(this.$store.getters.roles === '') {
         return false
       }
       return this.$store.getters.roles.includes('employee')
     },
-    isClient: function () {
+    isClient () {
       if(this.$store.getters.roles === '') {
         return false
       }

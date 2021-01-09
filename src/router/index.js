@@ -7,12 +7,13 @@ import LoginHelp from "../views/LoginHelp";
 import Profile from "../views/Profile";
 import store from "../store/store";
 import BoardGames from "../views/BoardGames";
-import CreateBoardGame from "../views/CreateBoardGame";
-import BoardGameDetails from "../views/BoardGameDetails";
 import Cart from "../views/Cart";
 import Order from "../views/Order";
 import OrderSummary from "../views/OrderSummary";
 import ElementForm from "../components/forms/ElementForm";
+import BoardGameForm from "../components/forms/BoardGameForm";
+import MyOrders from "../views/MyOrders";
+import OrderDetails from "../views/OrderDetails";
 Vue.use(Router);
 
 const router = new Router({
@@ -66,25 +67,23 @@ const router = new Router({
     {
       path: '/boardgames/create',
       name: 'BoardGame-Create',
-      component: CreateBoardGame
+      component: BoardGameForm
     },
     {
       path: '/boardgames/:id',
       name: 'BoardGame-Details',
-      component: BoardGameDetails
+      component: BoardGameForm
     },
     {
       path: '/boardgames/:boardGameId/elements/create',
       name: 'Element-Create',
       component: ElementForm,
-      props: true
 
     },
     {
       path: '/boardgames/:boardGameId/elements/:elementId',
       name: 'Element-Details',
       component: ElementForm,
-      props: true
     },
     {
       path: '/cart',
@@ -98,8 +97,18 @@ const router = new Router({
     },
     {
       path: '/order/summary',
-      name:'OrderSummary',
+      name:'Order-Summary',
       component: OrderSummary
+    },
+    {
+      path: '/my-orders',
+      name: 'MyOrders',
+      component: MyOrders,
+    },
+    {
+      path: '/orders/:orderId',
+      name: 'Order-Details',
+      component: OrderDetails
     }
   ]
 });
