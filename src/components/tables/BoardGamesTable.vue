@@ -15,6 +15,7 @@
             :columns="columns">
         <div v-if="isEmployee" slot="table-actions">
             <mdbBtn size="sm" v-on:click="openCreate">Add Board Game</mdbBtn>
+            <mdbBtn size="sm" v-on:click="openPublisherModal">Publisher Menu</mdbBtn>
             <mdbBtn size="sm" v-on:click="openTagModal">Tag Menu</mdbBtn>
         </div>
         <template slot="table-row" slot-scope="props">
@@ -38,10 +39,11 @@
         </template>
     </vue-good-table>
     <VueModal v-model="showTagsModal" title="Tags">
-
-        <TagsTable></TagsTable>
-
+        <TagsTable/>
     </VueModal>
+        <VueModal v-model="showPublishersModal" title="Publishers">
+            <PublishersTable/>
+        </VueModal>
     </div>
 </template>
 
@@ -54,11 +56,13 @@
     import VueModal from '@kouts/vue-modal';
     import '@kouts/vue-modal/dist/vue-modal.css';
     import TagsTable from "./TagsTable";
+    import PublishersTable from "./PublishersTable";
 
 
     export default {
         name: "BoardGamesTable",
         components: {
+            PublishersTable,
             TagsTable,
             VueGoodTable, mdbBtn, VueModal,
         },
@@ -69,6 +73,7 @@
                 apiUrl: boardGamesUrl,
                 tagsUrl: tagsUrl,
                 showTagsModal:false,
+                showPublishersModal:false,
                 columns: [
                     {
                         label: 'Id',
@@ -142,6 +147,9 @@
             },
             openTagModal() {
                 this.showTagsModal = true;
+            },
+            openPublisherModal() {
+                this.showPublishersModal = true;
             },
             openCreate() {
                 this.$router.push({

@@ -24,8 +24,9 @@
                         </mdb-tabs>
                     </mdb-card-body>
                     <mdb-card-footer>
-                        <div class="float-right">
-                            <ButtonWithConfrm v-if="order.status==='O'" v-bind:on-confirm="cancelOrder" size="lg">Cancel</ButtonWithConfrm>
+                        <div v-if="order.status==='O'" class="w-100">
+                            <ButtonWithConfrm style="float:right" v-if="isEmployee" v-bind:on-confirm="finalizeOrder" size="lg">Finalize</ButtonWithConfrm>
+                            <ButtonWithConfrm style="float:right" v-if="isClient || isEmployee" v-bind:on-confirm="cancelOrder" size="lg">Cancel</ButtonWithConfrm>
                         </div>
                     </mdb-card-footer>
                 </mdb-card>
@@ -79,6 +80,9 @@
                         flatNo: '',
                         postalCode: ''
                     },
+                    client: {
+                        username:''
+                    },
                     orderItems: []
                 },
                 completeOrderItems: []
@@ -114,6 +118,9 @@
              },
             cancelOrder() {
                 this.$api.put(this.orderUrl + "/" + this.$route.params.orderId + "/cancellation").then(this.fetchData);
+            },
+            finalizeOrder() {
+                this.$api.put(this.orderUrl + "/" + this.$route.params.orderId).then(this.fetchData);
             },
             close() {
                 if(this.isClientDetails) {

@@ -161,13 +161,13 @@
                 }
             },
             back() {
+                this.$router.go(-1);
+            },
+            close() {
                 this.$router.push({
                     name: 'BoardGame-Details',
                     params: {id: this.$route.params.boardGameId}
                 })
-            },
-            close() {
-                this.$router.go(-1);
             },
             delete() {
                 this.$api.delete(elementUrl + "/" + this.$route.params.elementId).then(this.close);

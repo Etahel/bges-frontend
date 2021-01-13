@@ -11,6 +11,7 @@ export const emailChangeUrl = accountServiceUrl + "/user/change-email";
 export const meUrl = accountServiceUrl + "/user/me";
 export const boardGamesUrl = inventoryServiceUrl + "/boardgames";
 export const tagsUrl = boardGamesUrl + "/tags";
+export const publishersUrl = boardGamesUrl + "/publishers";
 export const elementUrl = inventoryServiceUrl + "/elements";
 export const clientUrl = shopServiceUrl + "/clients/me";
 export const ordersUrl = shopServiceUrl + "/orders";

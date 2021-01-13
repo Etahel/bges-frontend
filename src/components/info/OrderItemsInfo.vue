@@ -20,18 +20,33 @@
             </mdb-col>
             <mdb-col col="6">
                 <mdb-input class="mr-3  grey-text" readonly containerClass="text-left"
-                           label="Ordered elements count" icon="dice-d20" type="number"
-                           v-model="completeElementData.length"/>
+                           label="Ordered elements count" icon="box-open" type="number"
+                           v-model="totalElementsCount"/>
             </mdb-col>
         </mdb-row>
         <mdb-row class="h-100">
             <mdb-col>
                 <mdbCard class="mb-3 mt-3 ml-1 mr-1">
-                    <mdb-list-group class="m-3">
-                        <mdb-list-group-item tag="a" v-for="item in completeElementData" :key="item.element.id"> {{
-                            item.element.name }} : {{item.orderItem.elementsCount}}
-                        </mdb-list-group-item>
-                    </mdb-list-group>
+                    <mdb-tbl hover sm>
+                        <mdb-tbl-head >
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th v-if="isSummary || isCart">Element price</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </mdb-tbl-head>
+                        <mdb-tbl-body>
+                            <tr style="cursor: pointer" v-on:click="openElementDetails(item)" v-for="item in completeElementData" :key="item.element.id">
+                                <th> <mdb-icon class="ml-4" icon="dice-d20" /></th>
+                                <td> {{item.element.name}}</td>
+                                <td> {{item.element.elementCategory}}</td>
+                                <td v-if="isSummary || isCart"> {{item.element.price}}</td>
+                                <td> {{item.orderItem.elementsCount}}</td>
+                            </tr>
+                        </mdb-tbl-body>
+                    </mdb-tbl>
                 </mdbCard>
             </mdb-col>
         </mdb-row>
@@ -39,7 +54,7 @@
 </template>
 
 <script>
-    import {mdbListGroup, mdbListGroupItem, mdbInput, mdbContainer, mdbCol, mdbRow, mdbCard} from "mdbvue";
+    import {mdbInput, mdbContainer, mdbCol, mdbRow, mdbCard,mdbTbl, mdbTblHead, mdbTblBody, mdbIcon } from "mdbvue";
 
     export default {
         name: "OrderItemsInfo",
@@ -50,17 +65,37 @@
             orderStatus: String
         },
         components: {
-            mdbListGroup,
-            mdbListGroupItem,
             mdbInput,
             mdbContainer,
             mdbCol,
             mdbRow,
-            mdbCard
+            mdbCard,
+            mdbTbl,
+            mdbTblHead,
+            mdbTblBody,
+            mdbIcon
+        },
+        methods: {
+            openElementDetails(item) {
+                this.$router.push({
+                    name: 'Element-Details',
+                    params: {
+                        elementId: item.element.id,
+                        boardGameId: item.element.boardGame.id
+                    }
+                });
+            },
         },
         computed: {
             completeElementData() {
                 return this.completeElementInfo;
+            },
+            totalElementsCount() {
+                    var count = 0;
+                    for (const item of this.completeElementData) {
+                        count += item.orderItem.elementsCount
+                    }
+                  return count;
             },
             isDetails() {
                 return this.$route.name.includes("Details")
@@ -70,7 +105,7 @@
             },
             isCart() {
                 return this.$route.name.includes("Cart")
-            }
+            },
         }
     }
 </script>
