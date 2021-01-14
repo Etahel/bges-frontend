@@ -29,10 +29,11 @@
         </template>
         <template slot="column-filter" slot-scope="props">
             <v-select id="tagSelect"
-                    v-if="props.column.filterOptions.customFilter"
-                    :options="optionList"
+                    v-if="props.column.filterOptions.tagFilter"
+                    :options="tagList"
                     multiple
-                    style="min-width: min-content;"
+                      placeholder="Tags"
+                    style="min-width: min-content; background:white"
                     @input="(values) => onColumnFilter({columnFilters: {
                         tagNames:values
                     }})"/>
@@ -69,7 +70,8 @@
         mixins: [tableMixin],
         data() {
             return {
-                optionList: [],
+                tagList: [],
+                publishersList: [],
                 apiUrl: boardGamesUrl,
                 tagsUrl: tagsUrl,
                 showTagsModal:false,
@@ -105,13 +107,58 @@
                         },
                     },
                     {
+                        label: "Min Players",
+                        field: 'minPlayers',
+                        type: 'number',
+                        thClass: 'text-left',
+                        tdClass: 'text-left',
+                        filterOptions: {
+                            enabled: true, // enable filter for this column
+                            placeholder: 'Filter This Thing', // placeholder for filter input
+                            trigger: 'keyup', //only trigger on enter not on keyup
+                        },
+                    },
+                    {
+                        label: "Max Players",
+                        field: 'maxPlayers',
+                        type: 'number',
+                        thClass: 'text-left',
+                        tdClass: 'text-left',
+                        filterOptions: {
+                            enabled: true, // enable filter for this column
+                            placeholder: 'Filter This Thing', // placeholder for filter input
+                            trigger: 'keyup', //only trigger on enter not on keyup
+                        },
+                    },
+                    {
+                        label: 'Author',
+                        field: 'author',
+                        type: 'text',
+                        filterOptions: {
+                            enabled: true, // enable filter for this column
+                            placeholder: 'Filter author', // placeholder for filter input
+                            trigger: 'keyup', //only trigger on enter not on keyup
+                        },
+
+                    },
+                    {
+                        label: 'Publisher',
+                        field: 'publisher',
+                        type: 'text',
+                        filterOptions: {
+                            enabled: true,
+                            publisherFilter: true,
+                        }
+
+                    },
+                    {
                         label: 'Tags',
                         field: 'tags',
                         html:true,
                         sortable:false,
                         filterOptions: {
                             enabled: true,
-                            customFilter: true,
+                            tagFilter: true,
                         }
                     }
                 ]
@@ -132,7 +179,7 @@
                 }
                 this.$api.get(this.apiUrl, {
                     params: params
-                }).then(response => (this.page = response.data)).then(() => this.$api.get(this.tagsUrl)).then(response => (this.optionList = response.data.map(tag => {
+                }).then(response => (this.page = response.data)).then(() => this.$api.get(this.tagsUrl)).then(response => (this.tagList = response.data.map(tag => {
                     return tag.name
                 })));
 
@@ -159,6 +206,11 @@
         },
         watch: {
             showTagsModal : function (value) {
+                if(value === false) {
+                    this.fetchData();
+                }
+            },
+            showPublishersModal : function (value) {
                 if(value === false) {
                     this.fetchData();
                 }

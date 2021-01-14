@@ -60,23 +60,23 @@
                                     <img v-else class="mt-3 mb-3 text-center" src="@/assets/noImage.png" alt="Image" width="250" height="250">
                                 </mdb-col>
                                 <mdb-col v-else col="6">
-                                    <mdb-input style="height: min-content" v-bind:readOnly=formReadOnly type="textarea"
-                                               v-model="boardGame.photoUrl" label="Photo url" icon="pencil" :rows="10"/>
+                                    <mdb-input  style="height: min-content" v-bind:readOnly=formReadOnly type="textarea"
+                                               v-model="boardGame.photoUrl" label="Photo url" icon="pencil" :rows="5"/>
                                 </mdb-col>
                             </mdb-row>
                             <mdb-row>
                                 <mdb-col class="grey-text">
-                                    <mdb-input style="height: min-content" v-bind:readOnly=formReadOnly type="textarea"
+                                    <mdb-input outline  v-bind:readOnly=formReadOnly type="textarea"
                                                v-model="boardGame.description" label="Description" icon="pencil" :rows="5"/>
                                 </mdb-col>
                             </mdb-row>
                             <mdb-row>
                                 <mdb-col col = "2"><p class="grey-text text-right mr-0"> <mdb-icon class="mr-1" icon="male" />Players:</p></mdb-col>
                                 <mdb-col col = "2">
-                                    <mdb-input size="sm" id="vanity" basic>
+                                    <mdb-input size="sm" v-bind:readOnly=formReadOnly v-model="boardGame.minPlayers"  basic>
                                         <span class="input-group-text ml-0" style="width: 40px" slot="prepend">Min</span>
                                     </mdb-input>
-                                    <mdb-input size="sm"  id="dsa" basic>
+                                    <mdb-input size="sm" v-bind:readOnly=formReadOnly  v-model="boardGame.maxPlayers" basic>
                                         <span class="input-group-text"  style="width: 40px" slot="prepend">Max</span>
                                     </mdb-input>
                                 </mdb-col>
@@ -281,5 +281,4 @@
 </script>
 
 <style scoped>
-
 </style>

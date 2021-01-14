@@ -30,6 +30,16 @@
             :pagination-options="paginationOptions"
             :rows="page.content"
             :columns="columns">
+        <template slot="table-row" slot-scope="props">
+             <span v-if="props.column.field === 'photoUrl'">
+                                    <img v-if="props.row.photoUrl" class="mt-3 mb-3 text-center" v-bind:src=props.row.photoUrl alt="Image" width="200" height="200">
+                                    <img v-else class="mt-3 mb-3 text-center" src="@/assets/noImage.png" alt="Image" width="200" height="200">
+             </span><span v-else-if="props.column.field === 'description'">
+            <div style="  word-wrap: break-word; width: 30vw"> {{props.row.description}}</div>
+             </span><span v-else>
+      {{props.formattedRow[props.column.field]}}
+    </span>
+        </template>
     </vue-good-table>
             </mdb-col>
         </mdb-row>
@@ -55,7 +65,7 @@
             mdbContainer,
             mdbRow,
             mdbCol,
-            mdbBtn
+            mdbBtn,
         },
         mixins: [tableMixin],
         data() {
@@ -70,9 +80,21 @@
                         type: 'number'
                     },
                     {
+                        label: this.$t("Photo"),
+                        field: 'photoUrl',
+                        width: '150px'
+                    },
+                    {
                         label: this.$t("Element Name"),
                         field: 'name',
-                        type: 'text,'
+                        type: 'text',
+                        tdClass: 'text-center h4 ',
+                    },
+                    {
+                        label: this.$t("Description"),
+                        field: 'description',
+                        type: 'text',
+                        width: '30vw'
                     }
                 ],
                 serverParams: {
