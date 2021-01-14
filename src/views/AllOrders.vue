@@ -2,7 +2,7 @@
     <mdb-container class="mt-5"   style="min-height: 50vh; min-width: 80vw">
         <mdb-row class="justify-content-md-center">
             <mdb-col md="auto" col="12">
-                <orders-table v-bind:init-api-url="apiUrl" detail-route-name="Order-Details"/>
+                <orders-table v-bind:show-user="true" v-bind:init-api-url="apiUrl" detail-route-name="Order-Details"/>
             </mdb-col>
         </mdb-row>
     </mdb-container>

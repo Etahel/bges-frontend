@@ -33,7 +33,7 @@
                     :options="tagList"
                     multiple
                       placeholder="Tags"
-                    style="min-width: min-content; background:white"
+                    style="min-width: 100px; background:white"
                     @input="(values) => onColumnFilter({columnFilters: {
                         tagNames:values
                     }})"/>

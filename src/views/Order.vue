@@ -3,7 +3,7 @@
         <mdb-row class="justify-content-md-center">
             <mdb-col md="auto" col="12">
                 <mdb-card style="min-width: 40vw">
-                    <OrderForm/>
+                    <OrderForm show-user='false'/>
                 </mdb-card>
             </mdb-col>
         </mdb-row>

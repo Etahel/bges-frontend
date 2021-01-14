@@ -35,7 +35,7 @@ export var tableMixin = {
             }
             for (const [key, value] of Object.entries(this.serverParams.columnFilters)) {
                 if(value.length) {
-                    params.append(key,value.toString());
+                    params.append(key.substring(key.lastIndexOf(".") + 1),value.toString());
                 }
             }
             this.$api.get(this.apiUrl, {

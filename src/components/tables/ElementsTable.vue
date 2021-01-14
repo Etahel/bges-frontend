@@ -82,19 +82,31 @@
                     {
                         label: this.$t("Photo"),
                         field: 'photoUrl',
-                        width: '150px'
+                        width: '150px',
+                        sortable: false
                     },
                     {
                         label: this.$t("Element Name"),
                         field: 'name',
                         type: 'text',
                         tdClass: 'text-center h4 ',
+                        filterOptions: {
+                            enabled: true, // enable filter for this column
+                            placeholder: 'Filter name', // placeholder for filter input
+                            trigger: 'keyup', //only trigger on enter not on keyup
+                        },
                     },
                     {
                         label: this.$t("Description"),
                         field: 'description',
                         type: 'text',
-                        width: '30vw'
+                        width: '30vw',
+                        sortable: false,
+                        filterOptions: {
+                            enabled: true, // enable filter for this column
+                            placeholder: 'Filter description', // placeholder for filter input
+                            trigger: 'keyup', //only trigger on enter not on keyup
+                        },
                     }
                 ],
                 serverParams: {
