@@ -23,8 +23,8 @@
                 <label for="stockInput">Stock Change: </label>
                     </mdb-col>
                     <mdb-col col="8">
-            <input id="stockInput" class="ml-3" v-model="stock.stockChange" type="text">
-                        <div class="validate-error float-left ml-3" v-if="!$v.stock.stockChange.integer && !formValid">Not an integer</div>
+                    <input id="stockInput" class="ml-3" v-model="stock.stockChange" type="text">
+                        <integer-validation-message class="ml-3" v-bind:visible="!$v.stock.stockChange.integer && !formValid"  />
                     </mdb-col>
                 </mdb-row>
                 <mdb-row class="mt-3" >
@@ -47,6 +47,7 @@
     import {mdbBtn, mdbModal, mdbModalBody, mdbModalFooter, mdbModalHeader, mdbModalTitle,  mdbContainer, mdbRow, mdbCol,} from "mdbvue";
     import {integer} from 'vuelidate/lib/validators'
     import ErrorAlert from "../alert/ErrorAlert";
+    import IntegerValidationMessage from "./validations/IntegerValidationMessage";
 
     export default {
         name: "stockModal",
@@ -55,6 +56,7 @@
             stockModal: Boolean,
         },
         components: {
+            IntegerValidationMessage,
             ErrorAlert,
             mdbBtn,
             mdbModal,

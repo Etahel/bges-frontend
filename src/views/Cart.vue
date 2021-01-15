@@ -5,12 +5,12 @@
                 <mdb-card style="min-width: 40vw; min-height: min-content" >
                     <mdb-card-title><p class="m-3 h4">Your order</p></mdb-card-title>
                     <mdb-card-body>
-                        <OrderItemsInfo v-bind:order-value="orderValue" v-bind:complete-element-info="completeCartItems"/>
+                        <OrderItemsInfo v-bind:order-value="orderValue" v-on:itemRemoved="onItemRemoved" v-bind:complete-element-info="completeCartItems"/>
                     </mdb-card-body>
                     <mdb-card-footer>
                         <div class="float-right">
-                        <mdb-btn v-on:click="clear">Clear</mdb-btn>
-                        <mdb-btn v-on:click="purchase">Purchase</mdb-btn>
+                        <mdb-btn v-bind:disabled="! cartItems.length > 0" v-on:click="clear">Clear</mdb-btn>
+                        <mdb-btn v-bind:disabled="! cartItems.length > 0" v-on:click="purchase">Purchase</mdb-btn>
                         </div>
                     </mdb-card-footer>
                 </mdb-card>
@@ -126,6 +126,10 @@
                     value += item.element.price * item.orderItem.elementsCount
                 }
                 this.orderValue = value;
+            },
+            onItemRemoved(index) {
+                    this.$store.commit('REMOVE_CART_ITEM', this.completeCartItems[index].orderItem);
+                    this.completeCartItems.splice(index, 1);
             }
         },
         computed: {

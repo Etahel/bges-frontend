@@ -99,7 +99,7 @@ const router = new Router({
       name: 'Order',
       component: Order,
       beforeEnter: (to, from, next) => {
-        checkClient(next)
+        checkClientAndCartNotEmpty(next)
       }
     },
     {
@@ -107,7 +107,7 @@ const router = new Router({
       name:'Order-Summary',
       component: OrderSummary,
       beforeEnter: (to, from, next) => {
-        checkClient(next)
+        checkClientAndCartNotEmpty(next)
       }
     },
     {
@@ -199,6 +199,21 @@ function checkEmployee(next) {
   else {
     next()
   }
+}
+
+function checkClientAndCartNotEmpty(next) {
+  if (!isAuthenticated()) {
+    next({ name: 'Login' })
+  }
+  else if (!isClient()) {
+    store.dispatch('logout').then(() => store.commit('SET_ERROR', new Error('Logged_out')));
+  }
+  else if(store.getters.cartItemsCount === 0) {
+    next({name: 'Cart'})
+  } else {
+    next()
+  }
+
 }
 
 export default router;
