@@ -10,9 +10,9 @@
             <mdb-input class="mb-0" containerClass="text-left" icon="envelope" type="text"
                        v-bind:readOnly=!emailChange v-model="email"/>
             <div v-if="!this.formValid">
-                <div class="validate-error" v-if="!$v.email.required">Can't be empty</div>
-                <div class="validate-error" v-if="!$v.email.email">Incorrect email format</div>
-                <div class="validate-error" v-if="!$v.email.notSameAsOriginal">No change has been made</div>
+                <required-validation-message v-bind:visible="!$v.email.required"/>
+                <email-validation-message v-bind:visible="!$v.email.email"/>
+                <different-than-validation-message v-bind:visible="!$v.email.notSameAsOriginal" />
             </div>
             <div class="text-right">
                 <mdb-btn v-if="!emailChange" size="sm" v-on:click="enableEmailChange">
@@ -40,10 +40,16 @@
     import {emailChangeUrl, meUrl, resetPasswordUrl} from "../../axios/axiosRoutes";
     import {email, not, required, sameAs} from "vuelidate/lib/validators";
     import ButtonWithConfrm from "../../components/buttons/ButtonWithConfrm"
+    import RequiredValidationMessage from "./validations/RequiredValidationMessage";
+    import EmailValidationMessage from "./validations/EmailValidationMessage";
+    import DifferentThanValidationMessage from "./validations/DifferentThanValidationMessage";
 
     export default {
         name: "AccountForm",
         components: {
+            DifferentThanValidationMessage,
+            EmailValidationMessage,
+            RequiredValidationMessage,
             mdbBtnGroup,
             mdbBtn,
             mdbInput,

@@ -5,16 +5,16 @@
             <div v-if="tagField.id" class="grey-text text-right">
                 <mdb-input class="mb-0" containerClass="text-left" label="Edit Tag" type="text"
                            v-model="tagField.name"/>
-                    <div class="validate-error" v-if="!$v.tagField.name.required && !this.formValid">Can't be empty</div>
-                    <div class="validate-error" v-if="!$v.tagField.name.maxLength && !this.formValid">Must be shorter than 20 character</div>
+                <required-validation-message v-bind:visible="!$v.tagField.name.required && !this.formValid"/>
+                <max-length-validation-message v-bind:visible="!$v.tagField.name.maxLength && !this.formValid" max-length="30" />
                 <mdbBtn size="sm" v-on:click="cancelEditMode">Cancel</mdbBtn>
                 <mdbBtn v-on:click="editTag" size="sm">Save</mdbBtn>
             </div>
             <div v-else class="grey-text text-right">
                 <mdb-input class="mb-0" containerClass="text-left" label="Create Tag" type="text"
                            v-model="tagField.name"/>
-                <div class="validate-error" v-if="!$v.tagField.name.required && !this.formValid">Can't be empty</div>
-                <div class="validate-error" v-if="!$v.tagField.name.maxLength && !this.formValid">Must be shorter than 20 character</div>
+                <required-validation-message v-bind:visible="!$v.tagField.name.required && !this.formValid"/>
+                <max-length-validation-message v-bind:visible="!$v.tagField.name.maxLength && !this.formValid" max-length="30" />
                 <mdbBtn v-on:click="createTag" size="sm">Create</mdbBtn>
             </div>
         </form>
@@ -48,9 +48,13 @@
     import {mdbBtn, mdbInput, mdbIcon} from "mdbvue";
     import ErrorAlert from "../../components/alert/ErrorAlert";
     import {required, maxLength} from 'vuelidate/lib/validators'
+    import RequiredValidationMessage from "../forms/validations/RequiredValidationMessage";
+    import MaxLengthValidationMessage from "../forms/validations/MaxLengthValidationMessage";
     export default {
         name: "TagsTable",
         components: {
+            MaxLengthValidationMessage,
+            RequiredValidationMessage,
             VueGoodTable, mdbInput, mdbBtn, mdbIcon, ErrorAlert
         },
         data: function () {
@@ -119,7 +123,7 @@
                     this.formValid = false
                 } else {
                     this.$api.post(tagsUrl, this.tagField).then(this.fetchData).then(() => {
-                        this.clearTagField()
+                        this.clearTagField();
                     })
                 }
             },
@@ -127,6 +131,7 @@
                 this.tagField.name='';
                 this.tagField.version='';
                 this.tagField.id='';
+                this.formValid=true;
             }
 
         },
@@ -134,7 +139,7 @@
             tagField: {
                 name: {
                     required,
-                    maxLength: maxLength(20)
+                    maxLength: maxLength(30)
                 }
             }
         },

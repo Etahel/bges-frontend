@@ -5,16 +5,16 @@
             <div v-if="publisherField.id" class="grey-text text-right">
                 <mdb-input class="mb-0" containerClass="text-left" label="Edit Publisher" type="text"
                            v-model="publisherField.name"/>
-                <div class="validate-error" v-if="!$v.publisherField.name.required && !this.formValid">Can't be empty</div>
-                <div class="validate-error" v-if="!$v.publisherField.name.maxLength && !this.formValid">Must be shorter than 20 character</div>
+                <required-validation-message v-bind:visible="!$v.publisherField.name.required && !this.formValid" />
+                <max-length-validation-message v-bind:visible="!$v.publisherField.name.maxLength && !this.formValid" max-length="50"/>
                 <mdbBtn size="sm" v-on:click="cancelEditMode">Cancel</mdbBtn>
                 <mdbBtn v-on:click="editPublisher" size="sm">Save</mdbBtn>
             </div>
             <div v-else class="grey-text text-right">
                 <mdb-input class="mb-0" containerClass="text-left" label="Create Publisher" type="text"
                            v-model="publisherField.name"/>
-                <div class="validate-error" v-if="!$v.publisherField.name.required && !this.formValid">Can't be empty</div>
-                <div class="validate-error" v-if="!$v.publisherField.name.maxLength && !this.formValid">Must be shorter than 20 character</div>
+                <required-validation-message v-bind:visible="!$v.publisherField.name.required && !this.formValid" />
+                <max-length-validation-message v-bind:visible="!$v.publisherField.name.maxLength && !this.formValid" max-length="50"/>
                 <mdbBtn v-on:click="createPublisher" size="sm">Create</mdbBtn>
             </div>
         </form>
@@ -47,10 +47,14 @@
     import ErrorAlert from "../alert/ErrorAlert";
     import {publishersUrl} from "../../axios/axiosRoutes";
     import {maxLength, required} from "vuelidate/lib/validators";
+    import RequiredValidationMessage from "../forms/validations/RequiredValidationMessage";
+    import MaxLengthValidationMessage from "../forms/validations/MaxLengthValidationMessage";
 
     export default {
         name: "PublishersTable",
         components: {
+            MaxLengthValidationMessage,
+            RequiredValidationMessage,
             VueGoodTable, mdbInput, mdbBtn, mdbIcon, ErrorAlert
         },
         data: function () {
@@ -134,7 +138,7 @@
             publisherField: {
                 name: {
                     required,
-                    maxLength: maxLength(20)
+                    maxLength: maxLength(50)
                 }
             }
         },

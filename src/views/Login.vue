@@ -11,12 +11,12 @@
                                 <mdb-input class="mb-0" containerClass="text-left" label="Your username" icon="user" type="text"
                                            v-model="username"/>
                                 <div v-if="!this.formValid">
-                                    <div class="validate-error" v-if="!$v.username.required">Can't be empty</div>
+                                    <required-validation-message v-bind:visible="!$v.username.required"/>
                                 </div>
                                 <mdb-input class="mb-0" containerClass="text-left" label="Your password" icon="lock" type="password"
                                            v-model="password"/>
                                 <div v-if="!this.formValid">
-                                    <div class="validate-error" v-if="!$v.password.required">Can't be empty</div>
+                                    <required-validation-message v-bind:visible="!$v.password.required"/>
                                 </div>
                             </div>
                             <div class="text-left">
@@ -37,10 +37,12 @@
 <script>
     import {mdbContainer, mdbRow, mdbCol, mdbInput, mdbBtn, mdbCard, mdbCardBody} from 'mdbvue';
     import {required} from 'vuelidate/lib/validators'
+    import RequiredValidationMessage from "../components/forms/validations/RequiredValidationMessage";
 
     export default {
         name: 'Login',
         components: {
+            RequiredValidationMessage,
             mdbContainer,
             mdbRow,
             mdbCol,

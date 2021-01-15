@@ -21,15 +21,12 @@
                             </mdb-row>
                             <mdb-row>
                                 <mdb-col col="6" class="grey-text">
-                                    <mdb-input  v-bind:readOnly=formReadOnly class="mb-3" containerClass="text-left"
+                                    <mdb-input  v-bind:readOnly=formReadOnly class="mb-0" containerClass="text-left"
                                                label="Game Title" icon="chess-board" type="text"
                                                v-model="boardGame.title"/>
-                                    <div class="validate-error" v-if="!$v.boardGame.title.required && !this.formValid">
-                                        Can't be empty
-                                    </div>
-                                    <div class="validate-error" v-if="!$v.boardGame.title.maxLength && !this.formValid">
-                                        Must be shorter than 50 character
-                                    </div>
+                                    <required-validation-message v-bind:visible="!$v.boardGame.title.required && !this.formValid" />
+                                    <max-length-validation-message v-bind:visible="!$v.boardGame.title.maxLength && !this.formValid" max-length="50"/>
+                                    <div class="mt-3">
                                     <mdb-input v-if="formReadOnly"  v-bind:readOnly=formReadOnly class="mb-3" containerClass="text-left"
                                                 label="Publisher" icon="book-open" type="text"
                                                 v-model="boardGame.publisher"/>
@@ -42,15 +39,15 @@
                                                   style="width: 80%"
                                         ></v-select>
                                     </div>
-                                    <mdb-input  v-bind:readOnly=formReadOnly class="mb-3" containerClass="text-left"
+                                    </div>
+                                    <mdb-input  v-bind:readOnly=formReadOnly class="mt-3 mb-0" containerClass="text-left"
                                                 label="Author" icon="user-edit" type="text"
                                                 v-model="boardGame.author"/>
-                                    <mdb-input  v-bind:readOnly=formReadOnly containerClass="text-left"
-                                                v-bind:label="this.$t('boardgame.year')" icon="calendar" type="number"
+                                    <max-length-validation-message v-bind:visible="!$v.boardGame.author.maxLength && !this.formValid" max-length="60"/>
+                                    <mdb-input class=" mt-3 mb-0"  v-bind:readOnly=formReadOnly containerClass="text-left"
+                                                v-bind:label="this.$t('boardgame.year')" icon="calendar" type="text"
                                                 v-model="boardGame.year"/>
-                                    <div class="validate-error" v-if="!$v.boardGame.year.integer && !this.formValid">Not
-                                        an integer
-                                    </div>
+                                    <integer-validation-message v-bind:visible="!$v.boardGame.year.integer && !this.formValid" />
                                     <div class="validate-error" v-if="!$v.boardGame.year.between && !this.formValid">
                                         Must be a correct year
                                     </div>
@@ -59,15 +56,18 @@
                                     <img v-if="boardGame.photoUrl" class="mt-3 mb-3 text-center" v-bind:src=this.boardGame.photoUrl alt="Image" width="250" height="250">
                                     <img v-else class="mt-3 mb-3 text-center" src="@/assets/noImage.png" alt="Image" width="250" height="250">
                                 </mdb-col>
-                                <mdb-col v-else col="6">
-                                    <mdb-input  style="height: min-content" v-bind:readOnly=formReadOnly type="textarea"
+                                <mdb-col v-else col="6" class="grey-text">
+                                    <mdb-input class="mb-0"  style="height: min-content" v-bind:readOnly=formReadOnly type="textarea"
                                                v-model="boardGame.photoUrl" label="Photo url" icon="pencil" :rows="5"/>
+                                    <max-length-validation-message max-length="2048"  v-bind:visible="!$v.boardGame.photoUrl.maxLength && !this.formValid" />
+                                    <url-validation-message v-bind:visible="!$v.boardGame.photoUrl.url && !this.formValid" />
                                 </mdb-col>
                             </mdb-row>
                             <mdb-row>
                                 <mdb-col class="grey-text">
                                     <mdb-input outline  v-bind:readOnly=formReadOnly type="textarea"
                                                v-model="boardGame.description" label="Description" icon="pencil" :rows="5"/>
+                                    <max-length-validation-message max-length="2000" v-bind:visible="!$v.boardGame.description.maxLength && !this.formValid" />
                                 </mdb-col>
                             </mdb-row>
                             <mdb-row>
@@ -79,6 +79,16 @@
                                     <mdb-input size="sm" v-bind:readOnly=formReadOnly  v-model="boardGame.maxPlayers" basic>
                                         <span class="input-group-text"  style="width: 40px" slot="prepend">Max</span>
                                     </mdb-input>
+                                    <div style="font-size: x-small" class="grey-text">
+                                        <integer-validation-message v-bind:visible="(!$v.boardGame.minPlayers.integer ||!$v.boardGame.maxPlayers.integer ) && !this.formValid" />
+                                    <max-value-validation-message max-value="20" v-bind:visible="(!$v.boardGame.minPlayers.maxValue ||!$v.boardGame.maxPlayers.maxValue ) && !this.formValid" />
+                                    <div class="validate-error" v-if="!$v.boardGame.minPlayers.minValue  && !this.formValid">
+                                        Min players must be at least 1
+                                    </div>
+                                    <div class="validate-error" v-if="!$v.boardGame.maxPlayers.minValue  && !this.formValid">
+                                        Max players must be larger than min players
+                                    </div>
+                                    </div>
                                 </mdb-col>
                                 <mdb-col col = "2"><p class="grey-text text-right mr-0"><mdb-icon  icon="tag" class="mr-1" />Tags:</p></mdb-col>
                                 <mdb-col  col = "5" class="grey-text">
@@ -154,12 +164,21 @@
     import {tagsUrl, boardGamesUrl, publishersUrl} from "../../axios/axiosRoutes";
     import ElementsTable from "../tables/ElementsTable";
     import ButtonWithConfrm from "../buttons/ButtonWithConfrm";
-    import {required, maxLength, between, integer} from 'vuelidate/lib/validators'
-
+    import {required, maxLength, between, integer, minValue, maxValue, url} from 'vuelidate/lib/validators'
+    import RequiredValidationMessage from "./validations/RequiredValidationMessage";
+    import MaxLengthValidationMessage from "./validations/MaxLengthValidationMessage";
+    import IntegerValidationMessage from "./validations/IntegerValidationMessage";
+    import UrlValidationMessage from "./validations/UrlValidationMessage";
+    import MaxValueValidationMessage from "./validations/MaxValueValidationMessage";
     export default {
         name: "BoardGameForm",
         mixins: [formMixin],
         components: {
+            MaxValueValidationMessage,
+            UrlValidationMessage,
+            IntegerValidationMessage,
+            MaxLengthValidationMessage,
+            RequiredValidationMessage,
             ButtonWithConfrm,
             ElementsTable,
             mdbContainer,
@@ -243,6 +262,11 @@
             },
             delete() {
                 this.$api.delete(boardGamesUrl + "/" + this.$route.params.id).then(this.close);
+            },
+            cancelEdit() {
+                this.formValid = true;
+                this.editMode = false;
+                this.fetchData();
             }
         },
         created() {
@@ -265,15 +289,47 @@
                 }
             }
         },
-        validations: {
-            boardGame: {
-                title: {
-                    required,
-                    maxLength: maxLength(50)
-                },
-                year: {
-                    integer,
-                    between: between(1900, 2050)
+        computed: {
+            minPlayers () {
+                if(this.boardGame.minPlayers) {
+                    return this.boardGame.minPlayers;
+                } else {
+                    return 1
+                }
+            }
+        },
+        validations: function () {
+            return {
+                boardGame: {
+                    title: {
+                        required,
+                            maxLength: maxLength(50)
+                    },
+                    year: {
+                        integer,
+                            between: between(1900, 2100),
+                    },
+                    description: {
+                        maxLength: maxLength(2000),
+                    },
+                    minPlayers: {
+                        integer,
+                            minValue: minValue(1),
+                            maxValue: maxValue(20)
+                    },
+                    maxPlayers: {
+                        integer,
+                            minValue: minValue(this.minPlayers),
+                            maxValue: maxValue(20)
+                    },
+                    author: {
+                        maxLength: maxLength(60)
+                    },
+                    photoUrl: {
+                        maxLength: maxLength(2048),
+                        url
+                    }
+
                 }
             }
         }

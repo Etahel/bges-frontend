@@ -24,6 +24,9 @@
                                     <mdb-input v-bind:readOnly=formReadOnly class="mb-0" containerClass="text-left"
                                                label="Element Name" icon="chess-knight" type="text"
                                                v-model="element.name"/>
+                                    <required-validation-message v-bind:visible="!$v.element.name.required && !this.formValid" />
+                                    <max-length-validation-message max-length="50"
+                                                                   v-bind:visible="!$v.element.name.maxLength && !this.formValid"/>
                                 </mdb-col>
                             </mdb-row>
                             <mdb-row>
@@ -34,8 +37,10 @@
                                          width="250" height="250">
                                 </mdb-col>
                                 <mdb-col v-else>
-                                    <mdb-input style="height: min-content" v-bind:readOnly=formReadOnly type="textarea"
+                                    <mdb-input class="mb-0" style="height: min-content" v-bind:readOnly=formReadOnly type="textarea"
                                                v-model="element.photoUrl" label="Photo url" icon="pencil" :rows="5"/>
+                                    <max-length-validation-message max-length="2048"  v-bind:visible="!$v.element.photoUrl.maxLength && !this.formValid" />
+                                    <url-validation-message v-bind:visible="!$v.element.photoUrl.url && !this.formValid" />
                                 </mdb-col>
                             </mdb-row>
                             <mdb-row>
@@ -59,6 +64,12 @@
                                     <mdb-input v-bind:readOnly=formReadOnly class="mb-0" containerClass="text-left"
                                                label="Element Price" icon="dollar-sign" type="text"
                                                v-model="element.price"/>
+                                    <min-value-validation-message min-value="0" v-bind:visible="!$v.element.price.minValue && !this.formValid"/>
+                                    <max-value-validation-message max-value="1000000" v-bind:visible="!$v.element.price.maxValue && !this.formValid"/>
+                                    <div class="validate-error" v-if="!$v.element.price.decimal && !this.formValid">
+                                        Must be a decimal
+                                    </div>
+
                                 </mdb-col>
                             </mdb-row>
                             <mdb-row>
@@ -66,6 +77,8 @@
                                     <mdb-input v-bind:readOnly=formReadOnly type="textarea"
                                                v-model="element.description"
                                                label="Description" icon="pencil" :rows="5" :max-rows="10"/>
+                                    <max-length-validation-message max-length="500"
+                                                                   v-bind:visible="!$v.element.description.maxLength && !this.formValid"/>
                                 </mdb-col>
                             </mdb-row>
                             <mdb-row>
@@ -127,11 +140,16 @@
     import {formMixin} from "../mixin/FormMixin"
     import ButtonWithConfrm from "../buttons/ButtonWithConfrm";
     import {boardGamesUrl, elementUrl} from "../../axios/axiosRoutes";
-    import {maxLength, required} from "vuelidate/lib/validators";
+    import {maxLength,decimal, required, url, maxValue, minValue} from "vuelidate/lib/validators";
     import CategorySelect from "../select/CategorySelect";
     import ElementCategories from "../../definitions/ElementCategories.json";
     import AddToCart from "./AddToCart";
     import stockModal from "./StockModal"
+    import RequiredValidationMessage from "./validations/RequiredValidationMessage";
+    import MaxLengthValidationMessage from "./validations/MaxLengthValidationMessage";
+    import UrlValidationMessage from "./validations/UrlValidationMessage";
+    import MinValueValidationMessage from "./validations/MinValueValidationMessage";
+    import MaxValueValidationMessage from "./validations/MaxValueValidationMessage";
 
     export default {
         name: "ElementForm",
@@ -140,6 +158,11 @@
         },
         mixins: [formMixin],
         components: {
+            MaxValueValidationMessage,
+            MinValueValidationMessage,
+            UrlValidationMessage,
+            MaxLengthValidationMessage,
+            RequiredValidationMessage,
             AddToCart,
             CategorySelect,
             ButtonWithConfrm,
@@ -229,6 +252,11 @@
             },
             onStockConfirm(stock) {
                 this.$api.patch(elementUrl + "/" + this.$route.params.elementId + "/stock", stock).then(this.fetchData).then(() => this.stockModal = false);
+            },
+            cancelEdit() {
+                this.formValid = true;
+                this.editMode = false;
+                this.fetchData();
             }
         },
         created() {
@@ -248,6 +276,18 @@
                 name: {
                     required,
                     maxLength: maxLength(50)
+                },
+                photoUrl: {
+                    maxLength: maxLength(2048),
+                    url
+                },
+                description: {
+                    maxLength: maxLength(500),
+                },
+                price: {
+                    decimal,
+                    minValue: minValue(0),
+                    maxValue: maxValue(1000000)
                 }
             }
         }

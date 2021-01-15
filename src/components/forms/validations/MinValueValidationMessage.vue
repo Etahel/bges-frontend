@@ -1,6 +1,6 @@
 <template>
     <div class="validate-error" v-if="visible">
-        Must be more than {{minValue}}
+        Must be at least {{minValue}}
     </div>
 </template>
 

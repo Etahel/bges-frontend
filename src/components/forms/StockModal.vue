@@ -23,8 +23,12 @@
                 <label for="stockInput">Stock Change: </label>
                     </mdb-col>
                     <mdb-col col="8">
+                        <div class="d-block">
                     <input id="stockInput" class="ml-3" v-model="stock.stockChange" type="text">
-                        <integer-validation-message class="ml-3" v-bind:visible="!$v.stock.stockChange.integer && !formValid"  />
+                        <integer-validation-message class="float-left ml-3" v-bind:visible="!$v.stock.stockChange.integer && !formValid"  />
+                        <min-value-validation-message class="float-left ml-3" v-bind:min-value="-1000000" v-bind:visible="!$v.stock.stockChange.minValue && !formValid" />
+                        <max-value-validation-message class="float-left ml-3" v-bind:max-value="1000000" v-bind:visible="!$v.stock.stockChange.maxValue && !formValid" />
+                        </div>
                     </mdb-col>
                 </mdb-row>
                 <mdb-row class="mt-3" >
@@ -45,9 +49,11 @@
 
 <script>
     import {mdbBtn, mdbModal, mdbModalBody, mdbModalFooter, mdbModalHeader, mdbModalTitle,  mdbContainer, mdbRow, mdbCol,} from "mdbvue";
-    import {integer} from 'vuelidate/lib/validators'
+    import {integer, minValue, maxValue} from 'vuelidate/lib/validators'
     import ErrorAlert from "../alert/ErrorAlert";
     import IntegerValidationMessage from "./validations/IntegerValidationMessage";
+    import MinValueValidationMessage from "./validations/MinValueValidationMessage";
+    import MaxValueValidationMessage from "./validations/MaxValueValidationMessage";
 
     export default {
         name: "stockModal",
@@ -56,6 +62,8 @@
             stockModal: Boolean,
         },
         components: {
+            MaxValueValidationMessage,
+            MinValueValidationMessage,
             IntegerValidationMessage,
             ErrorAlert,
             mdbBtn,
@@ -100,7 +108,9 @@
             return {
                 stock: {
                     stockChange: {
-                        integer
+                        integer,
+                        minValue: minValue(-1000000),
+                        maxValue: maxValue(1000000)
                     }
                 }
             }

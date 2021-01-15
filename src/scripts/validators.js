@@ -1,2 +1,7 @@
 export const checkRegex = (reg) =>
-    (value) => { return reg.test(value)};
+    (value) => {
+    if(value) {
+        return reg.test(value)
+    } else {
+        return true;
+    }};
