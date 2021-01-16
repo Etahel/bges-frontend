@@ -18,7 +18,7 @@
         <mdb-navbar-nav class="pr-0" >
         <mdb-btn v-on:click="cart" color="primary" class="mt-0 mr-3"><mdb-icon icon="shopping-cart" class="mr-2"/>{{this.$t('navbar.cart')}} ({{this.cartItemsCount}})</mdb-btn>
         <mdb-dropdown end tag="li" class="pr-0 nav-item">
-          <mdb-dropdown-toggle size="lg" tag="a" navLink color="indigo" slot="toggle" waves-fixed>Hello, {{this.username}}</mdb-dropdown-toggle>
+          <mdb-dropdown-toggle size="lg" tag="a" navLink color="indigo" slot="toggle" waves-fixed>{{this.$t('navbar.hello')}}, {{this.username}}</mdb-dropdown-toggle>
           <mdb-dropdown-menu class="dropdown-menu-right">
             <mdb-dropdown-item to="/Profile">{{this.$t('navbar.profile')}}</mdb-dropdown-item>
             <mdb-dropdown-item v-on:click="logout">{{this.$t('navbar.logout')}}</mdb-dropdown-item>

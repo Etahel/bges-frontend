@@ -1,5 +1,5 @@
 <template>
-    <div class="validate-error" v-if="visible">Incorrect email format</div>
+    <div class="validate-error" v-if="visible">{{$t('validation.email')}}</div>
 </template>
 
 <script>

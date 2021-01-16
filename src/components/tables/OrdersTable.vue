@@ -19,6 +19,8 @@
             <template slot="table-row" slot-scope="props">
                 <span v-if="props.column.field == 'status'">
                     {{ getStatusLabel(props.row.status)}}
+                 </span><span v-else-if="props.column.field == 'value'">
+                    {{props.formattedRow[props.column.field]}} PLN
                  </span><span v-else>
                     {{props.formattedRow[props.column.field]}}
                  </span>
@@ -99,12 +101,12 @@
                         label: this.$t('common.date'),
                         field: 'date',
                         type: 'date',
-                        dateInputFormat: 'yyyy-MM-dd HH:mm:ss', // expects 2018-03-16
-                        dateOutputFormat: 'yyyy-MM-dd HH:mm:ss', // outputs Mar 16th 2018
+                        dateInputFormat: 'yyyy-MM-dd HH:mm:ss',
+                        dateOutputFormat: 'yyyy-MM-dd HH:mm:ss',
                         filterOptions: {
-                            enabled: true, // enable filter for this column
-                            placeholder:  this.$t('common.search_by', { search: 'dacie' }), // placeholder for filter input
-                            trigger: 'keyup', //only trigger on enter not on keyup
+                            enabled: true,
+                            placeholder:  this.$t('common.search_by', { search: 'dacie' }),
+                            trigger: 'keyup',
                             dateFilter: true
                         },
                         thClass: 'text-left',
@@ -142,9 +144,9 @@
                         type: 'text',
                         hidden: !this.showUser,
                         filterOptions: {
-                            enabled: true, // enable filter for this column
+                            enabled: true,
                             placeholder: this.$t('common.search_by', { search: 'nazwie użytkownika' }),
-                            trigger: 'keyup', //only trigger on enter not on keyup
+                            trigger: 'keyup',
                         },
                     },
                     {

@@ -6,24 +6,24 @@
                 <mdb-card style="min-width: 30vw">
                     <mdb-card-body>
                         <form>
-                            <p class="h4 text-center">Sign in</p>
+                            <p class="h4 text-center">{{$t('navbar.login')}}</p>
                             <div class="grey-text">
-                                <mdb-input class="mb-0" containerClass="text-left" label="Your username" icon="user" type="text"
+                                <mdb-input class="mb-0" containerClass="text-left" v-bind:label="$t('account.username')" icon="user" type="text"
                                            v-model="username"/>
                                 <div v-if="!this.formValid">
                                     <required-validation-message v-bind:visible="!$v.username.required"/>
                                 </div>
-                                <mdb-input class="mb-0" containerClass="text-left" label="Your password" icon="lock" type="password"
+                                <mdb-input class="mb-0" containerClass="text-left" v-bind:label="$t('account.password')" icon="lock" type="password"
                                            v-model="password"/>
                                 <div v-if="!this.formValid">
                                     <required-validation-message v-bind:visible="!$v.password.required"/>
                                 </div>
                             </div>
                             <div class="text-left">
-                                <mdb-btn v-on:click="login">Login</mdb-btn>
+                                <mdb-btn v-on:click="login">{{$t('account.buttons.login')}}</mdb-btn>
                             </div>
                             <div class="text-right">
-                            <button class="mb-0 p-0 text-button" v-on:click = "help" >Need help logging in?</button>
+                            <button class="mb-0 p-0 text-button" v-on:click = "help" >{{$t('account.buttons.help')}}</button>
                             </div>
                         </form>
                     </mdb-card-body>

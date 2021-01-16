@@ -1,5 +1,6 @@
 <template>
-    <div class="validate-error" v-if="visible">No change has been made</div>
+    <div class="validate-error" v-if="visible">
+        {{$t('validation.different')}}</div>
 </template>
 
 <script>

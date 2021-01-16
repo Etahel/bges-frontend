@@ -1,6 +1,8 @@
 <template>
     <div class="validate-error" v-if="visible">
-        Must be shorter than {{maxLength}} characters
+        {{$t('validation.maxLength', {
+        length: maxLength
+        }) }}
     </div>
 </template>
 

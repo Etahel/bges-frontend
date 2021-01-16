@@ -62,7 +62,7 @@
                                 </mdb-col>
                                 <mdb-col col="4">
                                     <mdb-input v-bind:readOnly=formReadOnly class="mb-0" containerClass="text-left"
-                                               v-bind:label="this.$t('common.price')" icon="dollar-sign" type="text"
+                                               v-bind:label="this.$t('common.price') + ' (PLN)'" icon="dollar-sign" type="text"
                                                v-model="element.price"/>
                                     <min-value-validation-message min-value="0" v-bind:visible="!$v.element.price.minValue && !this.formValid"/>
                                     <max-value-validation-message max-value="1000000" v-bind:visible="!$v.element.price.maxValue && !this.formValid"/>

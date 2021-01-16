@@ -49,7 +49,7 @@
                                                 v-model="boardGame.year"/>
                                     <integer-validation-message v-bind:visible="!$v.boardGame.year.integer && !this.formValid" />
                                     <div class="validate-error" v-if="!$v.boardGame.year.between && !this.formValid">
-                                        Must be a correct year
+                                        {{$t('validation.year')}}
                                     </div>
                                 </mdb-col>
                                 <mdb-col v-if="formReadOnly" col="6" class="d-flex justify-content-center" >

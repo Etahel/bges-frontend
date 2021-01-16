@@ -1,5 +1,5 @@
 <template>
-    <div class="validate-error float-left ml-3" v-if="visible">Not an integer</div>
+    <div class="validate-error float-left ml-3" v-if="visible">{{$t('validation.integer')}}</div>
 </template>
 
 <script>

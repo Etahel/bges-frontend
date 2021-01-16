@@ -3,25 +3,25 @@
         <mdb-row class="justify-content-md-center">
             <mdb-col md="auto" col="12">
                 <mdb-card style="min-width: 40vw; min-height: 80vh">
-                    <mdb-card-title><p class="text-center mt-3 h4">Your order</p></mdb-card-title>
+                    <mdb-card-title><p class="text-center mt-3 h4">{{$t('order.your')}}</p></mdb-card-title>
                     <mdb-card-body class="overflow-auto">
                     <mdb-tabs color="indigo" justify
                               :active="0"
                               default
                               :links="[
-                                 { text: 'Order Items'},
-                                 { text: 'Client Data' }]">
-                        <template :slot="'Order Items'">
+                                 { text: 'Zawartość'},
+                                 { text: 'Dane klienta' }]">
+                        <template :slot="'Zawartość'">
                             <OrderItemsInfo  v-bind:order-value="orderValue" v-bind:complete-element-info="orderItemsInfo"/>
                         </template>
-                        <template :slot="'Client Data'">
+                        <template :slot="'Dane klienta'">
                             <OrderClientInfo v-bind:order="this.order"/>
                         </template>
                     </mdb-tabs>
                     </mdb-card-body>
                     <mdb-card-footer>
                         <div class="float-right">
-                            <mdb-btn v-on:click="confirm">Confirm Order</mdb-btn>
+                            <mdb-btn v-on:click="confirm">{{$t('order.buttons.confirm')}}</mdb-btn>
                         </div>
                     </mdb-card-footer>
                 </mdb-card>
@@ -70,6 +70,9 @@
                     });
                 }).then(() => {
                     this.$store.commit('CLEAR_ORDER_AND_CART');
+                    this.$store.commit('SET_INFO',{
+                        message: 'order.success'
+                    })
                 }).catch(error => {
                     if(['element_not_found', 'element_changed', 'stock_unavailable', 'stock_insufficient'].findIndex(errorMessage => {
                        return  error.message.includes(errorMessage)

@@ -3,24 +3,24 @@
         <mdb-row v-if="this.isDetails">
             <mdb-col col="6">
                 <mdb-input class="ml-3 grey-text" readonly containerClass="text-left"
-                           label="Order date" icon="calendar" type="text"
+                           v-bind:label="$t('common.date')" icon="calendar" type="text"
                            v-model="orderDate"/>
             </mdb-col>
             <mdb-col col="6">
                 <mdb-input class="mr-3 grey-text" readOnly containerClass="text-left"
-                           label="Order status" icon="check-square" type="text"
+                           v-bind:label="$t('order.status')" icon="check-square" type="text"
                            v-model="orderStatus"/>
             </mdb-col>
         </mdb-row>
         <mdb-row>
             <mdb-col col="6">
                 <mdb-input class="ml-3  grey-text" readonly containerClass="text-left"
-                           label="Total order value" icon="dollar-sign" type="text"
-                           v-model="orderValue"/>
+                           v-bind:label="$t('order.value')" icon="dollar-sign" type="text"
+                           v-model="orderValueWithCurrency"/>
             </mdb-col>
             <mdb-col col="6">
                 <mdb-input class="mr-3  grey-text" readonly containerClass="text-left"
-                           label="Ordered elements count" icon="box-open" type="number"
+                           v-bind:label="$t('order.total_number')" icon="box-open" type="number"
                            v-model="totalElementsCount"/>
             </mdb-col>
         </mdb-row>
@@ -31,11 +31,11 @@
                         <mdb-tbl-head >
                             <tr>
                                 <th></th>
-                                <th>Name</th>
-                                <th>Game</th>
-                                <th>Category</th>
-                                <th v-if="isSummary || isCart">Element price</th>
-                                <th>Quantity</th>
+                                <th>{{$t('common.name')}}</th>
+                                <th>{{$t('common.game')}}</th>
+                                <th>{{$t('common.category')}}</th>
+                                <th v-if="isSummary || isCart">{{$t('common.price')}}</th>
+                                <th>{{$t('common.quantity')}}</th>
                                 <th></th>
                             </tr>
                         </mdb-tbl-head>
@@ -44,8 +44,8 @@
                                 <th> <mdb-icon class="ml-4" icon="dice-d20" /></th>
                                 <td> {{item.element.name}}</td>
                                 <td> {{item.element.boardGame.title}}</td>
-                                <td> {{item.element.elementCategory}}</td>
-                                <td v-if="isSummary || isCart"> {{item.element.price}}</td>
+                                <td> {{getCategoryName(item.element.elementCategory)}}</td>
+                                <td v-if="isSummary || isCart"> {{item.element.price}} PLN</td>
                                 <td> {{item.orderItem.elementsCount}}</td>
                                 <td><mdb-icon v-on:click.native.stop="removeItem(index)" icon="minus-square"
                                                     style="cursor: pointer"
@@ -61,6 +61,7 @@
 
 <script>
     import {mdbInput, mdbContainer, mdbCol, mdbRow, mdbCard,mdbTbl, mdbTblHead, mdbTblBody, mdbIcon } from "mdbvue";
+    import ElementCategories from "../../definitions/ElementCategories";
 
     export default {
         name: "OrderItemsInfo",
@@ -81,6 +82,11 @@
             mdbTblBody,
             mdbIcon
         },
+        data: function () {
+            return {
+                elementCategories: ElementCategories
+            }
+        },
         methods: {
             openElementDetails(item) {
                 this.$router.push({
@@ -93,7 +99,17 @@
             },
             removeItem(index) {
                 this.$emit('itemRemoved', index)
-            }
+            },
+            getCategoryName(categoryCode) {
+                var result = this.elementCategories.find(obj => {
+                    return obj.value === categoryCode
+                })
+                if (result === undefined) {
+                    return ''
+                } else {
+                    return this.$t(result.label);
+                }
+            },
         },
         computed: {
             completeElementData() {
@@ -115,6 +131,9 @@
             isCart() {
                 return this.$route.name.includes("Cart")
             },
+            orderValueWithCurrency() {
+                return this.orderValue + " PLN"
+            }
 
         }
     }

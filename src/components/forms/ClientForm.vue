@@ -3,8 +3,8 @@
         <mdb-row>
             <mdb-col>
                 <div class="ml-5 mt-5 mr-5 grey-text">
-                    <p class="h4 text-left">Client Data
-                        <mdb-badge v-if="!this.doesClientHaveFullName" color="danger">Incomplete</mdb-badge>
+                    <p class="h4 text-left">{{$t('client.client_data')}}
+                        <mdb-badge v-if="!this.doesClientHaveFullName" color="danger">{{$t('common.incomplete')}}</mdb-badge>
                     </p>
 
                 </div>
@@ -13,7 +13,7 @@
         <mdb-row>
             <mdb-col>
                 <div class="grey-text ml-5 mr-5">
-                    <mdb-input v-bind:readOnly="!this.editMode" label="First Name" icon="user" type="text"
+                    <mdb-input v-bind:readOnly="!this.editMode" v-bind:label="$t('client.firstname')" icon="user" type="text"
                                v-model="client.firstName"/>
                     <max-length-validation-message max-length="50"
                                                    v-bind:visible="!$v.client.firstName.maxLength && !formValid"/>
@@ -23,7 +23,7 @@
         <mdb-row>
             <mdb-col>
                 <div class="grey-text ml-5 mr-5">
-                    <mdb-input v-bind:readOnly="!this.editMode" label="Last Name" icon="user" group type="text"
+                    <mdb-input v-bind:readOnly="!this.editMode" v-bind:label="$t('client.lastname')" icon="user" group type="text"
                                v-model="client.lastName"/>
                     <max-length-validation-message max-length="50"
                                                    v-bind:visible="!$v.client.lastName.maxLength && !formValid"/>
@@ -33,8 +33,8 @@
         <mdb-row>
             <mdb-col>
                 <div class="ml-5 mr-5 grey-text">
-                    <p class="h4 text-left">Address Data
-                        <mdb-badge v-if="!this.doesClientHaveAddress" color="danger">Incomplete</mdb-badge>
+                    <p class="h4 text-left">{{$t('client.address_data')}}
+                        <mdb-badge v-if="!this.doesClientHaveAddress" color="danger">{{$t('common.incomplete')}}</mdb-badge>
                     </p>
                 </div>
             </mdb-col>
@@ -42,7 +42,7 @@
         <mdb-row>
             <mdb-col col="8">
                 <div class="ml-5 mr-1 grey-text">
-                    <mdb-input v-bind:readOnly="!this.editMode" label="City" icon="city"
+                    <mdb-input v-bind:readOnly="!this.editMode" v-bind:label="$t('address.city')" icon="city"
                                type="text" v-model="client.address.city"/>
                     <max-length-validation-message max-length="50"
                                                    v-bind:visible="!$v.client.address.city.maxLength && !formValid"/>
@@ -50,7 +50,7 @@
             </mdb-col>
             <mdb-col col="4">
                 <div class="ml-5 mr-1 grey-text">
-                    <mdb-input v-bind:readOnly="!this.editMode" label="Postal Code"
+                    <mdb-input v-bind:readOnly="!this.editMode" v-bind:label="$t('address.postal_code')"
                                icon="envelope-open-text" type="text" v-model="client.address.postalCode"/>
                     <regex-validation-message v-bind:visible="!$v.client.address.postalCode.regex && !formValid"/>
                 </div>
@@ -59,7 +59,7 @@
         <mdb-row>
             <mdb-col>
                 <div class="ml-5 mr-5 grey-text">
-                    <mdb-input v-bind:readOnly="!this.editMode" label="Street" icon="road"
+                    <mdb-input v-bind:readOnly="!this.editMode" v-bind:label="$t('address.street')" icon="road"
                                type="text" v-model="client.address.street"/>
                     <max-length-validation-message max-length="50"
                                                    v-bind:visible="!$v.client.address.street.maxLength && !formValid"/>
@@ -69,7 +69,7 @@
         <mdb-row class="grey-text">
             <mdb-col col="4">
                 <div class="ml-5">
-                    <mdb-input v-bind:readOnly="!this.editMode" label="House no" icon="home" type="text"
+                    <mdb-input v-bind:readOnly="!this.editMode" v-bind:label="$t('address.houseNo')" icon="home" type="text"
                                v-model="client.address.houseNo"/>
                     <max-length-validation-message max-length="10"
                                                    v-bind:visible="!$v.client.address.houseNo.maxLength && !formValid"/>
@@ -77,7 +77,7 @@
             </mdb-col>
             <mdb-col col="4">
                 <div>
-                <mdb-input v-bind:readOnly="!this.editMode" label="Flat no" icon="building" type="text"
+                <mdb-input v-bind:readOnly="!this.editMode" v-bind:label="$t('address.flatNo')" icon="building" type="text"
                            v-model="client.address.flatNo"/>
                     <max-length-validation-message max-length="10"
                                                    v-bind:visible="!$v.client.address.flatNo.maxLength && !formValid"/>
@@ -88,11 +88,11 @@
             <mdb-col>
                 <div class="text-right">
                     <mdb-btn class="mt-3 mb-3" v-if="!editMode" v-on:click="() => {this.editMode = true}">
-                        Change
+                        {{$t('common.buttons.change')}}
                     </mdb-btn>
                     <mdb-btn-group v-else class="mt-3 mb-3">
-                        <mdb-btn v-on:click="cancel">Cancel</mdb-btn>
-                        <mdb-btn v-on:click="save">Save</mdb-btn>
+                        <mdb-btn v-on:click="cancel">{{$t('common.buttons.cancel')}}</mdb-btn>
+                        <mdb-btn v-on:click="save">{{$t('common.buttons.save')}}</mdb-btn>
                     </mdb-btn-group>
                 </div>
             </mdb-col>

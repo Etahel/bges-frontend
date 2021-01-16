@@ -7,26 +7,26 @@
                         <button v-on:click="close" type="button" class="m-3 close float-right" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
-                        <p class="text-center mt-3 h4">Your order</p></mdb-card-title>
+                        <p class="text-center mt-3 h4">{{$t('order.details')}}</p></mdb-card-title>
                     <mdb-card-body>
                         <mdb-tabs color="indigo" justify
                                   default
                                   :active="0"
                                   :links="[
-                                 { text: 'Order Info'},
-                                 { text: 'Client Data' }]">
-                            <template :slot="'Order Info'">
+                                 { text: 'Zamówienie'},
+                                 { text: 'Dane klienta' }]">
+                            <template :slot="'Zamówienie'">
                                 <OrderItemsInfo v-bind:order-date="order.date" v-bind:order-status="order.status" v-bind:order-value="order.value" v-bind:complete-element-info="completeOrderItems"/>
                             </template>
-                            <template :slot="'Client Data'">
+                            <template :slot="'Dane klienta'">
                                 <OrderClientInfo  v-bind:order="order"/>
                             </template>
                         </mdb-tabs>
                     </mdb-card-body>
                     <mdb-card-footer>
                         <div v-if="order.status==='O'" class="w-100">
-                            <ButtonWithConfrm style="float:right" v-if="isEmployee" v-bind:on-confirm="finalizeOrder" size="lg">Finalize</ButtonWithConfrm>
-                            <ButtonWithConfrm style="float:right" v-if="isClient || isEmployee" v-bind:on-confirm="cancelOrder" size="lg">Cancel</ButtonWithConfrm>
+                            <ButtonWithConfrm style="float:right" v-if="isEmployee" v-bind:on-confirm="finalizeOrder" size="lg">{{$t('order.buttons.finalize')}}</ButtonWithConfrm>
+                            <ButtonWithConfrm style="float:right" v-if="isClient || isEmployee" v-bind:on-confirm="cancelOrder" size="lg">{{$t('common.buttons.cancel')}}</ButtonWithConfrm>
                         </div>
                     </mdb-card-footer>
                 </mdb-card>

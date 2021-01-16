@@ -3,14 +3,14 @@
         <mdb-row class="justify-content-md-center">
             <mdb-col md="auto" col="12">
                 <mdb-card style="min-width: 40vw; min-height: min-content" >
-                    <mdb-card-title><p class="m-3 h4">Your order</p></mdb-card-title>
+                    <mdb-card-title><p class="m-3 h4">{{$t('order.your')}}</p></mdb-card-title>
                     <mdb-card-body>
                         <OrderItemsInfo v-bind:order-value="orderValue" v-on:itemRemoved="onItemRemoved" v-bind:complete-element-info="completeCartItems"/>
                     </mdb-card-body>
                     <mdb-card-footer>
                         <div class="float-right">
-                        <mdb-btn v-bind:disabled="! cartItems.length > 0" v-on:click="clear">Clear</mdb-btn>
-                        <mdb-btn v-bind:disabled="! cartItems.length > 0" v-on:click="purchase">Purchase</mdb-btn>
+                        <mdb-btn v-bind:disabled="! cartItems.length > 0" v-on:click="clear">{{$t('common.buttons.clear')}}</mdb-btn>
+                        <mdb-btn v-bind:disabled="! cartItems.length > 0" v-on:click="purchase">{{$t('common.buttons.purchase')}}</mdb-btn>
                         </div>
                     </mdb-card-footer>
                 </mdb-card>

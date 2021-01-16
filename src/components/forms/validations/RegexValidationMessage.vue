@@ -1,6 +1,6 @@
 <template>
     <div class="validate-error" v-if="visible">
-        Invalid format
+        {{$t('validation.regex')}}
     </div>
 </template>
 

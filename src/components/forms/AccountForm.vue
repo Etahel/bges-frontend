@@ -25,8 +25,8 @@
             </div>
         </div>
         <div class="grey-text text-center mb-5">
-            <p class="h4 text-left mb-5">Password</p>
-            <ButtonWithConfrm v-bind:on-confirm="resetPassword" size="lg">reset password</ButtonWithConfrm>
+            <p class="h4 text-left mb-5">{{$t('account.password')}}</p>
+            <ButtonWithConfrm v-bind:on-confirm="resetPassword" size="lg">{{$t('account.buttons.reset_password')}}</ButtonWithConfrm>
         </div>
     </form>
 </template>

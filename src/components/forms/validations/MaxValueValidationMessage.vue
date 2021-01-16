@@ -1,6 +1,6 @@
 <template>
     <div class="validate-error" v-if="visible">
-        Must be not greater than {{maxValue}}
+        {{$t('validation.maxValue')}} {{maxValue}}
     </div>
 </template>
 

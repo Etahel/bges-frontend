@@ -3,7 +3,7 @@
         <mdb-row>
             <mdb-col>
                 <div class="ml-5 mt-5 mr-5 grey-text">
-                    <p class="h4 text-left">Client Data</p>
+                    <p class="h4 text-left">{{$t('client.client_data')}}</p>
                 </div>
             </mdb-col>
         </mdb-row>
@@ -12,15 +12,15 @@
                 <div class="custom-control custom-radio custom-control-inline">
                     <input v-model="clientMode" checked type="radio" name="clientRadio" value="provide"
                            class="custom-control-input" id="provideClientRadio">
-                    <label class="custom-control-label" for="provideClientRadio">Provide Client Data</label>
+                    <label class="custom-control-label" for="provideClientRadio">{{$t('order.provide_client')}}</label>
                 </div>
             </mdb-col>
             <mdb-col col="6">
                 <div class="custom-control custom-radio custom-control-inline">
                     <input v-model="clientMode" v-bind:disabled="!doesClientHaveFullName" value="default" type="radio"
                            name="clientRadio" class="custom-control-input" id="defaultClientRadio">
-                    <label class="custom-control-label" for="defaultClientRadio">Use Default Client
-                        <mdb-badge v-if="!this.doesClientHaveFullName" color="danger">Incomplete</mdb-badge>
+                    <label class="custom-control-label" for="defaultClientRadio">{{$t('order.default_client')}}
+                        <mdb-badge v-if="!this.doesClientHaveFullName" color="danger">{{$t('common.incomplete')}}</mdb-badge>
                     </label>
                 </div>
             </mdb-col>
@@ -28,7 +28,7 @@
         <mdb-row>
             <mdb-col>
                 <div class="grey-text ml-5 mr-5">
-                    <mdb-input v-bind:readOnly="this.clientMode==='default'" label="First Name" icon="user" type="text"
+                    <mdb-input v-bind:readOnly="this.clientMode==='default'" v-bind:label="$t('client.firstname')" icon="user" type="text"
                                class="mb-0" v-model="clientData.firstName"/>
                     <required-validation-message v-bind:visible="!$v.clientData.firstName.required && !this.formValid"/>
                     <max-length-validation-message max-length="50"
@@ -39,7 +39,7 @@
         <mdb-row>
             <mdb-col>
                 <div class="grey-text ml-5 mr-5">
-                    <mdb-input v-bind:readOnly="this.clientMode==='default'" label="Last Name" icon="user" group
+                    <mdb-input v-bind:readOnly="this.clientMode==='default'" v-bind:label="$t('client.lastname')" icon="user" group
                                class="mb-0" type="text" v-model="clientData.lastName"/>
                     <required-validation-message v-bind:visible="!$v.clientData.lastName.required && !this.formValid"/>
                     <max-length-validation-message max-length="50"
@@ -50,7 +50,7 @@
         <mdb-row>
             <mdb-col>
                 <div class="ml-5 mt-3 mr-5 grey-text">
-                    <p class="h4 text-left">Address Data</p>
+                    <p class="h4 text-left">{{$t('client.address_data')}}</p>
                 </div>
             </mdb-col>
         </mdb-row>
@@ -59,7 +59,7 @@
                 <div class="custom-control custom-radio custom-control-inline">
                     <input v-model="addressMode" checked type="radio" name="addressRadio" value="provide"
                            class="custom-control-input" id="provideAddressRadio">
-                    <label class="custom-control-label" for="provideAddressRadio">Provide Address Data</label>
+                    <label class="custom-control-label" for="provideAddressRadio">{{$t('order.provide_address')}}</label>
                 </div>
             </mdb-col>
             <mdb-col col="6">
@@ -67,8 +67,8 @@
                     <input v-model="addressMode" v-bind:disabled="!doesClientHaveAddress" value="default" type="radio"
                            name="addressRadio" class="custom-control-input" id="defaultAddressRadio">
                     <label class="custom-control-label" for="defaultAddressRadio">
-                        Use Default Address
-                        <mdb-badge v-if="!this.doesClientHaveAddress" color="danger">Incomplete</mdb-badge>
+                        {{$t('order.default_address')}}
+                        <mdb-badge v-if="!this.doesClientHaveAddress" color="danger">{{$t('common.incomplete')}}</mdb-badge>
                     </label>
                 </div>
             </mdb-col>
@@ -76,7 +76,7 @@
         <mdb-row>
             <mdb-col col="8">
                 <div class="ml-5 mr-1 grey-text">
-                    <mdb-input v-bind:readOnly="this.addressMode==='default'" class="mb-0" label="City"
+                    <mdb-input v-bind:readOnly="this.addressMode==='default'" class="mb-0" v-bind:label="$t('address.city')"
                                icon="city" type="text" v-model="addressData.city"/>
                     <required-validation-message v-bind:visible="!$v.addressData.city.required && !this.formValid"/>
                     <max-length-validation-message max-length="50"
@@ -86,7 +86,7 @@
             <mdb-col col="4">
                 <div class="ml-1 mr-5 grey-text">
                     <mdb-input v-bind:readOnly="this.addressMode==='default'" class="mb-0"
-                               label="Postal Code" icon="envelope-open-text" type="text"
+                               v-bind:label="$t('address.postal_code')" icon="envelope-open-text" type="text"
                                v-model="addressData.postalCode"/>
                     <required-validation-message
                             v-bind:visible="!$v.addressData.postalCode.required && !this.formValid"/>
@@ -97,7 +97,7 @@
         <mdb-row>
             <mdb-col class="ml-5 mr-5 grey-text">
                 <div>
-                    <mdb-input v-bind:readOnly="this.addressMode==='default'" class="mb-0" label="Street"
+                    <mdb-input v-bind:readOnly="this.addressMode==='default'" class="mb-0" v-bind:label="$t('address.street')"
                                icon="road" type="text" v-model="addressData.street"/>
                     <required-validation-message v-bind:visible="!$v.addressData.street.required && !this.formValid"/>
                     <max-length-validation-message max-length="50"
@@ -108,7 +108,7 @@
         <mdb-row class="grey-text">
             <mdb-col col="4">
                 <div class="ml-5">
-                    <mdb-input class="mb-0" v-bind:readOnly="this.addressMode==='default'" label="House no" icon="home"
+                    <mdb-input class="mb-0" v-bind:readOnly="this.addressMode==='default'" v-bind:label="$t('address.houseNo')" icon="home"
                                type="text" v-model="addressData.houseNo"/>
                     <required-validation-message v-bind:visible="!$v.addressData.houseNo.required && !this.formValid"/>
                     <max-length-validation-message max-length="10"
@@ -117,7 +117,7 @@
             </mdb-col>
             <mdb-col col="4">
                 <div>
-                    <mdb-input class="mb-0" v-bind:readOnly="this.addressMode==='default'" label="Flat no"
+                    <mdb-input class="mb-0" v-bind:readOnly="this.addressMode==='default'" v-bind:label="$t('address.flatNo')"
                                icon="building" type="text"
                                v-model="addressData.flatNo"/>
                     <max-length-validation-message max-length="10"
@@ -129,7 +129,7 @@
             <mdb-col>
                 <div class="text-right">
                     <mdb-btn-group class="mt-3 mb-3">
-                        <mdb-btn v-on:click="summary">Summary</mdb-btn>
+                        <mdb-btn v-on:click="summary">{{$t('common.summary')}}</mdb-btn>
                     </mdb-btn-group>
                 </div>
             </mdb-col>

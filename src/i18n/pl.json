@@ -48,10 +48,12 @@
       "cancel": "anuluj",
       "delete": "usuń",
       "are_you_sure" : "Na pewno?",
-      "change" : "zmień"
+      "change" : "zmień",
+      "clear" : "wyczyść",
+      "purchase" : "kup"
     },
-    "yes" : "yes",
-    "no" : "no",
+    "yes" : "tak",
+    "no" : "nie",
     "archived": "Zarchiwizowano",
     "available": "Dostępny",
     "unavailable": "Niedostępny",
@@ -64,14 +66,32 @@
     "photo": "Zdjęcie",
     "photo_url": "Adres zdjęcia",
     "search_by": "Wyszukaj po {search}",
-    "date": "data"
+    "date": "data",
+    "incomplete" : "Niekompletne",
+    "quantity" : "Ilość",
+    "game" : "Gra",
+    "summary" : "Podsumowanie"
   },
   "validation": {
     "decimal": "Musi być liczbą",
     "larger_than_stock": "Przekroczono dostępną ilosć",
     "cart_full": "Koszyk jest pełny",
     "min_player": "Minimalna ilość graczy to 1",
-    "max_players_over_min": "Maksymalna ilośc graczy musi być większa niż minimalna"
+    "max_players_over_min": "Maksymalna ilośc graczy musi być większa niż minimalna",
+    "year" : "Musi być poprawnym rokiem",
+    "password_repeat" : "Hasła nie są takie same",
+    "password_format" : "Hasło musi zawierać 8 znaków, dużą literę i liczbę",
+    "required" : "Wymagane",
+    "url" : "Niepoprawny format URL",
+    "regex" : "Niepoprawny format",
+    "minValue" : "Musi być niemniejsze niż",
+    "maxValue" : "Musi być niewiększe niż",
+    "minLength" : "Musi być niekrótsze niż {length} znaki(ów)",
+    "maxLength" : "Musi być niedłuższe niż {length} znaki(ów)",
+    "integer" : "Musi być liczbą całkowitą",
+    "email" : "Niepoprawny format email",
+    "different" : "Nie wprowadzono zmian"
+
   },
   "table": {
     "no_data": "Nie znaleziono",
@@ -83,12 +103,36 @@
     "all": "Wszystke"
   },
   "order": {
+    "details": "Szczegóły zamówienia",
+    "buttons": {
+      "confirm" : "Potwierdź zamówienie",
+      "finalize" : "Zakończ"
+    },
+    "your" : "Twoje zamówienie",
     "status": "Status zamówienia",
     "lastname" : "Nazwisko klienta",
     "username" : "Nazwa użytkownika",
-    "value" : "Całkowita wartość"
+    "value" : "Całkowita wartość",
+    "total_number" : "Łączna liczba elementów",
+    "provide_client" : "Podaj dane klienta",
+    "default_client" : "Użyj domyślych",
+    "provide_address" : "Podaj dane adresowe",
+    "default_address" : "Użyj domyślnych"
   },
   "account" : {
+    "create" : "Utwórz nowe konto",
+    "buttons" : {
+      "create": "Utwórz konto",
+      "login" : "Zaloguj",
+      "help" : "Potrzebujesz pomocy z logowaniem?",
+      "reset_password" :  "Resetuj hasło",
+      "resend_email" : "Wyślij ponownie email weryfikacyjny"
+    },
+    "password" : "Hasło",
+    "repeat_password" : "Powtórz hasło",
+    "username" : "Nazwa użytkownika",
+    "reset" : "resetuj",
+    "email" : "email",
     "your_username" : "Twoja nazwa użytkownika",
     "your_email" : "Twój adres email"
   },
@@ -96,10 +140,16 @@
     "client_data" : "Dane klienta",
     "address_data" : "Dane adresowe ",
     "firstname": "Imie",
-    "lastname": "Nazwisko"
+    "lastname": "Nazwisko",
+    "username" : "Nazwa użytkownika"
   },
   "address": {
-
+    "city": "Miasto",
+    "postal_code": "Kod pocztowy",
+    "street" : "Ulica",
+    "streetNo" : "Nr ulicy",
+    "houseNo" : "Nr domu",
+    "flatNo" : "Nr mieszkania"
   },
   "navbar" : {
     "home" : "Strona główna",

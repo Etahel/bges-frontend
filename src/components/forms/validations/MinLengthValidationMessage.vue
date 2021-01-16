@@ -1,13 +1,16 @@
 <template>
     <div class="validate-error" v-if="visible">
-        {{$t('validation.required')}}
+        {{$t('validation.minLength', {
+        length: minLength
+        }) }}
     </div>
 </template>
 
 <script>
     export default {
-        name: "RequiredValidationMessage",
+        name: "MinLengthValidationMessage",
         props: {
+            minLength: String,
             visible: Boolean
         }
     }

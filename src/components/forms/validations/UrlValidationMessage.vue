@@ -1,5 +1,5 @@
 <template>
-    <div class="validate-error" v-if="visible">Incorrect URL format</div>
+    <div class="validate-error" v-if="visible">{{$t('validation.url')}}</div>
 </template>
 
 <script>
