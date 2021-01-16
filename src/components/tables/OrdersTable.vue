@@ -13,6 +13,9 @@
                 :pagination-options="paginationOptions"
                 :rows="page.content"
                 :columns="columns">
+            <div slot="emptystate" class="text-center">
+                {{this.$t('table.no_data')}}
+            </div>
             <template slot="table-row" slot-scope="props">
                 <span v-if="props.column.field == 'status'">
                     {{ getStatusLabel(props.row.status)}}
@@ -93,61 +96,67 @@
                         type: 'number'
                     },
                     {
-                        label: "Date",
+                        label: this.$t('common.date'),
                         field: 'date',
                         type: 'date',
                         dateInputFormat: 'yyyy-MM-dd HH:mm:ss', // expects 2018-03-16
                         dateOutputFormat: 'yyyy-MM-dd HH:mm:ss', // outputs Mar 16th 2018
                         filterOptions: {
                             enabled: true, // enable filter for this column
-                            placeholder: 'Filter Date', // placeholder for filter input
+                            placeholder:  this.$t('common.search_by', { search: 'dacie' }), // placeholder for filter input
                             trigger: 'keyup', //only trigger on enter not on keyup
                             dateFilter: true
-                        }
+                        },
+                        thClass: 'text-left',
+                        tdClass: 'text-left',
                     },
                     {
-                        label: "Status",
+                        label: this.$t('order.status'),
                         field: 'status',
                         sortable: false,
                         type: 'text',
                         filterOptions: {
-                            enabled: true, // enable filter for this column
-                            placeholder: 'Filter status', // placeholder for filter input
-                            trigger: 'keyup', //only trigger on enter not on keyup
+                            enabled: true,
+                            placeholder: this.$t('common.search_by', { search: 'statusie' }),
+                            trigger: 'keyup',
                             filterDropdownItems: OrderStatuses
                         },
+                        thClass: 'text-left',
+                        tdClass: 'text-left',
                     },
                     {
-                        label: "Client last name",
+                        label: this.$t('order.lastname'),
                         field: 'lastName',
                         type: 'text',
                         filterOptions: {
-                            enabled: true, // enable filter for this column
-                            placeholder: 'Filter last name', // placeholder for filter input
-                            trigger: 'keyup', //only trigger on enter not on keyup
+                            enabled: true,
+                            placeholder: this.$t('common.search_by', { search: 'nazwisku' }),
+                            trigger: 'keyup',
                         },
+                        thClass: 'text-left',
+                        tdClass: 'text-left',
                     },
                     {
-                        label: "User",
+                        label: this.$t('order.username'),
                         field: 'client.username',
                         type: 'text',
                         hidden: !this.showUser,
                         filterOptions: {
                             enabled: true, // enable filter for this column
-                            placeholder: 'Filter Value', // placeholder for filter input
+                            placeholder: this.$t('common.search_by', { search: 'nazwie użytkownika' }),
                             trigger: 'keyup', //only trigger on enter not on keyup
                         },
                     },
                     {
-                        label: "Value",
+                        label: this.$t('order.value'),
                         field: 'value',
                         type: 'number',
                         filterOptions: {
-                            enabled: true, // enable filter for this column
-                            placeholder: 'Filter Value', // placeholder for filter input
-                            trigger: 'keyup', //only trigger on enter not on keyup
+                            enabled: true,
                             valueFilter: true
                         },
+                        thClass: 'text-left',
+                        tdClass: 'text-left',
                     },
                 ],
                 dateRange: {
@@ -155,7 +164,7 @@
                     end: '',
                 },
                 masks: {
-                    input: 'YYYY-MM-DD h:mm A',
+                    input: 'YYYY-MM-DD',
                 },
                 modelConfig: {
                     type: 'string',

@@ -109,6 +109,7 @@
             clear() {
                 this.$store.commit('CLEAR_CART_ITEMS');
                 this.completeCartItems = [];
+                this.calculateOrderValue();
             },
             purchase() {
                 var orderItems = this.completeCartItems.map((cartItem) => {
@@ -130,6 +131,7 @@
             onItemRemoved(index) {
                     this.$store.commit('REMOVE_CART_ITEM', this.completeCartItems[index].orderItem);
                     this.completeCartItems.splice(index, 1);
+                    this.calculateOrderValue();
             }
         },
         computed: {

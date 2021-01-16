@@ -13,10 +13,13 @@
             :pagination-options="paginationOptions"
             :rows="page.content"
             :columns="columns">
+        <div slot="emptystate" class="text-center">
+            {{this.$t('table.no_data')}}
+        </div>
         <div v-if="isEmployee" slot="table-actions">
-            <mdbBtn size="sm" v-on:click="openCreate">Add Board Game</mdbBtn>
-            <mdbBtn size="sm" v-on:click="openPublisherModal">Publisher Menu</mdbBtn>
-            <mdbBtn size="sm" v-on:click="openTagModal">Tag Menu</mdbBtn>
+            <mdbBtn size="sm" v-on:click="openCreate">{{this.$t('boardgame.buttons.add')}}</mdbBtn>
+            <mdbBtn size="sm" v-on:click="openPublisherModal">{{this.$t('boardgame.buttons.publisher_menu')}}</mdbBtn>
+            <mdbBtn size="sm" v-on:click="openTagModal">{{this.$t('boardgame.buttons.tag_menu')}}</mdbBtn>
         </div>
         <template slot="table-row" slot-scope="props">
     <span v-if="props.column.field == 'tags'">
@@ -32,7 +35,7 @@
                     v-if="props.column.filterOptions.tagFilter"
                     :options="tagList"
                     multiple
-                      placeholder="Tags"
+                    placeholder="Tagi"
                     style="min-width: 100px; background:white"
                     @input="(values) => onColumnFilter({columnFilters: {
                         tagNames:values
@@ -78,81 +81,81 @@
                 showPublishersModal:false,
                 columns: [
                     {
-                        label: 'Id',
+                        label:  this.$t("Id"),
                         field: 'id',
                         hidden: true,
                         type: 'number'
                     },
                     {
-                        label: 'Title',
+                        label: this.$t("common.title"),
                         field: 'title',
                         type: 'text',
                         filterOptions: {
-                            enabled: true, // enable filter for this column
-                            placeholder: 'Filter Title', // placeholder for filter input
-                            trigger: 'keyup', //only trigger on enter not on keyup
+                            enabled: true,
+                            placeholder: this.$t('common.search_by', { search: 'tytule' }),
+                            trigger: 'keyup',
                         },
 
                     },
                     {
-                      label: "Year",
+                      label: this.$t("boardgame.year"),
                       field: 'year',
                       type: 'number',
                       thClass: 'text-left',
                       tdClass: 'text-left',
                       filterOptions: {
-                            enabled: true, // enable filter for this column
-                            placeholder: 'Filter This Thing', // placeholder for filter input
-                            trigger: 'keyup', //only trigger on enter not on keyup
+                            enabled: true,
+                            placeholder: this.$t('common.search_by', { search: 'roku wydania' }),
+                            trigger: 'keyup',
                         },
                     },
                     {
-                        label: "Min Players",
+                        label: this.$t("boardgame.min_players"),
                         field: 'minPlayers',
                         type: 'number',
                         thClass: 'text-left',
                         tdClass: 'text-left',
                         filterOptions: {
-                            enabled: true, // enable filter for this column
-                            placeholder: 'Filter This Thing', // placeholder for filter input
-                            trigger: 'keyup', //only trigger on enter not on keyup
+                            enabled: true,
+                            placeholder: this.$t('common.search_by', { search: 'min. graczy' }),
+                            trigger: 'keyup',
                         },
                     },
                     {
-                        label: "Max Players",
+                        label: this.$t("boardgame.max_players"),
                         field: 'maxPlayers',
                         type: 'number',
                         thClass: 'text-left',
                         tdClass: 'text-left',
                         filterOptions: {
-                            enabled: true, // enable filter for this column
-                            placeholder: 'Filter This Thing', // placeholder for filter input
-                            trigger: 'keyup', //only trigger on enter not on keyup
+                            enabled: true,
+                            placeholder: this.$t('common.search_by', { search: 'max. graczy' }),
+                            trigger: 'keyup',
                         },
                     },
                     {
-                        label: 'Author',
+                        label: this.$t("boardgame.author"),
                         field: 'author',
                         type: 'text',
                         filterOptions: {
-                            enabled: true, // enable filter for this column
-                            placeholder: 'Filter author', // placeholder for filter input
-                            trigger: 'keyup', //only trigger on enter not on keyup
+                            enabled: true,
+                            placeholder: this.$t('common.search_by', { search: 'autorze' }),
+                            trigger: 'keyup',
                         },
 
                     },
                     {
-                        label: 'Publisher',
+                        label: this.$t("boardgame.publisher"),
                         field: 'publisher',
                         type: 'text',
                         filterOptions: {
                             enabled: true,
-                            publisherFilter: true,
+                            placeholder: this.$t('common.search_by', { search: 'wydawcy' })
                         }
 
                     },
                     {
-                        label: 'Tags',
+                        label: this.$t("boardgame.tags"),
                         field: 'tags',
                         html:true,
                         sortable:false,

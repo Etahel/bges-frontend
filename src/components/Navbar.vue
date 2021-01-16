@@ -5,23 +5,23 @@
     </mdb-navbar-brand>
     <mdb-navbar-toggler>
       <mdb-navbar-nav>
-        <mdb-nav-item to="/home" active>Home</mdb-nav-item>
-        <mdb-nav-item to="/boardgames">Board Games</mdb-nav-item>
-        <mdb-nav-item v-if="isClient" to="/my-orders">My Orders</mdb-nav-item>
-        <mdb-nav-item v-if="isEmployee" to="/orders">Orders</mdb-nav-item>
+        <mdb-nav-item to="/home" active>{{this.$t('navbar.home')}}</mdb-nav-item>
+        <mdb-nav-item to="/boardgames">{{this.$t('navbar.boardgames')}}</mdb-nav-item>
+        <mdb-nav-item v-if="isClient" to="/my-orders">{{this.$t('navbar.my_orders')}}</mdb-nav-item>
+        <mdb-nav-item v-if="isEmployee" to="/orders">{{this.$t('navbar.orders')}}</mdb-nav-item>
       </mdb-navbar-nav>
       <mdb-form-inline right v-if=!token>
-        <mdb-btn v-on:click="login">Log in</mdb-btn>
-        <mdb-btn v-on:click="register">Register</mdb-btn>
+        <mdb-btn v-on:click="login">{{this.$t('navbar.login')}}</mdb-btn>
+        <mdb-btn v-on:click="register">{{this.$t('navbar.register')}}</mdb-btn>
       </mdb-form-inline>
       <mdb-form-inline v-else>
         <mdb-navbar-nav class="pr-0" >
-        <mdb-btn v-on:click="cart" color="primary" class="mt-0 mr-3"><mdb-icon icon="shopping-cart" class="mr-2"/>{{this.cartItemsCount}} items</mdb-btn>
+        <mdb-btn v-on:click="cart" color="primary" class="mt-0 mr-3"><mdb-icon icon="shopping-cart" class="mr-2"/>{{this.$t('navbar.cart')}} ({{this.cartItemsCount}})</mdb-btn>
         <mdb-dropdown end tag="li" class="pr-0 nav-item">
           <mdb-dropdown-toggle size="lg" tag="a" navLink color="indigo" slot="toggle" waves-fixed>Hello, {{this.username}}</mdb-dropdown-toggle>
           <mdb-dropdown-menu class="dropdown-menu-right">
-            <mdb-dropdown-item to="/Profile">Profile</mdb-dropdown-item>
-            <mdb-dropdown-item v-on:click="logout">Log out</mdb-dropdown-item>
+            <mdb-dropdown-item to="/Profile">{{this.$t('navbar.profile')}}</mdb-dropdown-item>
+            <mdb-dropdown-item v-on:click="logout">{{this.$t('navbar.logout')}}</mdb-dropdown-item>
           </mdb-dropdown-menu>
         </mdb-dropdown>
           </mdb-navbar-nav>

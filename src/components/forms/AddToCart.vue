@@ -2,20 +2,20 @@
     <div style="width: 100%">
         <div>
             <div v-if="element.stock.available" class="float-left">
-                <mdb-badge color="primary">Available</mdb-badge>
-                <p>Stock left: {{this.element.stock.stockSize}}</p>
+                <mdb-badge color="primary">{{$t('common.available')}}</mdb-badge>
+                <p>{{$t('element.stock_left')}}: {{this.element.stock.stockSize}}</p>
             </div>
             <div v-else class="float-left">
-                <mdb-badge color="danger">Unavailable</mdb-badge>
+                <mdb-badge color="danger">{{$t('common.unavailable')}}</mdb-badge>
             </div>
         </div>
         <div v-if="element.stock.available" class="float-right">
         <label>
             <input v-model.number="orderItem.elementsCount" style="width: 40px" type="number">
         </label>
-        <mdbBtn v-bind:disabled="this.$v.$invalid || isCartFull" v-on:click="addToCart"  size="sm">Add to cart</mdbBtn>
-        <div class="validate-error" v-if="!$v.orderItem.elementsCount.maxValue">Larger than stock</div>
-            <div class="validate-error" v-if="this.isCartFull">Cart is full</div>
+        <mdbBtn v-bind:disabled="this.$v.$invalid || isCartFull" v-on:click="addToCart"  size="sm">{{$t('element.buttons.to_cart')}}</mdbBtn>
+        <div class="validate-error" v-if="!$v.orderItem.elementsCount.maxValue">{{$t('validation.larger_than_stock')}}</div>
+            <div class="validate-error" v-if="this.isCartFull">{{$t('validation.cart_full')}}</div>
         </div>
     </div>
 </template>

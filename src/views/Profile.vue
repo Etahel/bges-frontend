@@ -7,14 +7,14 @@
                               :active="0"
                               default
                               :links="[
-                                 { text: 'Account'},
-                                 { text: 'Client' }]">
-                        <template :slot="'Account'">
+                                 { text: 'Konto'},
+                                 { text: 'Dane klienta' }]">
+                        <template :slot="'Konto'">
                             <div class="overflow-auto">
                                 <AccountForm/>
                             </div>
                         </template>
-                        <template :slot="'Client'">
+                        <template :slot="'Dane klienta'">
                             <div class="overflow-auto">
                                 <ClientForm/>
                             </div>

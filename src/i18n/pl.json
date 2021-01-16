@@ -1,0 +1,117 @@
+{
+  "error": {
+    "connection": {
+      "server": "Wystąpił problem z dostępem do serwera"
+    }
+  },
+  "element": {
+    "name": "Nazwa elementu",
+    "buttons": {
+      "add": "Dodaj element",
+      "manage_stock": "Zarządzaj inwentarzem",
+      "to_cart": "Dodaj do koszyka"
+    },
+    "details": "Szczegóły elementu",
+    "current_stock": "Aktualny stan inwentarza",
+    "stock_change": "Zmiana stanu inwentarza",
+    "stock_status": "Dostępność",
+    "stock_left": "dostępnych",
+    "category": {
+      "tokens_and_markers": "Żetony i znaczniki",
+      "boards_boxes_and_containers": "Pudełka i kontenery",
+      "cards": "Karty",
+      "pieces_and_figures": "Pionki i figurki",
+      "dices": "Kostki",
+      "instructions_and_infographics": "Instrukcje i infografiki",
+      "other_elements": "Inne elementy"
+    }
+  },
+  "boardgame": {
+    "buttons": {
+      "add": "Dodaj grę planszową",
+      "tag_menu": "Zarządzaj tagami",
+      "publisher_menu": "zarządzaj wydawcami"
+    },
+    "min_players": "Min. graczy",
+    "max_players": "Max. graczy",
+    "details": "Szczegóły gry planszowej",
+    "year": "Rok wydania",
+    "publisher": "Wydawca",
+    "author": "Author",
+    "players": "Gracze",
+    "tags": "tagi"
+  },
+  "common": {
+    "buttons": {
+      "edit": "edytuj",
+      "save": "zapisz",
+      "cancel": "anuluj",
+      "delete": "usuń",
+      "are_you_sure" : "Na pewno?",
+      "change" : "zmień"
+    },
+    "yes" : "yes",
+    "no" : "no",
+    "archived": "Zarchiwizowano",
+    "available": "Dostępny",
+    "unavailable": "Niedostępny",
+    "title": "Tytuł",
+    "name": "Nazwa",
+    "status": "Status",
+    "category": "Kategoria",
+    "description": "Opis",
+    "price": "Cena",
+    "photo": "Zdjęcie",
+    "photo_url": "Adres zdjęcia",
+    "search_by": "Wyszukaj po {search}",
+    "date": "data"
+  },
+  "validation": {
+    "decimal": "Musi być liczbą",
+    "larger_than_stock": "Przekroczono dostępną ilosć",
+    "cart_full": "Koszyk jest pełny",
+    "min_player": "Minimalna ilość graczy to 1",
+    "max_players_over_min": "Maksymalna ilośc graczy musi być większa niż minimalna"
+  },
+  "table": {
+    "no_data": "Nie znaleziono",
+    "next": "następna",
+    "prev": "poprzednia",
+    "rows_per_page": "liczba wierszy",
+    "page": "strona",
+    "of": "z",
+    "all": "Wszystke"
+  },
+  "order": {
+    "status": "Status zamówienia",
+    "lastname" : "Nazwisko klienta",
+    "username" : "Nazwa użytkownika",
+    "value" : "Całkowita wartość"
+  },
+  "account" : {
+    "your_username" : "Twoja nazwa użytkownika",
+    "your_email" : "Twój adres email"
+  },
+  "client": {
+    "client_data" : "Dane klienta",
+    "address_data" : "Dane adresowe ",
+    "firstname": "Imie",
+    "lastname": "Nazwisko"
+  },
+  "address": {
+
+  },
+  "navbar" : {
+    "home" : "Strona główna",
+    "boardgames" : "Gry planszowe",
+    "orders" : "Zamówienia",
+    "my_orders" : "Moje zamówienia",
+    "login" : "Logowanie",
+    "register" : "Rejestracja",
+    "hello" : "Witaj",
+    "cart" : "Koszyk",
+    "profile" : "Mój profil",
+    "logout" : "Wyloguj"
+  }
+
+}

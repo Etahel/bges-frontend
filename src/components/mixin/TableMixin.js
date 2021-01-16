@@ -3,7 +3,13 @@ export var tableMixin = {
         return {
             paginationOptions: {
                 enabled: true,
-                setCurrentPage: 1
+                setCurrentPage: 1,
+                nextLabel: this.$t('table.next'),
+                prevLabel:  this.$t('table.prev'),
+                rowsPerPageLabel: this.$t('table.rows_per_page'),
+                ofLabel: this.$t('table.of'),
+                pageLabel:  this.$t('table.page'),
+                allLabel: this.$t('table.all'),
             },
             isLoading: false,
             apiUrl:'',

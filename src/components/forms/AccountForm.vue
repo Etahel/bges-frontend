@@ -1,12 +1,12 @@
 <template>
     <form class="m-5">
         <div class="grey-text mb-5">
-            <p class="h4 text-left">Your username</p>
+            <p class="h4 text-left">{{$t('account.your_username')}}</p>
             <mdb-input class="mb-0" containerClass="text-left" icon="user" type="text"
                        readOnly v-model="username"/>
         </div>
         <div class="grey-text mb-5">
-            <p class="h4 text-left">Current email</p>
+            <p class="h4 text-left">{{$t('account.your_email')}}</p>
             <mdb-input class="mb-0" containerClass="text-left" icon="envelope" type="text"
                        v-bind:readOnly=!emailChange v-model="email"/>
             <div v-if="!this.formValid">
@@ -16,11 +16,11 @@
             </div>
             <div class="text-right">
                 <mdb-btn v-if="!emailChange" size="sm" v-on:click="enableEmailChange">
-                    Change
+                    {{$t('common.buttons.change')}}
                 </mdb-btn>
                 <mdb-btn-group v-else class="mt-3" size="sm">
-                    <mdb-btn v-on:click="cancelEmailChange">Cancel</mdb-btn>
-                    <mdb-btn v-on:click="changeEmail">Save</mdb-btn>
+                    <mdb-btn v-on:click="cancelEmailChange">{{$t('common.buttons.cancel')}}</mdb-btn>
+                    <mdb-btn v-on:click="changeEmail">{{$t('common.buttons.save')}}</mdb-btn>
                 </mdb-btn-group>
             </div>
         </div>

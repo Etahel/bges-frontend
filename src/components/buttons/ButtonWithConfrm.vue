@@ -7,14 +7,14 @@
         <!-- confirm modal -->
         <mdb-modal :show="open" @close="open = false" size="sm" class="text-center" danger>
             <mdb-modal-header center :close="false">
-                <p class="heading">Are you sure?</p>
+                <p class="heading">{{$t('common.buttons.are_you_sure')}}</p>
             </mdb-modal-header>
             <mdb-modal-footer center>
                 <mdb-btn outline="danger" @click="() => {
                     this.open = false;
                     this.onConfirm();
-                }">Yes</mdb-btn>
-                <mdb-btn color="danger" @click="open = false">No</mdb-btn>
+                }">{{$t('common.yes')}}</mdb-btn>
+                <mdb-btn color="danger" @click="open = false">{{$t('common.no')}}</mdb-btn>
             </mdb-modal-footer>
         </mdb-modal>
     </div>

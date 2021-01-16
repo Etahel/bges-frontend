@@ -1,7 +1,7 @@
 <template>
     <mdb-modal class="text-left" :show="stockModal" @close="onClose">
         <mdb-modal-header>
-            <mdb-modal-title>Manage Stock</mdb-modal-title>
+            <mdb-modal-title>{{this.$t('element.buttons.manage_stock')}}</mdb-modal-title>
         </mdb-modal-header>
         <mdb-modal-body>
             <mdb-container>
@@ -12,7 +12,7 @@
                 </mdb-row>
                 <mdb-row >
                     <mdb-col  col="4">
-                        <label >Current Stock: </label>
+                        <label >{{this.$t('element.current_stock')}}: </label>
                     </mdb-col>
                     <mdb-col  col="8">
                         <p class="ml-3">{{elementStock.stockSize}}</p>
@@ -20,7 +20,7 @@
                 </mdb-row>
                 <mdb-row >
                     <mdb-col  col="4">
-                <label for="stockInput">Stock Change: </label>
+                <label for="stockInput">{{this.$t('element.stock_change')}}: </label>
                     </mdb-col>
                     <mdb-col col="8">
                         <div class="d-block">
@@ -33,7 +33,7 @@
                 </mdb-row>
                 <mdb-row class="mt-3" >
                     <mdb-col  col="4">
-                        <label for="statusInput"> Stock Status: </label>
+                        <label for="statusInput"> {{this.$t('element.stock_status')}}: </label>
                     </mdb-col>
                     <mdb-col col="8">
                         <input id="statusInput" class="ml-3" v-model="stock.available" type="checkbox">

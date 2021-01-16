@@ -3,7 +3,7 @@
         <mdb-row>
             <mdb-col style="" class="p-0">
                 <div v-if="isEmployee">
-                    <mdbBtn v-on:click="openCreateElement" size="sm" >Add Element</mdbBtn>
+                    <mdbBtn v-on:click="openCreateElement" size="sm" >{{this.$t('element.buttons.add')}}</mdbBtn>
                 </div>
             </mdb-col>
             <mdb-col class="p-0">
@@ -30,6 +30,9 @@
             :pagination-options="paginationOptions"
             :rows="page.content"
             :columns="columns">
+        <div slot="emptystate" class="text-center">
+            {{this.$t('table.no_data')}}
+        </div>
         <template slot="table-row" slot-scope="props">
              <span v-if="props.column.field === 'photoUrl'">
                                     <img v-if="props.row.photoUrl" class="mt-3 mb-3 text-center" v-bind:src=props.row.photoUrl alt="Image" width="200" height="200">
@@ -80,32 +83,32 @@
                         type: 'number'
                     },
                     {
-                        label: this.$t("Photo"),
+                        label: this.$t("common.photo"),
                         field: 'photoUrl',
                         width: '150px',
                         sortable: false
                     },
                     {
-                        label: this.$t("Element Name"),
+                        label: this.$t("element.name"),
                         field: 'name',
                         type: 'text',
                         tdClass: 'text-center h4 ',
                         filterOptions: {
-                            enabled: true, // enable filter for this column
-                            placeholder: 'Filter name', // placeholder for filter input
-                            trigger: 'keyup', //only trigger on enter not on keyup
+                            enabled: true,
+                            placeholder:  this.$t('common.search_by', { search: 'nazwie' }),
+                            trigger: 'keyup',
                         },
                     },
                     {
-                        label: this.$t("Description"),
+                        label: this.$t("common.description"),
                         field: 'description',
                         type: 'text',
                         width: '30vw',
                         sortable: false,
                         filterOptions: {
-                            enabled: true, // enable filter for this column
-                            placeholder: 'Filter description', // placeholder for filter input
-                            trigger: 'keyup', //only trigger on enter not on keyup
+                            enabled: true,
+                            placeholder: this.$t('common.search_by', { search: 'opisie' }),
+                            trigger: 'keyup',
                         },
                     }
                 ],

@@ -1,14 +1,14 @@
 [
   {
-    "text":"order.status.open",
+    "text":"Otwarte",
     "value": "O"
   },
   {
-    "text":"order.status.cancelled",
+    "text":"Anulowane",
     "value": "C"
   },
   {
-    "text":"order.status.finalized",
+    "text":"Zakończone",
     "value": "F"
   }
 ]

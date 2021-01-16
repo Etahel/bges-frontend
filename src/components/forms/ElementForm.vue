@@ -16,13 +16,13 @@
                                             aria-label="Close">
                                         <span aria-hidden="true">×</span>
                                     </button>
-                                    <p class="h4 text-center">Element Details</p>
+                                    <p class="h4 text-center">{{ $t("element.details") }}</p>
                                 </mdb-col>
                             </mdb-row>
                             <mdb-row>
                                 <mdb-col>
                                     <mdb-input v-bind:readOnly=formReadOnly class="mb-0" containerClass="text-left"
-                                               label="Element Name" icon="chess-knight" type="text"
+                                               v-bind:label="this.$t('common.name')" icon="chess-knight" type="text"
                                                v-model="element.name"/>
                                     <required-validation-message v-bind:visible="!$v.element.name.required && !this.formValid" />
                                     <max-length-validation-message max-length="50"
@@ -32,13 +32,13 @@
                             <mdb-row>
                                 <mdb-col v-if="formReadOnly" class="d-flex justify-content-center">
                                     <img v-if="element.photoUrl" class="mt-3 mb-3 text-center"
-                                         v-bind:src=this.element.photoUrl alt="Image" width="300" height="300">
-                                    <img v-else class="mt-3 mb-3 text-center" src="@/assets/noImage.png" alt="Image"
+                                         v-bind:src=this.element.photoUrl v-bind:alt="$t('common.photo')" width="300" height="300">
+                                    <img v-else class="mt-3 mb-3 text-center" src="@/assets/noImage.png" v-bind:alt="$t('common.photo')"
                                          width="250" height="250">
                                 </mdb-col>
                                 <mdb-col v-else>
                                     <mdb-input class="mb-0" style="height: min-content" v-bind:readOnly=formReadOnly type="textarea"
-                                               v-model="element.photoUrl" label="Photo url" icon="pencil" :rows="5"/>
+                                               v-model="element.photoUrl" v-bind:label="this.$t('common.photo_url')" icon="pencil" :rows="5"/>
                                     <max-length-validation-message max-length="2048"  v-bind:visible="!$v.element.photoUrl.maxLength && !this.formValid" />
                                     <url-validation-message v-bind:visible="!$v.element.photoUrl.url && !this.formValid" />
                                 </mdb-col>
@@ -47,7 +47,7 @@
                                 <mdb-col col="8">
                                     <div class="mt-3" v-if="formReadOnly">
                                         <mdb-input v-bind:readOnly=true type="text"
-                                                   :value="getCategoryName(element.elementCategory)" label="Icon Prefix"
+                                                   :value="getCategoryName(element.elementCategory)" v-bind:label="this.$t('common.category')"
                                                    icon="clipboard"/>
                                     </div>
                                     <div v-else class="mt-3">
@@ -62,12 +62,12 @@
                                 </mdb-col>
                                 <mdb-col col="4">
                                     <mdb-input v-bind:readOnly=formReadOnly class="mb-0" containerClass="text-left"
-                                               label="Element Price" icon="dollar-sign" type="text"
+                                               v-bind:label="this.$t('common.price')" icon="dollar-sign" type="text"
                                                v-model="element.price"/>
                                     <min-value-validation-message min-value="0" v-bind:visible="!$v.element.price.minValue && !this.formValid"/>
                                     <max-value-validation-message max-value="1000000" v-bind:visible="!$v.element.price.maxValue && !this.formValid"/>
                                     <div class="validate-error" v-if="!$v.element.price.decimal && !this.formValid">
-                                        Must be a decimal
+                                        {{this.$t('validation.decimal')}}
                                     </div>
 
                                 </mdb-col>
@@ -76,7 +76,7 @@
                                 <mdb-col>
                                     <mdb-input v-bind:readOnly=formReadOnly type="textarea"
                                                v-model="element.description"
-                                               label="Description" icon="pencil" :rows="5" :max-rows="10"/>
+                                               v-bind:label="this.$t('common.description')" icon="pencil" :rows="5" :max-rows="10"/>
                                     <max-length-validation-message max-length="500"
                                                                    v-bind:visible="!$v.element.description.maxLength && !this.formValid"/>
                                 </mdb-col>
@@ -84,7 +84,7 @@
                             <mdb-row>
                                 <mdb-col>
                                     <mdb-badge class="float-right" v-if="isDetailsMode && !element.active"
-                                               color="warning">Archived
+                                               color="warning">{{$t('common.archived')}}
                                     </mdb-badge>
                                     <div v-if="isDetailsMode && element.active">
 
@@ -92,27 +92,27 @@
                                                    v-if="isClient && !isEditMode"/>
 
                                         <div class="text-right" v-if="!isEditMode && isEmployee">
-                                            <mdbBtn @click.native="stockModal = true" size="sm">Manage Stock</mdbBtn>
+                                            <mdbBtn @click.native="stockModal = true" size="sm">{{this.$t('element.buttons.manage_stock')}}</mdbBtn>
                                             <stock-modal v-bind:stock-modal="stockModal"
                                                          v-bind:elementStock="this.element.stock"
                                                          @close="() => {this.stockModal = false}"
                                                          v-on:confirm="onStockConfirm"></stock-modal>
-                                            <mdbBtn v-on:click="edit" size="sm">Edit</mdbBtn>
+                                            <mdbBtn v-on:click="edit" size="sm">{{this.$t('common.buttons.edit')}}</mdbBtn>
                                         </div>
 
                                         <div class="mt-3" v-else-if="isEmployee && isEditMode">
                                             <ButtonWithConfrm v-bind:on-confirm="this.delete" class="mt-3 float-left"
-                                                              color="danger" size="sm">Delete
+                                                              color="danger" size="sm">{{this.$t('common.buttons.delete')}}
                                             </ButtonWithConfrm>
                                             <mdb-btn-group class="mt-3 float-right" size="sm">
-                                                <mdb-btn v-on:click="cancelEdit">Cancel</mdb-btn>
-                                                <mdb-btn v-on:click="update">Save</mdb-btn>
+                                                <mdb-btn v-on:click="cancelEdit">{{this.$t('common.buttons.cancel')}}</mdb-btn>
+                                                <mdb-btn v-on:click="update">{{this.$t('common.buttons.save')}}</mdb-btn>
                                             </mdb-btn-group>
                                         </div>
                                     </div>
 
                                     <div class="mt-2 text-right" v-else-if="isCreateMode && isEmployee">
-                                        <mdbBtn v-on:click="save" size="sm">Save</mdbBtn>
+                                        <mdbBtn v-on:click="save" size="sm">{{this.$t('common.buttons.save')}}</mdbBtn>
                                     </div>
                                 </mdb-col>
                             </mdb-row>
@@ -247,7 +247,7 @@
                 if (result === undefined) {
                     return ''
                 } else {
-                    return result.label;
+                    return this.$t(result.label);
                 }
             },
             onStockConfirm(stock) {
