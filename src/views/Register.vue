@@ -12,26 +12,29 @@
                                            type="text"
                                            v-model="username"/>
                                 <div v-if="!this.formValid">
-                                    <div class="validate-error" v-if="!$v.username.required">Can't be empty</div>
+                                    <required-validation-message v-bind:visible="!$v.username.required" />
                                 </div>
                                 <mdb-input class="mb-0" icon="envelope" containerClass="text-left" label="Email"
                                            type="email"
                                            v-model="email"/>
                                 <div v-if="!this.formValid">
-                                    <div class="validate-error" v-if="!$v.email.required">Can't be empty</div>
-                                    <div class="validate-error" v-if="!$v.email.email">Incorrect email format</div>
+                                    <required-validation-message v-bind:visible="!$v.email.required" />
+                                    <email-validation-message v-bind:visible="!$v.email.email"/>
+
                                 </div>
                                 <mdb-input class="mb-0" containerClass="text-left" label="Your password" icon="lock"
                                            type="password"
                                            v-model="password"/>
                                 <div v-if="!this.formValid">
-                                    <div class="validate-error" v-if="!$v.password.required">Can't be empty</div>
+                                    <required-validation-message v-bind:visible="!$v.password.required" />
+                                    <div class="validate-error" v-if="!$v.password.passwordRegex">validation.password_format
+                                    </div>
                                 </div>
                                 <mdb-input class="mb-0" icon="lock" containerClass="text-left" label="Repeat password"
                                            type="password"
                                            v-model="passwordRepeat"/>
                                 <div v-if="!this.formValid">
-                                    <div class="validate-error" v-if="!$v.passwordRepeat.required">Can't be empty</div>
+                                    <required-validation-message v-bind:visible="!$v.passwordRepeat.required" />
                                     <div class="validate-error" v-if="!$v.passwordRepeat.sameAsPassword">Passwords do
                                         not match
                                     </div>
@@ -52,10 +55,15 @@
     import {mdbContainer, mdbRow, mdbCol, mdbInput, mdbBtn, mdbCard, mdbCardBody} from 'mdbvue';
     import {required, sameAs, email} from 'vuelidate/lib/validators'
     import {registerUrl} from "../axios/axiosRoutes";
+    import RequiredValidationMessage from "../components/forms/validations/RequiredValidationMessage";
+    import EmailValidationMessage from "../components/forms/validations/EmailValidationMessage";
+    import {checkRegex} from "../scripts/validators";
 
     export default {
         name: "Register",
         components: {
+            EmailValidationMessage,
+            RequiredValidationMessage,
             mdbContainer,
             mdbRow,
             mdbCol,
@@ -100,7 +108,8 @@
                 required
             },
             password: {
-                required
+                required,
+                passwordRegex: checkRegex(new RegExp("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$"))
             },
             email: {
                 required,
