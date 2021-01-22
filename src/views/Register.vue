@@ -89,7 +89,7 @@
                         this.$router.push({name: 'Login'})
                     }).then(() => {
                         this.$store.commit('SET_INFO', {
-                            message: 'register.success'
+                            message: 'info.register.success'
                         })
                     })
 

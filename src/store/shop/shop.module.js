@@ -86,7 +86,7 @@ const shopModule = {
     actions: {
         addToCart({commit}, data) {
             commit('ADD_CART_ITEM', data);
-            commit('SET_INFO', {message:'Item added to cart'});
+            commit('SET_INFO', {message:'info.added_to_cart'});
         }
     },
     getters: {

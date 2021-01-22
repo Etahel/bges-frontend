@@ -61,7 +61,7 @@
                         this.$router.push({name: 'Login'})
                     }).then(() => {
                         this.$store.commit('SET_INFO', {
-                            message: 'email.sent'
+                            message: 'info.email.sent'
                         })
                     })
                 }
@@ -80,7 +80,7 @@
                         this.$router.push({name: 'Login'})
                     }).then(() => {
                         this.$store.commit('SET_INFO', {
-                            message: 'password.reset'
+                            message: 'info.password.reset'
                         })
                     })
                 }

@@ -1,8 +1,87 @@
 {
   "error": {
+    "account": {
+      "keycloak": {
+        "connection_failure": "Wystąpił problem z dostępem do serwera",
+        "invalid_credentials" : "Niepoprawne dane logowania",
+        "verification": {
+          "email.not_send": "Nie udało się wysłać wiadomości. Skontaktuj się z administratorem"
+        }
+      },
+      "user": {
+        "username_taken": "Wybrana nazwa użytkownika jest zajęta",
+        "email_taken": "Wybrany email jest zajęty",
+        "email_already_verified": "Adres email już jest potwierdzony",
+        "not_found": "Nie znaleziono użytkownika",
+        "registration": {
+          "invalid_data": "Wystąpił problem podczas rejestracji"
+        }
+      }
+    },
+    "inventory": {
+      "tag": {
+        "not_found": "Nie znaleziono taga",
+        "exists": "Tag już istnieje"
+      },
+      "boardgame": {
+        "not_found": "Nie znaleziono gry planszowej"
+      },
+      "stock": {
+        "negative": "Stan magazynowy nie może być niższy niż 0"
+      },
+      "publisher": {
+        "not_found": "Nie znaleziono wydawcy",
+        "exists": "Wydawca już istnieje"
+      }
+    },
+    "info": {
+      "email" : {
+        "changed" : "Adres email został zmieniony",
+        "sent" : "Email został wysłany"
+      },
+      "password" : {
+        "reset" : "Link do resetu hasła został wysłany"
+      },
+      "register": {
+        "success" : "Konto zostało utworzone"
+      },
+      "added_to_cart" : "Element został dodany do koszyka",
+      "order" : {
+        "success" : "Zamówienie zostało złożone"
+      }
+    },
+    "warning" : {
+      "elements_removed" : "Niektóre elementy nie są już dostępne. Twoje zamówienie zostało zmienione",
+      "stock_changed" : "Niektórych elementów nie ma już w magazynie. Twoje zamówienie zostało zmienione",
+      "elements_unavailable" : "Niektóre elementy są aktualnie niedostępne. Twoje zamówienie zostało zmienione"
+    },
+    "shop": {
+      "client": {
+        "not_found": "Nie znaleziono klienta"
+      },
+      "order": {
+        "not_found": "Nie znaleziono zamówienia",
+        "element_not_found": "Nie znaleziono jednego z zamówionych elementów",
+        "element_changed": "Jeden z zamówionych elementów uległ zmianie. Zweryfikuj szczegóły zamówienia",
+        "cancelled": "Zamówienie zostało już anulowane",
+        "finalized": "Zamówienie zostało już zakończone",
+        "stock_unavailable": "Element niedostępny",
+        "stock_insufficient": "Niewystarczający stan magazynowy",
+        "address_incomplete": "Przesłany adres nie jest kompletny",
+        "empty": "Zamówienie musi zawierać przynajmniej 1 element"
+      }
+    },
     "connection": {
       "server": "Wystąpił problem z dostępem do serwera"
-    }
+    },
+    "data": {
+      "invalid": "Wystąpił problem z wprowadzonymi danymi"
+    },
+    "authorization": {
+      "logged_out": "Wylogowano",
+      "unauthorized": "Brak dostępu do wybranego zasobu"
+    },
+    "unexpected": "Wystąpił niespodziewany problem"
   },
   "element": {
     "name": "Nazwa elementu",
@@ -18,7 +97,7 @@
     "stock_left": "dostępnych",
     "category": {
       "tokens_and_markers": "Żetony i znaczniki",
-      "boards_boxes_and_containers": "Pudełka i kontenery",
+      "boards_boxes_and_containers": "Plansze, Pudełka i kontenery",
       "cards": "Karty",
       "pieces_and_figures": "Pionki i figurki",
       "dices": "Kostki",
@@ -47,13 +126,13 @@
       "save": "zapisz",
       "cancel": "anuluj",
       "delete": "usuń",
-      "are_you_sure" : "Na pewno?",
-      "change" : "zmień",
-      "clear" : "wyczyść",
-      "purchase" : "kup"
+      "are_you_sure": "Na pewno?",
+      "change": "zmień",
+      "clear": "wyczyść",
+      "purchase": "kup"
     },
-    "yes" : "tak",
-    "no" : "nie",
+    "yes": "tak",
+    "no": "nie",
     "archived": "Zarchiwizowano",
     "available": "Dostępny",
     "unavailable": "Niedostępny",
@@ -67,10 +146,10 @@
     "photo_url": "Adres zdjęcia",
     "search_by": "Wyszukaj po {search}",
     "date": "data",
-    "incomplete" : "Niekompletne",
-    "quantity" : "Ilość",
-    "game" : "Gra",
-    "summary" : "Podsumowanie"
+    "incomplete": "Niekompletne",
+    "quantity": "Ilość",
+    "game": "Gra",
+    "summary": "Podsumowanie"
   },
   "validation": {
     "decimal": "Musi być liczbą",
@@ -78,20 +157,19 @@
     "cart_full": "Koszyk jest pełny",
     "min_player": "Minimalna ilość graczy to 1",
     "max_players_over_min": "Maksymalna ilośc graczy musi być większa niż minimalna",
-    "year" : "Musi być poprawnym rokiem",
-    "password_repeat" : "Hasła nie są takie same",
-    "password_format" : "Hasło musi zawierać 8 znaków, dużą literę i liczbę",
-    "required" : "Wymagane",
-    "url" : "Niepoprawny format URL",
-    "regex" : "Niepoprawny format",
-    "minValue" : "Musi być niemniejsze niż",
-    "maxValue" : "Musi być niewiększe niż",
-    "minLength" : "Musi być niekrótsze niż {length} znaki(ów)",
-    "maxLength" : "Musi być niedłuższe niż {length} znaki(ów)",
-    "integer" : "Musi być liczbą całkowitą",
-    "email" : "Niepoprawny format email",
-    "different" : "Nie wprowadzono zmian"
-
+    "year": "Musi być poprawnym rokiem",
+    "password_repeat": "Hasła nie są takie same",
+    "password_format": "Hasło musi zawierać 8 znaków, dużą literę i liczbę",
+    "required": "Wymagane",
+    "url": "Niepoprawny format URL",
+    "regex": "Niepoprawny format",
+    "minValue": "Musi być niemniejsze niż",
+    "maxValue": "Musi być niewiększe niż",
+    "minLength": "Musi być niekrótsze niż {length} znaki(ów)",
+    "maxLength": "Musi być niedłuższe niż {length} znaki(ów)",
+    "integer": "Musi być liczbą całkowitą",
+    "email": "Niepoprawny format email",
+    "different": "Nie wprowadzono zmian"
   },
   "table": {
     "no_data": "Nie znaleziono",
@@ -105,63 +183,62 @@
   "order": {
     "details": "Szczegóły zamówienia",
     "buttons": {
-      "confirm" : "Potwierdź zamówienie",
-      "finalize" : "Zakończ"
+      "confirm": "Potwierdź zamówienie",
+      "finalize": "Zakończ"
     },
-    "your" : "Twoje zamówienie",
+    "your": "Twoje zamówienie",
     "status": "Status zamówienia",
-    "lastname" : "Nazwisko klienta",
-    "username" : "Nazwa użytkownika",
-    "value" : "Całkowita wartość",
-    "total_number" : "Łączna liczba elementów",
-    "provide_client" : "Podaj dane klienta",
-    "default_client" : "Użyj domyślych",
-    "provide_address" : "Podaj dane adresowe",
-    "default_address" : "Użyj domyślnych"
+    "lastname": "Nazwisko klienta",
+    "username": "Nazwa użytkownika",
+    "value": "Całkowita wartość",
+    "total_number": "Łączna liczba elementów",
+    "provide_client": "Podaj dane klienta",
+    "default_client": "Użyj domyślych",
+    "provide_address": "Podaj dane adresowe",
+    "default_address": "Użyj domyślnych"
   },
-  "account" : {
-    "create" : "Utwórz nowe konto",
-    "buttons" : {
+  "account": {
+    "create": "Utwórz nowe konto",
+    "buttons": {
       "create": "Utwórz konto",
-      "login" : "Zaloguj",
-      "help" : "Potrzebujesz pomocy z logowaniem?",
-      "reset_password" :  "Resetuj hasło",
-      "resend_email" : "Wyślij ponownie email weryfikacyjny"
+      "login": "Zaloguj",
+      "help": "Potrzebujesz pomocy z logowaniem?",
+      "reset_password": "Resetuj hasło",
+      "resend_email": "Wyślij ponownie email weryfikacyjny"
     },
-    "password" : "Hasło",
-    "repeat_password" : "Powtórz hasło",
-    "username" : "Nazwa użytkownika",
-    "reset" : "resetuj",
-    "email" : "email",
-    "your_username" : "Twoja nazwa użytkownika",
-    "your_email" : "Twój adres email"
+    "password": "Hasło",
+    "repeat_password": "Powtórz hasło",
+    "username": "Nazwa użytkownika",
+    "reset": "resetuj",
+    "email": "email",
+    "your_username": "Twoja nazwa użytkownika",
+    "your_email": "Twój adres email"
   },
   "client": {
-    "client_data" : "Dane klienta",
-    "address_data" : "Dane adresowe ",
+    "client_data": "Dane klienta",
+    "address_data": "Dane adresowe ",
     "firstname": "Imie",
     "lastname": "Nazwisko",
-    "username" : "Nazwa użytkownika"
+    "username": "Nazwa użytkownika"
   },
   "address": {
     "city": "Miasto",
     "postal_code": "Kod pocztowy",
-    "street" : "Ulica",
-    "streetNo" : "Nr ulicy",
-    "houseNo" : "Nr domu",
-    "flatNo" : "Nr mieszkania"
+    "street": "Ulica",
+    "streetNo": "Nr ulicy",
+    "houseNo": "Nr domu",
+    "flatNo": "Nr mieszkania"
   },
-  "navbar" : {
-    "home" : "Strona główna",
-    "boardgames" : "Gry planszowe",
-    "orders" : "Zamówienia",
-    "my_orders" : "Moje zamówienia",
-    "login" : "Logowanie",
-    "register" : "Rejestracja",
-    "hello" : "Witaj",
-    "cart" : "Koszyk",
-    "profile" : "Mój profil",
-    "logout" : "Wyloguj"
+  "navbar": {
+    "home": "Strona główna",
+    "boardgames": "Gry planszowe",
+    "orders": "Zamówienia",
+    "my_orders": "Moje zamówienia",
+    "login": "Logowanie",
+    "register": "Rejestracja",
+    "hello": "Witaj",
+    "cart": "Koszyk",
+    "profile": "Mój profil",
+    "logout": "Wyloguj"
   }
-
 }

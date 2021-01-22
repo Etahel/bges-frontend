@@ -89,7 +89,7 @@
                         }
                     }).then(() => {
                         this.$store.commit('SET_INFO', {
-                            message: 'email.changed'
+                            message: 'info.email.changed'
                         });
                         this.emailChange = false;
                         this.formValid = true;
@@ -106,7 +106,7 @@
                     this.$store.dispatch('logout')
                 }).then(() => {
                     this.$store.commit('SET_INFO', {
-                        message: 'password.reset'
+                        message: 'info.password.reset'
                     })
                 })
             },

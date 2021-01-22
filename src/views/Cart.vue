@@ -72,7 +72,7 @@
                     this.$store.commit('REMOVE_CART_ITEM', cartItem);
                 }
                 if(missingItems.length > 0) {
-                    this.$store.commit('ADD_WARNING', {message:'Some elements are no longer accessible'});
+                    this.$store.commit('ADD_WARNING', {message:'warning.elements_removed'});
                 }
             },
             checkStocks() {
@@ -93,7 +93,7 @@
 
 
                 if(stockChanged) {
-                    this.$store.commit('ADD_WARNING', {message:'Some elements order size had been altered'});
+                    this.$store.commit('ADD_WARNING', {message:'warning.stock_changed'});
                 }
 
                 for(const removeIndex of removeIndexes) {
@@ -102,7 +102,7 @@
                 }
 
                 if(removeIndexes.length > 0) {
-                    this.$store.commit('ADD_WARNING', {message:'Some elements are unavailable at the moment'});
+                    this.$store.commit('ADD_WARNING', {message:'warning.elements_unavailable'});
                 }
 
             },

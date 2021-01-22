@@ -71,7 +71,7 @@
                 }).then(() => {
                     this.$store.commit('CLEAR_ORDER_AND_CART');
                     this.$store.commit('SET_INFO',{
-                        message: 'order.success'
+                        message: 'info.order.success'
                     })
                 }).catch(error => {
                     if(['element_not_found', 'element_changed', 'stock_unavailable', 'stock_insufficient'].findIndex(errorMessage => {

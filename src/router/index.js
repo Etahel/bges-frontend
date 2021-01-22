@@ -131,7 +131,7 @@ const router = new Router({
       name: 'MyOrder-Details',
       component: OrderDetails,
       props: {
-        orderUrl: myOrdersUrl
+        getOrdersUrl: myOrdersUrl
       },
       beforeEnter: (to, from, next) => {
         checkClient(next)
@@ -142,7 +142,7 @@ const router = new Router({
       name: 'Order-Details',
       component: OrderDetails,
       props: {
-        orderUrl: ordersUrl
+        getOrdersUrl: ordersUrl
       },
       beforeEnter: (to, from, next) => {
         checkEmployee(next)
@@ -182,7 +182,7 @@ function checkClient(next) {
     next({ name: 'Login' })
   }
   else if (!isClient()) {
-    store.dispatch('logout').then(() => store.commit('SET_ERROR', new Error('Logged_out')));
+    store.dispatch('logout').then(() => store.commit('SET_ERROR', new Error('error.authorization.logged_out')));
   }
   else {
     next()
@@ -194,7 +194,7 @@ function checkEmployee(next) {
     next({ name: 'Login' })
   }
   else if (!isEmployee()) {
-    store.dispatch('logout').then(() => store.commit('SET_ERROR', new Error('Logged_out')));
+    store.dispatch('logout').then(() => store.commit('SET_ERROR', new Error('error.authorization.logged_out')));
   }
   else {
     next()
@@ -206,7 +206,7 @@ function checkClientAndCartNotEmpty(next) {
     next({ name: 'Login' })
   }
   else if (!isClient()) {
-    store.dispatch('logout').then(() => store.commit('SET_ERROR', new Error('Logged_out')));
+    store.dispatch('logout').then(() => store.commit('SET_ERROR', new Error('error.authorization.logged_out')));
   }
   else if(store.getters.cartItemsCount === 0) {
     next({name: 'Cart'})

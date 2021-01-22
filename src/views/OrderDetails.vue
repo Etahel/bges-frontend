@@ -25,8 +25,11 @@
                     </mdb-card-body>
                     <mdb-card-footer>
                         <div v-if="order.status==='O'" class="w-100">
-                            <ButtonWithConfrm style="float:right" v-if="isEmployee" v-bind:on-confirm="finalizeOrder" size="lg">{{$t('order.buttons.finalize')}}</ButtonWithConfrm>
-                            <ButtonWithConfrm style="float:right" v-if="isClient || isEmployee" v-bind:on-confirm="cancelOrder" size="lg">{{$t('common.buttons.cancel')}}</ButtonWithConfrm>
+                            <ButtonWithConfrm style="float:right" v-if="isClientDetails" v-bind:on-confirm="cancelMyOrder" size="lg">{{$t('common.buttons.cancel')}}</ButtonWithConfrm>
+                            <div v-else>
+                                <ButtonWithConfrm style="float:right" v-if="isClientDetails" v-bind:on-confirm="cancelOrder" size="lg">{{$t('common.buttons.cancel')}}</ButtonWithConfrm>
+                            <ButtonWithConfrm style="float:right"  v-bind:on-confirm="finalizeOrder" size="lg">{{$t('order.buttons.finalize')}}</ButtonWithConfrm>
+                            </div>
                         </div>
                     </mdb-card-footer>
                 </mdb-card>
@@ -53,7 +56,7 @@
     export default {
         name: "OrderDetails",
         props: {
-            orderUrl: String
+            getOrdersUrl: String
         },
         components: {
             ButtonWithConfrm,
@@ -90,7 +93,7 @@
         },
         methods: {
             fetchData() {
-                this.$api.get(this.orderUrl + "/" + this.$route.params.orderId).then(response => {
+                this.$api.get(this.getOrdersUrl + "/" + this.$route.params.orderId).then(response => {
                     this.order = response.data
                 }).then(() => {
                     const params = {
@@ -116,11 +119,14 @@
                         });
                     }
              },
+            cancelMyOrder() {
+                this.$api.put(this.getOrdersUrl + "/" + this.$route.params.orderId + "/cancellation").then(this.fetchData);
+            },
             cancelOrder() {
-                this.$api.put(this.orderUrl + "/" + this.$route.params.orderId + "/cancellation").then(this.fetchData);
+                this.$api.put(this.getOrdersUrl + "/" + this.$route.params.orderId + "/cancellation").then(this.fetchData);
             },
             finalizeOrder() {
-                this.$api.put(this.orderUrl + "/" + this.$route.params.orderId).then(this.fetchData);
+                this.$api.put(this.getOrdersUrl + "/" + this.$route.params.orderId).then(this.fetchData);
             },
             close() {
                 if(this.isClientDetails) {

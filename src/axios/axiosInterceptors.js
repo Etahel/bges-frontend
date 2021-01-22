@@ -30,13 +30,13 @@ export function responseInterceptor (axiosInstance) {
            } catch (anotherError) {
                const mappedError = axiosErrorMapper(error);
                console.log('Unable to refresh token');
-               store.dispatch('logout').then(() => store.commit('SET_ERROR', new Error('Logged_out')));
+               store.dispatch('logout').then(() => store.commit('SET_ERROR', new Error('error.authorization.logged_out')));
                return Promise.reject(mappedError)
            }
        } else if (error.response && error.response.status === 401 && store.getters.authRetry) {
            store.commit('SET_AUTH_RETRY', false);
            console.log('Unaouthorized access');
-           store.dispatch('logout').then(() => store.commit('SET_ERROR', new Error('Logged_out')));
+           store.dispatch('logout').then(() => store.commit('SET_ERROR', new Error('error.authorization.logged_out')));
        } else {
            if (store.getters.authRetry) {
                store.commit('SET_AUTH_RETRY', false);
