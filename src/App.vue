@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="bg h-100" style="overflow: auto;">
+  <div id="app" class="bg h-100 bg-image" style="overflow: auto;">
     <navbar-page class="mb-2"/>
       <div>
         <error-alert style="margin-left: 15vw; margin-right: 15vw" />
@@ -25,6 +25,10 @@ export default {
 <style lang="scss">
 $image-path: '~@/../mdb/mdbvue/img';
 @import '~@/../mdb/mdbvue/scss/mdb-free.scss';
-
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
+
+.bg-image {
+  /* The image used */
+  background-image: url("./assets/background.jpg");
+}
 </style>

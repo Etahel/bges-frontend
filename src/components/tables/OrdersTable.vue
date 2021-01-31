@@ -32,13 +32,13 @@
                                 <input
                                         :value="inputValue.start"
                                         v-on="inputEvents.start"
-                                        placeholder="from"
+                                        placeholder="od"
                                         class="vgt-input border rounded focus:outline-none focus:border-indigo-300"
                                 />
                                 <input
                                         :value="inputValue.end"
                                         v-on="inputEvents.end"
-                                        placeholder="to"
+                                        placeholder="do"
                                         class="vgt-input border rounded focus:outline-none focus:border-indigo-300"
                                 />
                         </div>

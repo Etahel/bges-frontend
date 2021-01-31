@@ -1,5 +1,5 @@
 <template>
-    <mdb-container>
+    <mdb-container class="mb-3">
         <mdb-row class="justify-content-md-center">
             <mdb-col md="auto" col="12">
                 <mdb-card style="min-width:40vw">

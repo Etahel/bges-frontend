@@ -36,7 +36,7 @@
                                 <th>{{$t('common.category')}}</th>
                                 <th v-if="isSummary || isCart">{{$t('common.price')}}</th>
                                 <th>{{$t('common.quantity')}}</th>
-                                <th></th>
+                                <th v-if="isCart"></th>
                             </tr>
                         </mdb-tbl-head>
                         <mdb-tbl-body>
@@ -47,7 +47,7 @@
                                 <td> {{getCategoryName(item.element.elementCategory)}}</td>
                                 <td v-if="isSummary || isCart"> {{item.element.price}} PLN</td>
                                 <td> {{item.orderItem.elementsCount}}</td>
-                                <td><mdb-icon v-on:click.native.stop="removeItem(index)" icon="minus-square"
+                                <td v-if="isCart"><mdb-icon v-on:click.native.stop="removeItem(index)" icon="minus-square"
                                                     style="cursor: pointer"
                                                     size="lg"/></td>
                             </tr>

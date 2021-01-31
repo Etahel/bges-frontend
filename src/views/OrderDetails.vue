@@ -27,8 +27,8 @@
                         <div v-if="order.status==='O'" class="w-100">
                             <ButtonWithConfrm style="float:right" v-if="isClientDetails" v-bind:on-confirm="cancelMyOrder" size="lg">{{$t('common.buttons.cancel')}}</ButtonWithConfrm>
                             <div v-else>
-                                <ButtonWithConfrm style="float:right" v-if="isClientDetails" v-bind:on-confirm="cancelOrder" size="lg">{{$t('common.buttons.cancel')}}</ButtonWithConfrm>
-                            <ButtonWithConfrm style="float:right"  v-bind:on-confirm="finalizeOrder" size="lg">{{$t('order.buttons.finalize')}}</ButtonWithConfrm>
+                                <ButtonWithConfrm style="float:right" v-bind:on-confirm="cancelOrder" size="lg">{{$t('common.buttons.cancel')}}</ButtonWithConfrm>
+                                <ButtonWithConfrm style="float:right"  v-bind:on-confirm="finalizeOrder" size="lg">{{$t('order.buttons.finalize')}}</ButtonWithConfrm>
                             </div>
                         </div>
                     </mdb-card-footer>

@@ -137,7 +137,7 @@
                 </mdb-card>
             </mdb-col>
         </mdb-row>
-        <mdb-row v-if="isDetailsMode && boardGame.id && boardGame.active" class="justify-content-md-center mt-3">
+        <mdb-row v-if="isDetailsMode && boardGame.id && boardGame.active" class="justify-content-md-center mt-3 mb-3">
             <mdb-col md="auto" col="12">
                 <mdb-card style="min-width: 30vw">
                     <ElementsTable v-bind:bg-id="boardGame.id"></ElementsTable>

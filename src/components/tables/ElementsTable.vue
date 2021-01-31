@@ -1,7 +1,7 @@
 <template>
     <mdb-container>
         <mdb-row>
-            <mdb-col style="" class="p-0">
+            <mdb-col style="" class="p-0 mb-3">
                 <div v-if="isEmployee">
                     <mdbBtn v-on:click="openCreateElement" size="sm" >{{this.$t('element.buttons.add')}}</mdbBtn>
                 </div>
