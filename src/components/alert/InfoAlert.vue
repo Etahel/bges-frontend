@@ -1,7 +1,7 @@
 <template>
     <div v-if="info" class="alert-box mt-2" >
         <mdb-alert style="width: 70vw" class="text-center mb-0 mt-1" color="success" @closeAlert="clearInfo()" dismiss>
-            {{info.message}}
+            {{$t(info.message)}}
         </mdb-alert >
     </div>
 </template>

@@ -3,7 +3,7 @@
     "account": {
       "keycloak": {
         "connection_failure": "Wystąpił problem z dostępem do serwera",
-        "invalid_credentials" : "Niepoprawne dane logowania",
+        "invalid_credentials": "Niepoprawne dane logowania",
         "verification": {
           "email.not_send": "Nie udało się wysłać wiadomości. Skontaktuj się z administratorem"
         }
@@ -34,27 +34,6 @@
         "exists": "Wydawca już istnieje"
       }
     },
-    "info": {
-      "email" : {
-        "changed" : "Adres email został zmieniony",
-        "sent" : "Email został wysłany"
-      },
-      "password" : {
-        "reset" : "Link do resetu hasła został wysłany"
-      },
-      "register": {
-        "success" : "Konto zostało utworzone"
-      },
-      "added_to_cart" : "Element został dodany do koszyka",
-      "order" : {
-        "success" : "Zamówienie zostało złożone"
-      }
-    },
-    "warning" : {
-      "elements_removed" : "Niektóre elementy nie są już dostępne. Twoje zamówienie zostało zmienione",
-      "stock_changed" : "Niektórych elementów nie ma już w magazynie. Twoje zamówienie zostało zmienione",
-      "elements_unavailable" : "Niektóre elementy są aktualnie niedostępne. Twoje zamówienie zostało zmienione"
-    },
     "shop": {
       "client": {
         "not_found": "Nie znaleziono klienta"
@@ -82,6 +61,27 @@
       "unauthorized": "Brak dostępu do wybranego zasobu"
     },
     "unexpected": "Wystąpił niespodziewany problem"
+  },
+  "warning": {
+    "elements_removed": "Niektóre elementy nie są już dostępne. Twoje zamówienie zostało zmienione",
+    "stock_changed": "Niektórych elementów nie ma już w magazynie. Twoje zamówienie zostało zmienione",
+    "elements_unavailable": "Niektóre elementy są aktualnie niedostępne. Twoje zamówienie zostało zmienione"
+  },
+  "info": {
+    "email": {
+      "changed": "Adres email został zmieniony",
+      "sent": "Email został wysłany"
+    },
+    "password": {
+      "reset": "Link do resetu hasła został wysłany"
+    },
+    "register": {
+      "success": "Konto zostało utworzone"
+    },
+    "added_to_cart": "Element został dodany do koszyka",
+    "order": {
+      "success": "Zamówienie zostało złożone"
+    }
   },
   "element": {
     "name": "Nazwa elementu",
