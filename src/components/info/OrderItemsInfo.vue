@@ -9,7 +9,7 @@
             <mdb-col col="6">
                 <mdb-input class="mr-3 grey-text" readOnly containerClass="text-left"
                            v-bind:label="$t('order.status')" icon="check-square" type="text"
-                           v-model="orderStatus"/>
+                           v-model="orderStatusLabel"/>
             </mdb-col>
         </mdb-row>
         <mdb-row>
@@ -62,6 +62,7 @@
 <script>
     import {mdbInput, mdbContainer, mdbCol, mdbRow, mdbCard,mdbTbl, mdbTblHead, mdbTblBody, mdbIcon } from "mdbvue";
     import ElementCategories from "../../definitions/ElementCategories";
+    import {orderMixin} from "../mixin/OrderMixin";
 
     export default {
         name: "OrderItemsInfo",
@@ -71,6 +72,7 @@
             orderValue: Number,
             orderStatus: String
         },
+        mixins: [orderMixin],
         components: {
             mdbInput,
             mdbContainer,
@@ -84,7 +86,7 @@
         },
         data: function () {
             return {
-                elementCategories: ElementCategories
+                orderStatusLabel: this.getStatusLabel(this.props.orderStatus)
             }
         },
         methods: {
@@ -101,7 +103,7 @@
                 this.$emit('itemRemoved', index)
             },
             getCategoryName(categoryCode) {
-                var result = this.elementCategories.find(obj => {
+                var result = ElementCategories.find(obj => {
                     return obj.value === categoryCode
                 })
                 if (result === undefined) {
@@ -133,8 +135,12 @@
             },
             orderValueWithCurrency() {
                 return this.orderValue + " PLN"
+            },
+        },
+        watch: {
+            orderStatus: function (value) {
+                this.orderStatusLabel = this.getStatusLabel(value);
             }
-
         }
     }
 </script>
