@@ -1,5 +1,20 @@
 {
   "error": {
+    "validation" : {
+      "not_valid" : "Niepoprawne dane"
+    },
+    "version" : {
+      "mismatch" : "Wystąpił konflikt. Odśwież stronę"
+    },
+    "database" : {
+      "operation_failed" : "Wystąpił nieoczekiwany problem"
+    },
+    "server" : {
+      "error" : "Wystąpił nieoczekiwany problem"
+    },
+    "deserialization" : {
+      "failed" : "Wystąpił nieoczekiwany problem"
+    },
     "account": {
       "keycloak": {
         "connection_failure": "Wystąpił problem z dostępem do serwera",
