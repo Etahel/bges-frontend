@@ -1,4 +1,4 @@
-Aplikacja klienta przygotowana w ramach pracy inżynierskiej:
+Aplikacja klienta przygotowana przez Jakuba Fornalskiego w ramach pracy inżynierskiej:
 # Serwis internetowy pozwalający na hierarchiczne wyszukiwanie i zakup elementów zastępczych do gier planszowych
 
 Projekt oparty jest o Node.js oraz środowisko npm. 
