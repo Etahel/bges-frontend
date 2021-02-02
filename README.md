@@ -1,24 +1,14 @@
-# bges-frontend
+Aplikacja klienta przygotowana w ramach pracy inżynierskiej:
+# Serwis internetowy pozwalający na hierarchiczne wyszukiwanie i zakup elementów zastępczych do gier planszowych
 
-## Project setup
+Projekt oparty jest o Node.js oraz środowisko npm.
+
+Inicjalizacja:
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+Uruchomienie:
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
